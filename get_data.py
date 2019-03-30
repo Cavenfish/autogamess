@@ -33,29 +33,39 @@ def hessian(filename):
 
     Returns
     -------
-    freq: list
-        A list containing all the vibrational frequencies in string format
+    data: list
+        A list containing various strings with all the vibrational frequency,
+        and IR intensities data. When the list is printed or writen to a file
+        it will be tabular.
     time: string
         A string containing the calculation runtime
     cpu: string
         A string containing the cpu utilization
     """
+    #Open to read Log file, then close to protect file
     f=open(filename, 'r')
     log = f.readlines()
     f.close()
 
-    end = h.ctr_f('...END OF NORMAL COORDINATE ANALYSIS...', log)
+    #Get head and tail of data
+    dhead = h.ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
+    dtail = h.ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
 
+    #Get end of log file, for finding time and cpu
+    end   = h.ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
+
+    #Checks is ctr_f fucntion actually found something
     if end != -1:
-        time = log[end +2].split()[4]
-        cpu  = log[end +2].split()[9]
+        time = log[end -2].split()[4]
+        cpu  = log[end -2].split()[9]
     else:
         time = 'N/A'
         cpu  = 'N//A'
 
-    freq = ','.join(h.ctr_f_allR('FREQUENCY', log)[1].split())
+    #Make data list
+    data = log [dhead:dtail]
 
-    return freq, (time, cpu)
+    return data, (time, cpu)
 
 #---------------------------------------------------------------------
 #                           RAMAN FUNCTION
@@ -77,7 +87,7 @@ def raman(filename):
     data: list
         A list containing various strings with all the vibrational frequency,
         IR intensities, and raman activities data. When the list is printed
-        or writen to a file it will be tabular. 
+        or writen to a file it will be tabular.
     time: string
         A string containing the calculation runtime
     cpu: string
