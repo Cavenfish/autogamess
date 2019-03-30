@@ -27,13 +27,3 @@ def angle_between(v1, v2):
     normv1 = v1 / np.linalg.norm(v1)
     normv2 = v2 / np.linalg.norm(v2)
     return np.arccos(np.dot(v1,v2) / (normv1 * normv2))
-
-def ctr_f_allR(find_this, look_here):
-    r = []
-    for line in look_here:
-        if 'TERMINATED -ABNORMALLY-' in line:
-            r.append('N/A')
-            r.append('N/A')
-        if find_this in line:
-            r.append(line.split(':')[1])
-    return r
