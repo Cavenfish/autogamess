@@ -13,7 +13,44 @@ from scipy.spatial import distance
 
 def optimization(filename):
     """
+    This function produces the bond angle and length from calculated geometries.
+
+    Parameters
+    ----------
+    filename: string
+        This should be a string that points to the log file of an
+        already run optimization file. (FULL DIRECTORY STRING REQUIRED)
+
+    Returns
+    -------
+    data:
+    time: string
+        A string containing the calculation runtime
+    cpu: string
+        A string containing the cpu utilization
     """
+    #Open to read Log file, then close to protect file
+    f=open(filename, 'r')
+    log = f.readlines()
+    f.close()
+
+    #Grabs optimized geometries tail index
+    tfind = 'COORDINATES OF ALL ATOMS ARE'
+    dtail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
+
+    #Grabs optimized geometries header index
+    hfind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
+    dhead = h.ctr_f(hfind, log) + 4
+
+    #Checks to make sure head and tail exist
+    if (dhead is -1) or (dtail is -1):
+        print("\n*****uh oh spaghettios*****\n")
+        print("Either:" + tfind + "\n    or:" + hfind +
+              "\nIs not in " + logfile)
+        print("\n*****Ponder this, then return to me*****\n")
+        return
+
+
 
     return data
 
@@ -29,7 +66,7 @@ def hessian(filename):
     ----------
     filename: string
         This should be a string that points to the log file of an
-        already run raman file. (FULL DIRECTORY STRING REQUIRED)
+        already run hessian file. (FULL DIRECTORY STRING REQUIRED)
 
     Returns
     -------
