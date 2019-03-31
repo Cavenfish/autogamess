@@ -35,12 +35,12 @@ def optimization(filename):
     f.close()
 
     #Grabs optimized geometries tail index
-    tfind = 'COORDINATES OF ALL ATOMS ARE'
-    dtail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
+    hfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
+    lhead = len(log) - h.ctr_f(hfind, log[::-1])
 
     #Grabs optimized geometries header index
-    hfind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
-    dhead = h.ctr_f(hfind, log) + 4
+    tfind = '* ... LESS THAN  3.000'
+    ltail = len(log) - h.ctr_f(tfind, log[::-1])
 
     #Checks to make sure head and tail exist
     if (dhead is -1) or (dtail is -1):
@@ -49,6 +49,7 @@ def optimization(filename):
               "\nIs not in " + logfile)
         print("\n*****Ponder this, then return to me*****\n")
         return
+
 
 
 
