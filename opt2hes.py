@@ -51,21 +51,24 @@ def opt2hes(optfile, logfile):
     f.close()
 
     #Grabs optimized geometries tail index
-    find = 'COORDINATES OF ALL ATOMS ARE'
-    tail = len(log) - h.ctr_f(find, log[::-1]) - 1
+    tfind = 'COORDINATES OF ALL ATOMS ARE'
+    dtail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
 
     #Grabs optimized geometries header index
-    find = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
-    head = h.ctr_f(find, log) + 4
+    hfind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
+    dhead = h.ctr_f(hfind, log) + 4
 
     #Checks to make sure head and tail exist
-    if (head is None) or (tail is None):
-        print('LOL You Suck!')
+    if (dhead is None) or (dtail is None):
+        print("\n*****uh oh spaghettios*****\n")
+        print("Either:" + tfind + "\n    or:" + hfind + 
+              "\nIs not in " + logfile)
+        print("\n*****Ponder this, then return to me*****\n")
         return
 
     #Assemble list of optimized geometry coordinates and get size
-    coords = log[head : tail]
-    n      = tail - head
+    coords = log[dhead : dtail]
+    n      = dtail - dhead
 
     #Generate dictionary of atom coordinates
     atomdict = {}
