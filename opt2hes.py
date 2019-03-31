@@ -59,9 +59,9 @@ def opt2hes(optfile, logfile):
     dhead = h.ctr_f(hfind, log) + 4
 
     #Checks to make sure head and tail exist
-    if (dhead is None) or (dtail is None):
+    if (dhead is -1) or (dtail is -1):
         print("\n*****uh oh spaghettios*****\n")
-        print("Either:" + tfind + "\n    or:" + hfind + 
+        print("Either:" + tfind + "\n    or:" + hfind +
               "\nIs not in " + logfile)
         print("\n*****Ponder this, then return to me*****\n")
         return
