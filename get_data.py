@@ -69,7 +69,7 @@ def optimization(filename):
 
     #Finds start of full coordinate analysis
     s     = 'COORDINATES OF ALL ATOMS ARE (ANGS)'
-    start = h.ctr_f(start, temp) + 3
+    start = h.ctr_f(s, temp) + 3
 
     #Make matrix of atom coordinates
     matrix = {}
