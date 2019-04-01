@@ -57,7 +57,7 @@ def optimization(filename):
               "\n    or:" + hfind +
               "\n    or:" + efind +
               "\n    or:" + e +
-              "\nIs not in " + logfile)
+              "\nIs not in " + filename)
         print("\n*****Ponder this, then return to me*****\n")
         return
 
