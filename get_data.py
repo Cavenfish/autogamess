@@ -82,9 +82,9 @@ def optimization(filename):
         for key2 in matrix:
             if key2 is key:
                 continue
-             a1    = matrix[key ].astype(np.float)
-             a2    = matrix[key2].astype(np.float)
-             angle = h.angle_between(a1, a2)
+            a1    = matrix[key ].astype(np.float)
+            a2    = matrix[key2].astype(np.float)
+            angle = h.angle_between(a1, a2)
             angles.append(key + '-' + key2 + ':' + angle)
 
     #Checks is ctr_f fucntion actually found something
