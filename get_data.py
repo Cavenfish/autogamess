@@ -76,7 +76,16 @@ def optimization(filename):
     for line in temp[start : -3]:
         matrix[line.split()[0]] = line.split()[2:4]
 
-    # TODO: Make anlges list 
+    #Make angles list
+    angles = []
+    for key in matrix:
+        for key2 in matrix:
+            if key2 is key:
+                continue
+             a1    = matrix[key ].astype(np.float)
+             a2    = matrix[key2].astype(np.float)
+             angle = h.angle_between(a1, a2)
+            angles.append(key + '-' + key2 + ':' + angle)
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
