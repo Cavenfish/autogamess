@@ -34,26 +34,59 @@ def optimization(filename):
     log = f.readlines()
     f.close()
 
+    #Grabs 'Equil' phrase index
+    efind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
+    equil = h.ctr_f(efind, log)
+
     #Grabs optimized geometries tail index
     hfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
-    lhead = len(log) - h.ctr_f(hfind, log[::-1])
+    lhead = len(log) - h.ctr_f(hfind, log[::-1]) + 3
 
     #Grabs optimized geometries header index
     tfind = '* ... LESS THAN  3.000'
-    ltail = len(log) - h.ctr_f(tfind, log[::-1])
+    ltail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
+
+    #Get end of log file, for finding time and cpu
+    e   = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end = h.ctr_f(e, log)
 
     #Checks to make sure head and tail exist
-    if (dhead is -1) or (dtail is -1):
+    if (lhead is -1) or (ltail is -1) or (equil is -1) or (end is -1):
         print("\n*****uh oh spaghettios*****\n")
-        print("Either:" + tfind + "\n    or:" + hfind +
+        print("Either:" + tfind +
+              "\n    or:" + hfind +
+              "\n    or:" + efind +
+              "\n    or:" + e +
               "\nIs not in " + logfile)
         print("\n*****Ponder this, then return to me*****\n")
         return
 
+    #Defines list of bond lengths
+    lengths = log[lhead : ltail]
 
+    #Makes smaller list to ctr_f through
+    temp  = log[equil : lhead]
 
+    #Finds start of full coordinate analysis
+    s     = 'COORDINATES OF ALL ATOMS ARE (ANGS)'
+    start = h.ctr_f(start, temp) + 3
 
-    return data
+    #Make matrix of atom coordinates
+    matrix = {}
+    for line in temp[start : -3]:
+        matrix[line.split()[0]] = line.split()[2:4]
+
+    # TODO: Make anlges list 
+
+    #Checks is ctr_f fucntion actually found something
+    if end != -1:
+        time = log[end -2].split()[4]
+        cpu  = log[end -2].split()[9]
+    else:
+        time = 'N/A'
+        cpu  = 'N//A'
+
+    return lengths, angles, (time, cpu)
 
 #---------------------------------------------------------------------
 #                           HESSIAN FUNCTION
