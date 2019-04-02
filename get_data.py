@@ -73,20 +73,26 @@ def optimization(filename):
 
     #Make matrix of atom coordinates
     matrix = {}
+    i      = 2
     for line in temp[start : len(temp)-4]:
-        matrix[line.split()[0]] = line.split()[2:4]
+
+        if line.split()[0] in matrix:
+            matrix[str(i)+line.split()[0]] = line.split()[2:4]
+            i += 1
+        else:
+            matrix[line.split()[0]] = line.split()[2:4]
 
     #Make angles list
-    angles = []
+    lengths = []
+    angles  = []
     for key in matrix:
         for key2 in matrix:
-            if key2 is key:
-                continue
-            a1    = h.make_xzy(matrix[key] )
-            a2    = h.make_xzy(matrix[key2])
-            #angle = h.angle_between(a1, a2)
-            angle = distance.euclidean(a1,a2)
+            a1     = h.make_xzy(matrix[key] )
+            a2     = h.make_xzy(matrix[key2])
+            angle  = h.angle_between(a1, a2)
+            length = distance.euclidean(a1, a2)
             angles.append(key + '-' + key2 + ':' + str(angle) + '\n')
+            lengths.append(key + '-' + key2 + ':' + str(length) + '\n')
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
