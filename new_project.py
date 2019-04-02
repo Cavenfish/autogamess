@@ -12,7 +12,7 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     maindir: string
         A directory string (including the final `/`) that points to the
         directory that the project tree will be spawned in.
-    species: string
+    txtfile: string
         A directory string (including the final `.txt`) that points to the
         text file containing project information. Read module documentation
         for txt file format.
@@ -53,9 +53,8 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     Examples
     ----------
     >>> import new_project as np
-    >>> a=['H2O/', 'CH4/', 'NH3/']
-    >>> b=['Opt/', 'Hes/', 'Raman/']
-    >>> np.new_project('./', a, b, title='Example/')
+    >>> txtfile = './somefile.txt'
+    >>> np.new_project('./', txtfile, title='Example/')
     >>>
     """
 
