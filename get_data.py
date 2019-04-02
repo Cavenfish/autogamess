@@ -23,7 +23,15 @@ def optimization(filename):
 
     Returns
     -------
-    data:
+    lenths: list
+        A list where each element is a length between two atoms.
+        All elements are strings with the following format:
+            atom1-atom2:bond_length
+    angles: list
+        A list where each element is an angle between two atoms.Angles are
+        in radians,( float/decimal numbers) 
+        All elements are strings with the following format:
+            atom1-atom2:bond_angle
     time: string
         A string containing the calculation runtime
     cpu: string
