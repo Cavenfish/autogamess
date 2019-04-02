@@ -42,27 +42,19 @@ def optimization(filename):
     hfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
     lhead = len(log) - h.ctr_f(hfind, log[::-1]) + 2
 
-    #Grabs optimized geometries header index
-    tfind = '* ... LESS THAN  3.000'
-    ltail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
-
     #Get end of log file, for finding time and cpu
     e   = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
     end = h.ctr_f(e, log)
 
     #Checks to make sure head and tail exist
-    if (lhead is -1) or (ltail is -1) or (equil is -1) or (end is -1):
+    if (lhead is -1) or (equil is -1) or (end is -1):
         print("\n*****uh oh spaghettios*****\n")
-        print("Either:" + tfind +
-              "\n    or:" + hfind +
+        print("Either:" + hfind +
               "\n    or:" + efind +
               "\n    or:" + e +
               "\nIs not in " + filename)
         print("\n*****Ponder this, then return to me*****\n")
         return
-
-    #Defines list of bond lengths
-    lengths = log[lhead : ltail]
 
     #Makes smaller list to ctr_f through
     temp  = log[equil : lhead]
