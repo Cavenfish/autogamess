@@ -40,7 +40,7 @@ def optimization(filename):
 
     #Grabs optimized geometries tail index
     hfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
-    lhead = len(log) - h.ctr_f(hfind, log[::-1]) + 3
+    lhead = len(log) - h.ctr_f(hfind, log[::-1]) + 2
 
     #Grabs optimized geometries header index
     tfind = '* ... LESS THAN  3.000'
@@ -73,7 +73,7 @@ def optimization(filename):
 
     #Make matrix of atom coordinates
     matrix = {}
-    for line in temp[start : -3]:
+    for line in temp[start : len(temp)-4]:
         matrix[line.split()[0]] = line.split()[2:4]
 
     #Make angles list
@@ -82,10 +82,11 @@ def optimization(filename):
         for key2 in matrix:
             if key2 is key:
                 continue
-            a1    = matrix[key ].astype(np.float)
-            a2    = matrix[key2].astype(np.float)
-            angle = h.angle_between(a1, a2)
-            angles.append(key + '-' + key2 + ':' + angle)
+            a1    = h.make_xzy(matrix[key] )
+            a2    = h.make_xzy(matrix[key2])
+            #angle = h.angle_between(a1, a2)
+            angle = distance.euclidean(a1,a2)
+            angles.append(key + '-' + key2 + ':' + str(angle) + '\n')
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
