@@ -8,7 +8,7 @@ The following functions are in this file:
     angle_between: finds the angle between two vectors using the dot product
     formula (u \dot v = |u| |v| cos\theta )
 
-    make_xzy: turns a list of xyz values into a float tuple of xyz 
+    make_xzy: turns a list of xyz values into a float tuple of xyz
 
 """
 import numpy as np
@@ -21,9 +21,9 @@ def ctr_f(find_this, look_here):
     return -1
 
 def angle_between(v1, v2):
-    normv1 = v1 / np.linalg.norm(v1)
-    normv2 = v2 / np.linalg.norm(v2)
-    return np.arccos(np.dot(v1,v2) / (normv1 * normv2))
+    v1hat = v1 / np.linalg.norm(v1)
+    v2hat = v2 / np.linalg.norm(v2)
+    return np.arccos(np.clip(np.dot(v1hat, v2hat), -1.0, 1.0))
 
 def make_xzy(xyzlist):
     r = (float(xyzlist[0]),
