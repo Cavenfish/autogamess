@@ -15,11 +15,15 @@ Contains the following functions:
 Author: Brian C. Ferrari
 """
 import os
-import numpy as np
+import numpy  as np
 import pandas as pd
 
-__all__ = ["bat_maker", "new_project", "opt2hes", "sort_logs",
-           "hes2raman", "get_data"]
+from .bat_maker   import bat_maker
+from .new_project import new_project
+from .opt2hes     import opt2hes
+from .sort_logs   import sort_logs
+from .hes2raman   import hes2raman
+from .get_data    import get_data
 
 
 def ctr_f(find_this, look_here):
