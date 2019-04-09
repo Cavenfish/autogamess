@@ -23,7 +23,7 @@ from .new_project import new_project
 from .opt2hes     import opt2hes
 from .sort_logs   import sort_logs
 from .hes2raman   import hes2raman
-from .get_data    import get_data
+from .get_data    import *
 
 
 def ctr_f(find_this, look_here):
