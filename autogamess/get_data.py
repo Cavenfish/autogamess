@@ -3,8 +3,6 @@ This file houses the functions that grab data from log files.
 
 Note, the optimization function only grabs raw data
 """
-import numpy as np
-import help as h
 from scipy.spatial import distance
 
 #---------------------------------------------------------------------
@@ -29,7 +27,7 @@ def optimization(filename):
             atom1-atom2:bond_length
     angles: list
         A list where each element is an angle between two atoms.Angles are
-        in radians,( float/decimal numbers) 
+        in radians,( float/decimal numbers)
         All elements are strings with the following format:
             atom1-atom2:bond_angle
     time: string
@@ -44,15 +42,15 @@ def optimization(filename):
 
     #Grabs 'Equil' phrase index
     efind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
-    equil = h.ctr_f(efind, log)
+    equil = ctr_f(efind, log)
 
     #Grabs optimized geometries tail index
     hfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
-    lhead = len(log) - h.ctr_f(hfind, log[::-1]) + 2
+    lhead = len(log) - ctr_f(hfind, log[::-1]) + 2
 
     #Get end of log file, for finding time and cpu
     e   = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
-    end = h.ctr_f(e, log)
+    end = ctr_f(e, log)
 
     #Checks to make sure head and tail exist
     if (lhead is -1) or (equil is -1) or (end is -1):
@@ -69,7 +67,7 @@ def optimization(filename):
 
     #Finds start of full coordinate analysis
     s     = 'COORDINATES OF ALL ATOMS ARE (ANGS)'
-    start = h.ctr_f(s, temp) + 3
+    start = ctr_f(s, temp) + 3
 
     #Make matrix of atom coordinates
     matrix = {}
@@ -87,9 +85,9 @@ def optimization(filename):
     angles  = []
     for key in matrix:
         for key2 in matrix:
-            a1     = h.make_xzy(matrix[key] )
-            a2     = h.make_xzy(matrix[key2])
-            angle  = h.angle_between(a1, a2)
+            a1     = make_xzy(matrix[key] )
+            a2     = make_xzy(matrix[key2])
+            angle  = angle_between(a1, a2)
             length = distance.euclidean(a1, a2)
             angles.append(key + '-' + key2 + ':' + str(angle) + '\n')
             lengths.append(key + '-' + key2 + ':' + str(length) + '\n')
@@ -135,11 +133,11 @@ def hessian(filename):
     f.close()
 
     #Get head and tail of data
-    dhead = h.ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
-    dtail = h.ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
+    dhead = ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
+    dtail = ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
 
     #Get end of log file, for finding time and cpu
-    end   = h.ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
+    end   = ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
@@ -186,11 +184,11 @@ def raman(filename):
     f.close()
 
     #Get head and tail of data
-    dhead = h.ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
-    dtail = h.ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
+    dhead = ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
+    dtail = ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
 
     #Get end of log file, for finding time and cpu
-    end   = h.ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
+    end   = ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
