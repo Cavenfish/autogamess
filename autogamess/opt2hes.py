@@ -1,5 +1,3 @@
-import help as h
-import numpy as np
 
 def opt2hes(optfile, logfile):
     """
@@ -52,11 +50,11 @@ def opt2hes(optfile, logfile):
 
     #Grabs optimized geometries tail index
     tfind = 'COORDINATES OF ALL ATOMS ARE'
-    dtail = len(log) - h.ctr_f(tfind, log[::-1]) - 1
+    dtail = len(log) - ctr_f(tfind, log[::-1]) - 1
 
     #Grabs optimized geometries header index
     hfind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
-    dhead = h.ctr_f(hfind, log) + 4
+    dhead = ctr_f(hfind, log) + 4
 
     #Checks to make sure head and tail exist
     if (dhead is -1) or (dtail is -1):
@@ -89,7 +87,7 @@ def opt2hes(optfile, logfile):
     f.close()
 
     #Replace OPTIMIZATION with HESSIAN
-    i      = h.ctr_f(ropt, inp)
+    i      = ctr_f(ropt, inp)
     inp[i] = inp[i].replace(ropt, rhes)
 
     #Insert force line into hessian input
@@ -97,7 +95,7 @@ def opt2hes(optfile, logfile):
 
     #Replace coordinates in file
     for key in atomdict:
-        index = h.ctr_f(key, inp)
+        index = ctr_f(key, inp)
         inp[index] = atomdict[key]
 
     #Open, write, and close input file
