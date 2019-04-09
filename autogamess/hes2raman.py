@@ -1,4 +1,3 @@
-import help as h
 
 def hes2raman(hesfile, datfile):
     """
@@ -65,7 +64,7 @@ def hes2raman(hesfile, datfile):
     end   = grab.index(e)
 
     #Replace HESSIAN with RAMAN
-    i      = h.ctr_f(rhes, inp)
+    i      = ctr_f(rhes, inp)
     inp[i] = inp[i].replace(rhes, rraman)
 
     #Open, Write then close raman file
