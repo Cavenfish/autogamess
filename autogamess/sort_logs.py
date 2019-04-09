@@ -1,5 +1,3 @@
-import os
-
 
 def sort_logs(projdir):
     """
