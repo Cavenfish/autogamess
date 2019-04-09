@@ -1,6 +1,3 @@
-import os
-import pandas as pd
-import help as h
 
 def new_project(maindir, txtfile, title='Project_Name/'):
     """
@@ -89,11 +86,11 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     f       = open(txtfile, 'r')
     info    = f.readlines()
     f.close()
-    a       = h.ctr_f('Species', info)   + 1
-    b       = h.ctr_f('-'      , info)
+    a       = ctr_f('Species', info)   + 1
+    b       = ctr_f('-'      , info)
     species = [i.replace('\n', '/') for i in info[a:b] ]
-    a       = h.ctr_f('Run Types', info) + 1
-    b       = h.ctr_f('--'       , info)
+    a       = ctr_f('Run Types', info) + 1
+    b       = ctr_f('--'       , info)
     runtyps = [i.replace('\n', '/') for i in info[a:b] ]
 
     #Make Block directory trees
