@@ -91,7 +91,8 @@ def opt2hes(optfile, logfile):
     inp[i] = inp[i].replace(ropt, rhes)
 
     #Insert force line into hessian input
-    inp.insert(8, force)
+    if ctr_f(force, inp) is -1:
+        inp.insert(8, force)
 
     #Replace coordinates in file
     for key in atomdict:
