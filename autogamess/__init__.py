@@ -25,6 +25,8 @@ from .sort_logs   import sort_logs
 from .hes2raman   import hes2raman
 from .get_data    import *
 
+error_head = "\n*****uh oh spaghettios*****\n"
+error_tail = "\n*****Ponder this, then return to me*****\n"
 
 def ctr_f(find_this, look_here):
     for line in look_here:

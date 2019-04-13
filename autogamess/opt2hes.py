@@ -58,10 +58,10 @@ def opt2hes(optfile, logfile):
 
     #Checks to make sure head and tail exist
     if (dhead is -1) or (dtail is -1):
-        print("\n*****uh oh spaghettios*****\n")
+        print(error_head)
         print("Either:" + tfind + "\n    or:" + hfind +
               "\nIs not in " + logfile)
-        print("\n*****Ponder this, then return to me*****\n")
+        print(error_tail)
         return
 
     #Assemble list of optimized geometry coordinates and get size

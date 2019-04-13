@@ -54,12 +54,12 @@ def optimization(filename):
 
     #Checks to make sure head and tail exist
     if (lhead is -1) or (equil is -1) or (end is -1):
-        print("\n*****uh oh spaghettios*****\n")
+        print(error_head)
         print("Either:" + hfind +
               "\n    or:" + efind +
               "\n    or:" + e +
               "\nIs not in " + filename)
-        print("\n*****Ponder this, then return to me*****\n")
+        print(error_tail)
         return
 
     #Makes smaller list to ctr_f through

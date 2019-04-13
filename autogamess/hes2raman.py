@@ -54,9 +54,9 @@ def hes2raman(hesfile, datfile):
     f.close()
 
     if (s not in grab) or (e not in grab):
-        print("\n*****uh oh spaghettios*****\n")
+        print(error_head)
         print("Either:" + s + "\n    or:" + e + "\nIs not in " + datfile)
-        print("\n*****Ponder this, then return to me*****\n")
+        print(error_tail)
         return
 
     #Define start and end indexes
