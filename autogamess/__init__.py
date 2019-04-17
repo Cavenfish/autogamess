@@ -18,13 +18,6 @@ import os
 import numpy  as np
 import pandas as pd
 
-from .bat_maker   import bat_maker
-from .new_project import new_project
-from .opt2hes     import opt2hes
-from .sort_logs   import sort_logs
-from .hes2raman   import hes2raman
-from .get_data    import *
-
 error_head = "\n*****uh oh spaghettios*****\n"
 error_tail = "\n*****Ponder this, then return to me*****\n"
 
@@ -44,3 +37,10 @@ def make_xzy(xyzlist):
          float(xyzlist[0]),
          float(xyzlist[0]))
     return r
+
+from .bat_maker   import bat_maker
+from .new_project import new_project
+from .opt2hes     import opt2hes
+from .sort_logs   import sort_logs
+from .hes2raman   import hes2raman
+from .get_data    import *
