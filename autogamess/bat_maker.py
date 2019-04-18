@@ -1,8 +1,5 @@
-#!/usr/bin/env python
-
-import os
+from autogamess import os
 import sys
-
 
 def bat_maker(projdir, ncpus=1, ppn=0):
     """
@@ -90,7 +87,7 @@ def bat_maker(projdir, ncpus=1, ppn=0):
 
         #Write command to run post GAMESS python script
         #f.write()
-        
+
         #Close file
         f.close()
 
