@@ -1,3 +1,4 @@
+from autogamess import ctr_f, np
 
 def opt2hes(optfile, logfile):
     """
@@ -75,7 +76,7 @@ def opt2hes(optfile, logfile):
     for i in np.arange(0, n, 1):
 
         #Define key/value for atomdict
-        key   = coords[i].split()[0] + '     ' + coords[i].split()[1] #ugly
+        key   = coords[i].split('   ')[0] #ugly
         value = coords[i]
 
         #Fill dictionary
