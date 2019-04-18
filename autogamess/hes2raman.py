@@ -1,3 +1,4 @@
+from autogamess import ctr_f
 
 def hes2raman(hesfile, datfile):
     """
