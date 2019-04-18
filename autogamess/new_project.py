@@ -1,3 +1,4 @@
+from autogamess import ctr_f, pd, os
 
 def new_project(maindir, txtfile, title='Project_Name/'):
     """
