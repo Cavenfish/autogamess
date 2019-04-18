@@ -1,3 +1,4 @@
+from autogamess import os
 
 def sort_logs(projdir):
     """
