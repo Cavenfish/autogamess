@@ -18,6 +18,7 @@ import os
 import numpy  as np
 import pandas as pd
 
+
 error_head = "\n*****uh oh spaghettios*****\n"
 error_tail = "\n*****Ponder this, then return to me*****\n"
 
