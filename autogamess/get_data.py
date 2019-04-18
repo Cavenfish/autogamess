@@ -4,6 +4,7 @@ This file houses the functions that grab data from log files.
 Note, the optimization function only grabs raw data
 """
 from scipy.spatial import distance
+from autogamess import ctr_f, make_xzy, angle_between, np
 
 #---------------------------------------------------------------------
 #                        OPTIMIZATION FUNCTION
