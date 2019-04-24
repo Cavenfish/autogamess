@@ -14,34 +14,12 @@ Contains the following functions:
 
 Author: Brian C. Ferrari
 """
-import os
-import numpy  as np
-import pandas as pd
+from .config      import *              #Configuration (holds Globals)
 
-
-error_head = "\n*****uh oh spaghettios*****\n"
-error_tail = "\n*****Ponder this, then return to me*****\n"
-
-def ctr_f(find_this, look_here):
-    for line in look_here:
-        if find_this in line:
-            return look_here.index(line)
-    return -1
-
-def angle_between(v1, v2):
-    v1hat = v1 / np.linalg.norm(v1)
-    v2hat = v2 / np.linalg.norm(v2)
-    return np.arccos(np.clip(np.dot(v1hat, v2hat), -1.0, 1.0))
-
-def make_xzy(xyzlist):
-    r = (float(xyzlist[0]),
-         float(xyzlist[0]),
-         float(xyzlist[0]))
-    return r
-
-from .bat_maker   import bat_maker
+from .bat_maker   import bat_maker      #Functions
 from .new_project import new_project
 from .opt2hes     import opt2hes
 from .sort_logs   import sort_logs
 from .hes2raman   import hes2raman
-from .get_data    import *
+
+from .get_data    import *              #Multi-function Modules
