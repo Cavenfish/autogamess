@@ -20,7 +20,6 @@ def input_builder(txtfile):
         eBassis = stuff[eB+1:i:1]
         tIn = stuff[stuff.index("Input Style\n") + 1:b:1]
 
-    f.close()
 
     myFile = []
     for specie in species:
@@ -96,15 +95,11 @@ def input_builder(txtfile):
     with open("Text Files/InitialCoordinates.txt", "r") as f:
         coords = f.readlines()
 
-    f.close()
-
 
     meuFile = []
     with open("Text Files/External Bassis File Names.txt", "r") as f:
         for line in f:
             meuFile.append(line)
-
-    f.close()
 
 
     for filename in myFile:
