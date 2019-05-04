@@ -1,4 +1,4 @@
-from autogamess import os
+from .config import *
 
 def sort_logs(projdir):
     """

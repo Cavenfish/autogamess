@@ -1,4 +1,4 @@
-from autogamess import ctr_f, pd, os
+from .config import *
 
 def new_project(maindir, txtfile, title='Project_Name/'):
     """

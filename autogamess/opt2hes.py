@@ -1,4 +1,4 @@
-from autogamess import ctr_f, np
+from .config import *
 
 def opt2hes(optfile, logfile):
     """
@@ -58,12 +58,7 @@ def opt2hes(optfile, logfile):
     dhead = ctr_f(hfind, log) + 4
 
     #Checks to make sure head and tail exist
-    if (dhead is -1) or (dtail is -1):
-        print(error_head)
-        print("Either:" + tfind + "\n    or:" + hfind +
-              "\nIs not in " + logfile)
-        print(error_tail)
-        return
+    check_if_exists(dhead, dtail)
 
     #Assemble list of optimized geometry coordinates and get size
     coords = log[dhead : dtail]

@@ -1,5 +1,4 @@
-from autogamess import os
-import sys
+from .config import *
 
 def bat_maker(projdir, ncpus=1, ppn=0):
     """

@@ -1,4 +1,4 @@
-from autogamess import ctr_f
+from .config import *
 
 def hes2raman(hesfile, datfile):
     """
@@ -54,11 +54,8 @@ def hes2raman(hesfile, datfile):
     grab = f.readlines()
     f.close()
 
-    if (s not in grab) or (e not in grab):
-        print(error_head)
-        print("Either:" + s + "\n    or:" + e + "\nIs not in " + datfile)
-        print(error_tail)
-        return
+    #checks if they are in file
+    check_if_in(s,e, look_here=grab)
 
     #Define start and end indexes
     start = grab.index(s)

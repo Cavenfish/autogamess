@@ -4,7 +4,7 @@ This file houses the functions that grab data from log files.
 Note, the optimization function only grabs raw data
 """
 from scipy.spatial import distance
-from autogamess import ctr_f, make_xzy, angle_between, np
+from .config import *
 
 #---------------------------------------------------------------------
 #                        OPTIMIZATION FUNCTION
@@ -54,14 +54,7 @@ def optimization(filename):
     end = ctr_f(e, log)
 
     #Checks to make sure head and tail exist
-    if (lhead is -1) or (equil is -1) or (end is -1):
-        print(error_head)
-        print("Either:" + hfind +
-              "\n    or:" + efind +
-              "\n    or:" + e +
-              "\nIs not in " + filename)
-        print(error_tail)
-        return
+    check_if_exists(equil, ctr_f(hfind, log[::-1]), end)
 
     #Makes smaller list to ctr_f through
     temp  = log[equil : lhead]
@@ -134,19 +127,21 @@ def hessian(filename):
     f.close()
 
     #Get head and tail of data
-    dhead = ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
-    dtail = ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
+    hfind = 'MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.'
+    dhead = ctr_f(hfind, log)
+    tfind = 'THERMOCHEMISTRY AT T=  298.15 K'
+    dtail = ctr_f(tfind, log) - 1
 
     #Get end of log file, for finding time and cpu
-    end   = ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
+    efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end   = ctr_f(efind, log)
 
     #Checks is ctr_f fucntion actually found something
-    if end != -1:
-        time = log[end -2].split()[4]
-        cpu  = log[end -2].split()[9]
-    else:
-        time = 'N/A'
-        cpu  = 'N//A'
+    check_if_exists(dhead, ctr_f(tfind, log), end)
+
+    #Gets time and CPU utilization
+    time = log[end -2].split()[4]
+    cpu  = log[end -2].split()[9]
 
     #Make data list
     data = log [dhead:dtail]
@@ -185,19 +180,21 @@ def raman(filename):
     f.close()
 
     #Get head and tail of data
-    dhead = ctr_f('MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.', log)
-    dtail = ctr_f('THERMOCHEMISTRY AT T=  298.15 K', log) - 1
+    hfind = 'MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.'
+    dhead = ctr_f(hfind, log)
+    tfind = 'THERMOCHEMISTRY AT T=  298.15 K'
+    dtail = ctr_f(tfind, log) - 1
 
     #Get end of log file, for finding time and cpu
-    end   = ctr_f('EXECUTION OF GAMESS TERMINATED NORMALLY', log)
+    efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end   = ctr_f(efind, log)
 
     #Checks is ctr_f fucntion actually found something
-    if end != -1:
-        time = log[end -2].split()[4]
-        cpu  = log[end -2].split()[9]
-    else:
-        time = 'N/A'
-        cpu  = 'N//A'
+    check_if_exists(dhead, ctr_f(tfind, log), end)
+
+    #Gets time and CPU utilization
+    time = log[end -2].split()[4]
+    cpu  = log[end -2].split()[9]
 
     #Make data list
     data = log [dhead:dtail]

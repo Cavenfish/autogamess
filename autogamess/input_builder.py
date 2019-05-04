@@ -1,4 +1,4 @@
-from autogamess import os
+from .config import *
 from ..setup    import version
 
 def input_builder(txtfile):
