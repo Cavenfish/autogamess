@@ -1,6 +1,5 @@
 ---
-title: 'Autogamess: A Python package for automation of GAMESS(us) molecular
- properties calculations.'
+title: 'Autogamess: A Python package for automation of GAMESS(us) molecular properties calculations.'
 tags:
   - Python
   - computational chemistry
@@ -11,8 +10,7 @@ authors:
   - name: Brian C. Ferrari
     affiliation: 1
 affiliations:
- - name: Department of Physics, University of Central Florida, 4111 Libra Drive,
-  Orlando FL 32816
+ - name: Department of Physics, University of Central Florida, 4111 Libra Drive, Orlando FL 32816
    index: 1
 date: 19 May 2019
 bibliography: paper.bib
@@ -33,7 +31,7 @@ We are providing an open-source Python based software for automating conversion 
 Hessian calcualtions and then to Raman calcualtions. We also offer automation of data collection from the output files,
 for quick tabular data read outs of each calcualtion. Our hope is to also have this software as a platform for more 
 automation programs written by other research groups to be shared with other research groups, helping to expidite 
-publications by minimizing software development times for individual groups.  [@Binney:2008]
+publications by minimizing software development times for individual groups.
 
 
 # Acknowledgements
