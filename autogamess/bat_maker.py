@@ -89,6 +89,4 @@ def bat_maker(projdir, ncpus=1, ppn=0):
 
         #Close file
         f.close()
-
-
     return
