@@ -1,34 +1,35 @@
 from .config import *
-from ..setup    import version
 
 def input_builder(txtfile):
     """
     This function build optimization input files.
     """
+    ibv     = 'beta'
+    version = './test'
 
     with open(txtfile, "r") as f:
         stuff = f.readlines()
         s     = stuff.index("Species\n")
         t     = stuff.index("Theory\n")
-        b     = stuff.index("Bassis\n")
-        eB    = stuff.index("External Bassis Sets\n")
+        b     = stuff.index("Basis\n")
+        eB    = stuff.index("External Basis Sets\n")
         i     = stuff.index("Basic Input\n")
         e     = stuff.index("END\n")
         species = stuff[s+1:t:1]
         theories = stuff[t+1:stuff.index("Input Style\n"):1]
-        bassis = stuff[b+1:eB:1]
-        eBassis = stuff[eB+1:i:1]
+        basis = stuff[b+1:eB:1]
+        ebasis = stuff[eB+1:i:1]
         tIn = stuff[stuff.index("Input Style\n") + 1:b:1]
 
 
     myFile = []
     for specie in species:
         for theorie in theories:
-            for eBassi in eBassis:
+            for eBassi in ebasis:
                 myFile.append( ibv+'_' + specie.strip('\n') + '_' +
                                theorie.strip('\n') + '_' +
                                eBassi.strip('\n') + "_opt.inp" )
-            for bassi in bassis:
+            for bassi in basis:
                 myFile.append( ibv+'_' + specie.strip('\n') + '_' +
                                theorie.strip('\n') + '_' +
                                bassi.strip('\n') + "_opt.inp" )
@@ -60,19 +61,19 @@ def input_builder(txtfile):
         f.writelines(stuff[i+4:e-4:1])
         if "B3LYP" in filename:
             f.write(stuff[e-4])
-        for bassi in bassis:
+        for bassi in basis:
             if '_'+bassi.strip('\n')+'_' in filename:
                 if "G-" in bassi:
                     bIn = bassi.split("-")
                     if bIn[2].count('p') == 1:
-                        f.write(stuff[e-3].replace("bassis", 'N' + bIn[1]
+                        f.write(stuff[e-3].replace("basis", 'N' + bIn[1]
                                                    + " NGAUSS=" + bIn[0]
                                                    + " NDFUNC=" + bIn[3][0]
                                                    + " NPFUNC=" + bIn[4][0] + '\n'
                                                    + " DIFFSP=.TRUE."))
 
                     if bIn[2].count('p') == 2:
-                        f.write(stuff[e-3].replace("bassis", 'N' + bIn[1]
+                        f.write(stuff[e-3].replace("basis", 'N' + bIn[1]
                                                    + " NGAUSS=" + bIn[0]
                                                    + " NDFUNC=" + bIn[3][0]
                                                    + " NPFUNC=" + bIn[4][0] + '\n'
@@ -80,37 +81,37 @@ def input_builder(txtfile):
                                                    + " DIFFSP=.TRUE."))
 
                     if bIn[2].count('p') == 0:
-                        f.write(stuff[e-3].replace("bassis", 'N' + bIn[1]
+                        f.write(stuff[e-3].replace("basis", 'N' + bIn[1]
                                                    + " NGAUSS=" + bIn[0]
                                                    + " NDFUNC=" + bIn[3][0]
                                                    + " NPFUNC=" + bIn[4][0]))
                 else:
-                    f.write(stuff[e-3].replace("bassis", bassi.strip('\n')))
+                    f.write(stuff[e-3].replace("basis", bassi.strip('\n')))
         if "CCSD(T)" in filename:
             f.write(" $CCINP MAXCC=100 MAXCCL=100 $END\n")
         f.writelines(stuff[e-2:e:1])
         f.close()
 
 
-    with open("Text Files/InitialCoordinates.txt", "r") as f:
+    with open("./Text Files/InitialCoordinates.txt", "r") as f:
         coords = f.readlines()
 
 
     meuFile = []
-    with open("Text Files/External Bassis File Names.txt", "r") as f:
+    with open("./Text Files/External Basis File Names.txt", "r") as f:
         for line in f:
             meuFile.append(line)
 
 
     for filename in myFile:
-        for eBassi in eBassis:
+        for eBassi in ebasis:
             if '_'+eBassi.strip('\n')+'_' in filename:
                 for specie in species:
                     if '_'+specie.strip('\n')+'_' in filename:
                         for filenome in meuFile:
                             if eBassi.strip('\n')+'_' in filenome:
                                 f = open(version+'/'+filename, "a")
-                                f1 = open("Text Files/Bassis Sets/"+filenome.strip('\n'), "r")
+                                f1 = open("./Text Files/Basis Sets/"+filenome.strip('\n'), "r")
                                 f.writelines(coords[coords.index(specie)+ 1
                                                     :coords.index(specie)+ 3
                                                     :1])
@@ -139,7 +140,7 @@ def input_builder(txtfile):
 
 
     for filename in myFile:
-        for bassi in bassis:
+        for bassi in basis:
             if '_'+bassi.strip('\n')+'_' in filename:
                 for specie in species:
                     if '_'+specie.strip('\n')+'_' in filename:
@@ -148,88 +149,6 @@ def input_builder(txtfile):
                                             :coords.index(specie.strip('\n')+" F\n")
                                             :1])
                         f.close()
-
-
-
-
-    with open("Optimization.bat", "w") as f:
-        for filename in myFile:
-            if "H2O" in filename:
-                if ("MP2_CC5" in filename) or ("MP2_CC6" in filename) or ("MP2_PCseg-4" in filename):
-                    f.write("call rungms " + filename
-                            + " 2018-R1-pgi-mkl 1 0 "
-                            + "Optimization_Log_Folder/"+filename.replace(".inp", ".log")
-                            + '\n')
-                    f.write("PING -n 10 127.0.0.1 > NUL\n")
-                    f.write("\n")
-
-                else:
-                    f.write("call rungms " + filename
-                            + " 2018-R1-pgi-mkl 4 0 "
-                            + "Optimization_Log_Folder/"+filename.replace(".inp", ".log")
-                            + '\n')
-                    f.write("PING -n 10 127.0.0.1 > NUL\n")
-                    f.write("\n")
-
-            elif ("MP2_CC5" in filename) or ("MP2_CC6" in filename) or ("MP2_PCseg-4" in filename):
-                f.write("call rungms " + filename
-                        + " 2018-R1-pgi-mkl 1 0 "
-                        + "Optimization_Log_Folder/"+filename.replace(".inp", ".log")
-                        + '\n')
-                f.write("PING -n 10 127.0.0.1 > NUL\n")
-                f.write("\n")
-
-            else:
-                f.write("call rungms " + filename
-                        + " 2018-R1-pgi-mkl 6 0 "
-                        + "Optimization_Log_Folder/"+filename.replace(".inp", ".log")
-                        + '\n')
-                f.write("PING -n 10 127.0.0.1 > NUL\n")
-                f.write("\n")
-
-    f.close()
-
-
-
-
-
-    for specie in species:
-        with open("Spreadsheets/Opt "+specie.strip('\n')+".csv", "w") as f:
-            f.write("Molecule: "+specie.strip('\n')+",\n")
-            f.write(",,,OPTIMIZATION,\n")
-            for theorie in theories:
-                f.write("\n\n")
-                f.write("Theory: "+theorie.strip('\n')+",\n\n")
-                f.write(",Basis,,,Time,,CPU PCT,,Bond,\n")
-                for bassi in bassis:
-                    f.write(theorie.strip('\n')+','+bassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-                for eBassi in eBassis:
-                    f.write(theorie.strip('\n')+','+eBassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-
-        with open("Spreadsheets/Hes "+specie.strip('\n')+".csv", "w") as f:
-            f.write("Molecule: "+specie.strip('\n')+",\n")
-            f.write(",,,HESSIAN,\n")
-            for theorie in theories:
-                f.write("\n\n")
-                f.write("Theory: "+theorie.strip('\n')+",\n\n")
-                f.write(",Basis,,,Time,,CPU PCT,,Bond,\n")
-                for bassi in bassis:
-                    f.write(theorie.strip('\n')+','+bassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-                for eBassi in eBassis:
-                    f.write(theorie.strip('\n')+','+eBassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-
-        with open("Spreadsheets/Raman "+specie.strip('\n')+".csv", "w") as f:
-            f.write("Molecule: "+specie.strip('\n')+",\n")
-            f.write(",,,RAMAN,\n")
-            for theorie in theories:
-                f.write("\n\n")
-                f.write("Theory: "+theorie.strip('\n')+",\n\n")
-                f.write(",Basis,,,Time,,CPU PCT,,Bond,\n")
-                for bassi in bassis:
-                    f.write(theorie.strip('\n')+','+bassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-                for eBassi in eBassis:
-                    f.write(theorie.strip('\n')+','+eBassi.strip('\n')+",,,insertTime,,insertCPUPCT,,insertBonds,\n")
-
 
 
     f.close()
