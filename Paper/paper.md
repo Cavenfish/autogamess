@@ -33,7 +33,7 @@ We are providing an open-source Python based software for automating conversion 
 Hessian calcualtions and then to Raman calcualtions. We also offer automation of data collection from the output files,
 for quick tabular data read outs of each calcualtion. Our hope is to also have this software as a platform for more 
 automation programs written by other research groups to be shared with other research groups, helping to expidite 
-publications by minimizing software development times for individual groups.  
+publications by minimizing software development times for individual groups.  [@Binney:2008]
 
 
 # Acknowledgements
