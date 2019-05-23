@@ -14,12 +14,13 @@ Contains the following functions:
 
 Author: Brian C. Ferrari
 """
-from .config      import *              #Configuration (holds Globals)
+from .config        import *              #Configuration (holds Globals)
 
-from .bat_maker   import bat_maker      #Functions
-from .new_project import new_project
-from .opt2hes     import opt2hes
-from .sort_logs   import sort_logs
-from .hes2raman   import hes2raman
+from .bat_maker     import bat_maker      #Functions
+from .new_project   import new_project
+from .opt2hes       import opt2hes
+from .sort_logs     import sort_logs
+from .hes2raman     import hes2raman
+from .input_builder import input_builder
 
-from .get_data    import *              #Multi-function Modules
+from .get_data      import *              #Multi-function Modules
