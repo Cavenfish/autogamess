@@ -20,8 +20,20 @@ bibliography: paper.bib
 
 # Summary
 
-Calculations of molecular properties, such as optimized geometries, vibrational frequencies,
-infrared intensities and raman activities are extermly valuable to astro-chemistist.
+The ab initio Quantum Chemistry software GAMESS(us)\cite{schmidt1993general} is capable 
+calculating a variety of molecular properties. The software is widely used by computational
+chemists and astro-chemists \cite{burda2004theoretical,pacifici2013high,hickman2005dissociative,bennett2014experimental},
+because of this large importance numerous third-party softwares have been written to compliment GAMESS(us)
+\cite{schaftenaar2000molden,schmidt2013webmo,bode1998macmolplt,allouche2011gabedit,dermardirossian2005gdis}. However, 
+these softwares are all visualization and graphical softwares, there still is no written software for automation
+of ab initio calculations. As it stands the automation of these calculations is either not being done, or being
+implemented individually by each research group utilizing the GAMESS(us) software. Often times research utilizing
+ab initio calculation require several calcualtions with multi-run steps for each final result, automation is beneficial.
+We are providing an open-source Python based software for automating conversion between Optimization calculations to 
+Hessian calcualtions and then to Raman calcualtions. We also offer automation of data collection from the output files,
+for quick tabular data read outs of each calcualtion. Our hope is to also have this software as a platform for more 
+automation programs written by other research groups to be shared with other research groups, helping to expidite 
+publications by minimizing software development times for individual groups.  
 
 
 # Citations
@@ -30,9 +42,6 @@ Citations to entries in paper.bib should be in
 [rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
 format.
 
-# Figures
-
-Figures can be included like this: ![Example figure.](figure.png)
 
 # Acknowledgements
 
