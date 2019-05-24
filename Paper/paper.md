@@ -35,15 +35,14 @@ publications by minimizing software development times for individual groups.
 
 Functions:
 
-``` r
-bat_maker: Generates batch files ready for executing GAMES(us) calculations through rungms function.
-new_project: Builds a directory tree for housing input and output files with spreadsheets for housing collected data.
-opt2hes: Converts optimization input files into hessian input files
-sort_logs: Sorts GAMESS(us) output files
-hes2raman: Conversts hessians input files into raman input files
-get_data: Collects data from output files and generates list of data 
-input_builder: Builds optimization input files based on text file specifications 
-```
+* bat_maker: Generates batch files ready for executing GAMES(us) calculations through rungms function.
+* new_project: Builds a directory tree for housing input and output files with spreadsheets for housing collected data.
+* opt2hes: Converts optimization input files into hessian input files
+* sort_logs: Sorts GAMESS(us) output files
+* hes2raman: Conversts hessians input files into raman input files
+* get_data: Collects data from output files and generates list of data 
+* input_builder: Builds optimization input files based on text file specifications 
+
 
 # Acknowledgements
 
