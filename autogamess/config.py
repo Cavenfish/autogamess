@@ -3,26 +3,35 @@ import sys
 import numpy  as np
 import pandas as pd
 
+error_head   = "\n*****uh oh spaghettios*****\n"
+error_tail   = "\n*****Ponder this, then return to me*****\n"
 
-error_head = "\n*****uh oh spaghettios*****\n"
-error_tail = "\n*****Ponder this, then return to me*****\n"
+basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
+                ' RUNTYP=OPTIMIZE ICUT=12 ITOL=25 theory\n',
+                ' MAXIT=200 QMTTOL=1E-7 ICHARG=0 ISPHER=1 $END\n',
+                ' $SYSTEM MWORDS=800 MEMDDI=800 $END\n',
+                ' $STATPT OPTTOL=1E-6 NSTEP=200 $END\n',
+                ' $SCF DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7 $END\n',
+                ' $DFT JANS=2 $END\n',
+                ' $BASIS GBASIS=basis $END\n',
+                ' $DATA\n')
+
+theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
+               'MP2': 'MPLEVL=2',
+               'CCSD-T': 'CCTYP=CCSD(T)'}
 
 def check_if_exists(*args):
     for arg in args:
         if arg is -1:
-            print(error_head)
-            print('Something went wrong, check your log file')
-            print(error_tail)
-            sys.exit()
+            msg = "Something went wrong, check your log file"
+            sys.exit(error_head + msg + error_tail)
     return
 
 def check_if_in(*args, look_here):
     for arg in args:
         if arg not in look_here:
-            print(error_head)
-            print(arg + '\n Not Found')
-            print(error_tail)
-            sys.exit()
+            msg = arg + "\n Not Found"
+            sys.exit(error_head + msg + error_tail)
     return
 
 def ctr_f(find_this, look_here):
