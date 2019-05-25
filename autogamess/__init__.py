@@ -10,6 +10,7 @@ Contains the following functions:
                 sort_logs
                 hes2raman
                 get_data
+                input_builder
 
 
 Author: Brian C. Ferrari
