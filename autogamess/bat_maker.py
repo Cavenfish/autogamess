@@ -35,7 +35,7 @@ def bat_maker(projdir, ncpus=1, ppn=0):
     gamessdir      = '../../../'
 
     #Define error message
-    stderr   = 'ERROR RUNNING BATCH MAKER, GAMESS NOT FOUND'
+    err_msg   = "GAMESS executable file not found"
 
     #Defining extension names
     ipext    = '.inp'
@@ -61,7 +61,7 @@ def bat_maker(projdir, ncpus=1, ppn=0):
             version = filename.split('.')[1]
             break
         else:
-            return sys.exit(stderr)
+            return sys.exit(error_head + err_msg + error_tail)
 
 
     #Writes .bat file
