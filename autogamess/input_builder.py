@@ -2,14 +2,14 @@ from .config import *
 import pkg_resources
 
 def input_builder(inputfile, initial_coords_dict, ebasis_dir,
-                  proj_title=' Your Title Goes Here\n'):
+                  save_dir, proj_title=' Your Title Goes Here\n'):
     '''
     This function build optimization input files.
     '''
     _       = '_'
-    ibv     = 'IBv1'
     version = (' AutoGAMESS Version ' +
                 str(pkg_resources.require("autogamess")[0].version) )
+    ibv     = 'AGv' + version.replace('.', '-')
     opt     = '_opt.inp'
 
     df = pd.read_csv(inputfile)
@@ -36,7 +36,7 @@ def input_builder(inputfile, initial_coords_dict, ebasis_dir,
 
 
     for filename in files:
-        f = open(inputs + filename, 'w')
+        f = open(save_dir + filename, 'w')
         f.write('!'+ version +'\n')
         f.write('!  by Brian C. Ferrari \n')
         f.write('!\n')
