@@ -6,14 +6,12 @@ tags:
   - automation
   - raman
   - molecular properties
-authors:
-  - name: Brian C. Ferrari
-	orcid: 0000-0002-7416-8629
-    affiliation: 1
-affiliations:
- - name: Department of Physics, University of Central Florida, 4111 Libra Drive, Orlando FL 32816
-   index: 1
-date: 19 May 2019
+author: |
+ | Brian C. Ferrari
+ | Department of Physics, University of Central Florida, 4111 Libra Drive, Orlando FL 32816
+orcid: 0000-0002-7416-8629
+geometry: margin=1in
+date: 27 May 2019
 bibliography: paper.bib
 ---
 
@@ -21,9 +19,9 @@ bibliography: paper.bib
 
 The **ab initio** Quantum Chemistry software GAMESS(us)[@schmidt1993general] is capable 
 calculating a variety of molecular properties. The software is widely used by computational
-chemists and astro-chemists [@burda2004theoretical,@pacifici2013high,@hickman2005dissociative,@bennett2014experimental],
+chemists and astro-chemists [@burda2004theoretical;@pacifici2013high;@hickman2005dissociative;@bennett2014experimental],
 because of this large importance numerous third-party softwares have been written to compliment GAMESS(us)
-[@schaftenaar2000molden,@schmidt2013webmo,@bode1998macmolplt,@allouche2011gabedit,@dermardirossian2005gdis]. However, 
+[@schaftenaar2000molden;@schmidt2013webmo;@bode1998macmolplt;@allouche2011gabedit;@dermardirossian2005gdis]. However, 
 these softwares are all visualization and graphical softwares, there still is no open-source software for automation
 of *ab initio* calculations. As it stands the automation of these calculations is either not being done, or being
 implemented individually by each research group utilizing the GAMESS(us) software. Often times research utilizing
