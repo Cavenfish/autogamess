@@ -7,17 +7,6 @@ import pandas as pd
 error_head   = "\n*****uh oh spaghettios*****\n"
 error_tail   = "\n*****Ponder this, then return to me*****\n"
 
-#Defining directory names
-scripts  = maindir + title + 'Codes/Scripts/'
-txtfiles = maindir + title + 'Codes/Text_Files/'
-unsolved = maindir + title + 'Logs/Fail/Unsolved/'
-solved   = maindir + title + 'Logs/Fail/Solved/'
-bats     = maindir + title + 'Batch_Files/'
-xldir    = maindir + title + 'Spreadsheets/'
-inputs   = maindir + title + 'Inps/'
-goodlogs = maindir + title + 'Logs/Pass/'
-sorrted  = maindir + title + 'Logs/Sorted/'
-
 #Basic input file parameters
 basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                 ' RUNTYP=OPTIMIZE ICUT=12 ITOL=25 theory\n',
