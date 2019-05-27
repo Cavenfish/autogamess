@@ -1,5 +1,5 @@
 ---
-title: 'Autogamess: A Python package for automation of GAMESS(us) molecular properties calculations.'
+title: 'Autogamess: A Python package for automation of GAMESS(us)'
 tags:
   - Python
   - computational chemistry
