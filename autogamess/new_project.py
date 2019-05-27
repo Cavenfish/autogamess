@@ -1,4 +1,6 @@
-from .config import *
+from .config        import *
+from .input_builder import input_builder
+from .bat_maker     import bat_maker
 
 def new_project(maindir, txtfile, title='Project_Name/'):
     """
@@ -55,17 +57,6 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     >>> np.new_project('./', txtfile, title='Example/')
     >>>
     """
-
-    #Defining directory names
-    scripts  = maindir + title + 'Codes/Scripts/'
-    txtfiles = maindir + title + 'Codes/Text_Files/'
-    unsolved = maindir + title + 'Logs/Fail/Unsolved/'
-    solved   = maindir + title + 'Logs/Fail/Solved/'
-    bats     = maindir + title + 'Batch_Files/'
-    xldir    = maindir + title + 'Spreadsheets/'
-    inputs   = maindir + title + 'Inps/'
-    goodlogs = maindir + title + 'Logs/Pass/'
-    sorrted  = maindir + title + 'Logs/Sorted/'
 
     #Define random commands
     fin      = '\nBREAK\n'
@@ -136,13 +127,11 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     new = txtfiles + txtfile.split('/')[-1]
     os.rename(old, new)
 
-    #Write text file
-    f=open(txtfiles+'BuilderData.txt', 'w')
-    f.writelines(runtyps)
-    f.write(fin)
-    f.writelines(species)
-    f.write(fin)
-    f.close()
+    #Run Input Builder function
+    input_builder(csvfile, initial_coords_dict,
+                  ebasis_dir, title.strip('/'))
 
+    #Run Batch Maker function
+    bat_maker(title)
 
     return
