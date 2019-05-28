@@ -9,7 +9,7 @@ def input_builder(inputfile, initial_coords_dict, ebasis_dir,
     _       = '_'
     version = (' AutoGAMESS Version ' +
                 str(pkg_resources.require("autogamess")[0].version) )
-    ibv     = 'AGv' + version.replace('.', '-')
+    ibv     = 'AGv' + version.split(' ')[-1].replace('.', '-')
     opt     = '_opt.inp'
 
     df = pd.read_csv(inputfile)
@@ -78,5 +78,5 @@ def input_builder(inputfile, initial_coords_dict, ebasis_dir,
         else:
             f.writelines(coords)
 
-        f.write('\n $END')
+        f.write(' $END')
         f.close()
