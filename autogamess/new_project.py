@@ -1,6 +1,5 @@
 from .config        import *
 from .input_builder import input_builder
-from .bat_maker     import bat_maker
 
 def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
                 title='Project_Name/'):
@@ -137,7 +136,5 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
     input_builder(csvfile, initial_coords_dict, ebasis_dir,
                   save_dir, title.replace('/', '\n'))
 
-    #Run Batch Maker function
-    #pie_maker(maindir)
 
     return
