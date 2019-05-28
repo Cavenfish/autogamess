@@ -18,11 +18,12 @@ Author: Brian C. Ferrari
 from .config        import *
 
     #Functions
-from .new_project   import new_project
-from .opt2hes       import opt2hes
-from .sort_logs     import sort_logs
-from .hes2raman     import hes2raman
-from .input_builder import input_builder
+from .new_project       import new_project
+from .opt2hes           import opt2hes
+from .sort_logs         import sort_logs
+from .hes2raman         import hes2raman
+from .input_builder     import input_builder
+from .fill_spreadsheets import fill_spreadsheets
 
     #Multi-function Modules
 from .get_data      import *
