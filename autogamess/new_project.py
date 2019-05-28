@@ -58,11 +58,8 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
     >>>
     """
     #Defining directory names
-    scripts  = maindir + title + 'Codes/Scripts/'
-    txtfiles = maindir + title + 'Codes/Text_Files/'
     unsolved = maindir + title + 'Logs/Fail/Unsolved/'
     solved   = maindir + title + 'Logs/Fail/Solved/'
-    bats     = maindir + title + 'Batch_Files/'
     xldir    = maindir + title + 'Spreadsheets/'
     inputs   = maindir + title + 'Inps/'
     goodlogs = maindir + title + 'Logs/Pass/'
