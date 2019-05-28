@@ -28,7 +28,7 @@ def sort_logs(projdir):
     """
     #Defining directory names
     sorteddir      = projdir + 'Logs/Sorted/'
-    logsdir        = projdir + 'Logs/'
+    logsdir        = projdir + '../outputs/'
 
     #Defining extension names
     lgext    = '.log'
