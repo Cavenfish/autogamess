@@ -71,20 +71,17 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
     xlsx     = '.xlsx'
 
     #Make directories
-    os.makedirs(scripts)
-    os.makedirs(txtfiles)
     os.makedirs(unsolved)
     os.makedirs(solved)
-    os.makedirs(bats)
     os.makedirs(xldir)
 
     #Read in csv file
     df = pd.read_csv(csvfile)
 
     #Make lists of species, run-types, basis_sets, theories
-    runtyps    = ['Optimization/', 'Hessian/', 'Raman/', 'VSCF/']
+    runtyps    = [str(x) + '/' for x in list(df['Run Types'].dropna())]
     species    = [str(x) + '/' for x in list(df['Species'].dropna())]
-    theories   = list(df['Theory'])
+    theories   = list(df['Theory'].dropna())
     basis_sets = list(df['Basis Sets'].dropna()) + list(
                  df['External Basis Sets'].dropna())
 
@@ -95,7 +92,8 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
             os.makedirs(goodlogs+runtyp+specie)
 
     #Make dataframe with basis sets names only
-    df2 = pd.DataFrame(index = basis_sets)
+    df2 = pd.DataFrame(index = (['Theory: ', '\n']+ basis_sets
+                                + ['\n', '\n','\n']) *len(theories))
 
     #More directory making and Excell workbook and sheet making
     for specie in species:
