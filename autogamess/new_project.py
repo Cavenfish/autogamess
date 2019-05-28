@@ -2,7 +2,8 @@ from .config        import *
 from .input_builder import input_builder
 from .bat_maker     import bat_maker
 
-def new_project(maindir, txtfile, title='Project_Name/'):
+def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
+                title='Project_Name/'):
     """
     This function creates a new directory tree for a GAMESS project, also makes
     a couple of text files for use with other functions.
@@ -73,9 +74,6 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     engine   = 'xlsxwriter'
     xlsx     = '.xlsx'
 
-    #Define DataFrame
-    df = pd.DataFrame({})
-
     #Make directories
     os.makedirs(scripts)
     os.makedirs(txtfiles)
@@ -84,22 +82,24 @@ def new_project(maindir, txtfile, title='Project_Name/'):
     os.makedirs(bats)
     os.makedirs(xldir)
 
-    #Read in txt contents and generate species and runtyps lists
-    f       = open(txtfile, 'r')
-    info    = f.readlines()
-    f.close()
-    a       = ctr_f('Species', info)   + 1
-    b       = ctr_f('-'      , info)
-    species = [i.replace('\n', '/') for i in info[a:b] ]
-    a       = ctr_f('Run Types', info) + 1
-    b       = ctr_f('--'       , info)
-    runtyps = [i.replace('\n', '/') for i in info[a:b] ]
+    #Read in csv file
+    df = pd.read_csv(csvfile)
+
+    #Make lists of species, run-types, basis_sets, theories
+    runtyps    = ['Optimization/', 'Hessian/', 'Raman/', 'VSCF/']
+    species    = [str(x) + '/' for x in list(df['Species'].dropna())]
+    theories   = list(df['Theory'])
+    basis_sets = list(df['Basis Sets'].dropna()) + list(
+                 df['External Basis Sets'].dropna())
 
     #Make Block directory trees
     for runtyp in runtyps:
         for specie in species:
             os.makedirs(inputs+runtyp+specie)
             os.makedirs(goodlogs+runtyp+specie)
+
+    #Make dataframe with basis sets names only
+    df2 = pd.DataFrame(index = basis_sets)
 
     #More directory making and Excell workbook and sheet making
     for specie in species:
@@ -120,10 +120,10 @@ def new_project(maindir, txtfile, title='Project_Name/'):
 
             #Define sheet name and make it
             sheet     = runtyp.replace('/', '')
-            df.to_excel(writer, startrow=4, startcol=0, sheet_name=sheet)
+            df2.to_excel(writer, startrow=4, startcol=0, sheet_name=sheet)
             worksheet = writer.sheets[sheet]
 
-            #Write header
+            #Write Header
             for line in header:
                 i = header.index(line)
                 worksheet.write(i, 0, line)
@@ -132,16 +132,12 @@ def new_project(maindir, txtfile, title='Project_Name/'):
         writer.save()
 
 
-    #Move txtfile into Text_Files directory
-    old = txtfile
-    new = txtfiles + txtfile.split('/')[-1]
-    os.rename(old, new)
-
     #Run Input Builder function
+    save_dir = maindir + 'inputs/'
     input_builder(csvfile, initial_coords_dict, ebasis_dir,
-                  maindir, title.strip('/'))
+                  save_dir, title.replace('/', '\n'))
 
     #Run Batch Maker function
-    bat_maker(title)
+    #pie_maker(maindir)
 
     return
