@@ -91,8 +91,14 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
             os.makedirs(inputs+runtyp+specie)
             os.makedirs(goodlogs+runtyp+specie)
 
+    #Make thing
+    index = []
+    for theory in theories:
+        temp    = [theory]*len(basis_sets)
+        index  += temp + ['\n', '\n','\n']
+
     #Make dataframe with basis sets names only
-    df2 = pd.DataFrame(index = (['Theory: ', '\n']+ basis_sets
+    df2 = pd.DataFrame(index = index, data=(basis_sets
                                 + ['\n', '\n','\n']) *len(theories))
 
     #More directory making and Excell workbook and sheet making
