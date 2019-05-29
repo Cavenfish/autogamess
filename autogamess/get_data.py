@@ -27,8 +27,8 @@ def optimization(filename):
         All elements are strings with the following format:
             atom1-atom2:bond_length
     angles: list
-        A list where each element is an angle between two atoms.Angles are
-        in radians,( float/decimal numbers)
+        A list where each element is an angle between two atoms.
+        Angles are in radians,( float/decimal numbers)
         All elements are strings with the following format:
             atom1-atom2:bond_angle
     time: string
@@ -69,10 +69,10 @@ def optimization(filename):
     for line in temp[start : len(temp)-4]:
 
         if line.split()[0] in matrix:
-            matrix[str(i)+line.split()[0]] = line.split()[2:4]
+            matrix[str(i)+line.split()[0]] = line.split()[2:5]
             i += 1
         else:
-            matrix[line.split()[0]] = line.split()[2:4]
+            matrix[line.split()[0]] = line.split()[2:5]
 
     #Make angles list
     lengths = []
@@ -146,7 +146,7 @@ def hessian(filename):
     #Make data list
     data = log [dhead:dtail]
 
-    return data, (time, cpu)
+    return data, time, cpu
 
 #---------------------------------------------------------------------
 #                           RAMAN FUNCTION
@@ -199,4 +199,4 @@ def raman(filename):
     #Make data list
     data = log [dhead:dtail]
 
-    return data, (time, cpu)
+    return data, time, cpu
