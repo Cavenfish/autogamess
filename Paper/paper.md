@@ -1,5 +1,5 @@
 ---
-title: 'Autogamess: A Python package for automation of GAMESS(us)'
+title: 'AutoGAMESS: A Python package for automation of GAMESS(us)'
 tags:
   - Python
   - computational chemistry
@@ -28,7 +28,7 @@ of *ab initio* calculations. As it stands the automation of these calculations i
 implemented individually by each research group utilizing the GAMESS(us) software. Often times research utilizing
 *ab initio* calculations require several calculations with multiple steps for each final result, for instance a raman activity prediction first requires
 an optimization and hessian calculation be performed on the molecule, making automation extremely beneficial.
-Autogamess is providing an open-source Python based software for automating conversion between Optimization calculations to
+AutoGAMESS is providing an open-source Python based software for automating conversion between Optimization calculations to
 Hessian calculations and then to Raman calculations. It also offers automation of data collection from the output files,
 for quick tabular data read outs of each calculation. The hope is to also have this software act as a platform for more
 automation programs written by other research groups to be shared with other research groups, helping to expedite
@@ -36,13 +36,19 @@ publications by minimizing software development times for individual groups.
 
 Functions:
 
-* new_project: Builds a directory tree for housing input and output files with spreadsheets for housing collected data.
-* opt2hes: Converts optimization input files into hessian input files
-* sort_logs: Sorts GAMESS(us) output files
-* hes2raman: Converts hessians input files into raman input files
-* get_data: Collects data from output files and generates list of data
+* new_project: Builds a directory tree for housing input/output files with spreadsheets for collected data.
 * input_builder: Builds optimization input files based on text file specifications
+* opt2hes: Converts optimization input files into hessian input files
+* hes2raman: Converts hessians input files into raman input files
+* sort_logs: Sorts GAMESS(us) output files
 * fill_spreadsheet: Fills in Excel Spreadsheets with data collected from log files
+* get_data: Collects data from output files and generates list of data
+
+# Use of AutoGAMESS
+
+AutoGAMESS was developed to be used in the following order: 
+new_project -> input_builder -> double-click-run(gamess function) -> opt2hes -> double-click-run(gamess function) -> hes2raman -> double-click-run(gamess function) -> sort_logs -> fill_spreadsheet.
+The get_data function is primarily a helper function but is able to collected data from individual files for user if desired.
 
 # Availability 
 This software is distributed under the MIT License and is available from https://github.com/Cavenfish/autogamess
@@ -50,6 +56,6 @@ or can be installed through Python's pip install command `py -m pip install auto
 
 # Acknowledgements
 
-Thanks to Dr. Christopher J. Bennett, Remington Cantelas, Sarah Swiersz and Nick Brunston for helping to beta test the package.
+The author would like to thank Dr. Christopher J. Bennett, Remington Cantelas and Sarah Swiersz for helpful discussions while developing the package.
 
 # References
