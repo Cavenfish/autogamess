@@ -91,15 +91,17 @@ def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
             os.makedirs(inputs+runtyp+specie)
             os.makedirs(goodlogs+runtyp+specie)
 
-    #Make Index for Spreadsheets
-    index = []
+    #Make data for Spreadsheets
+    theo = []
     for theory in theories:
         temp    = [theory]*len(basis_sets)
-        index  += temp + ['\n', '\n','\n']
+        theo   += temp + ['\n', '\n','\n']
+
+    bs = (basis_sets + ['\n', '\n','\n']) *len(theories)
 
     #Make dataframe with basis sets names only
-    data = {'Basis Set': (basis_sets + ['\n', '\n','\n']) *len(theories)}
-    df2 = pd.DataFrame(index = index, data=data)
+    data = {'Theory': theo, 'Basis Set': bs}
+    df2 = pd.DataFrame(data=data)
 
     #More directory making and Excell workbook and sheet making
     for specie in species:
