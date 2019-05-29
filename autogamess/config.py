@@ -45,6 +45,17 @@ def ctr_f(find_this, look_here):
             return look_here.index(line)
     return -1
 
+def ctr_f_allR(find_this, look_here):
+    r = []
+    for line in look_here:
+        if "TERMINATED -ABNORMALLY-" in line:
+            r.append("N/A")
+            r.append("N/A")
+        if find_this in line:
+            r.append(line.split(':')[1])
+
+    return r
+
 def angle_between(v1, v2):
     v1hat = v1 / np.linalg.norm(v1)
     v2hat = v2 / np.linalg.norm(v2)
