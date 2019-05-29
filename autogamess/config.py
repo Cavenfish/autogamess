@@ -52,6 +52,6 @@ def angle_between(v1, v2):
 
 def make_xzy(xyzlist):
     r = (float(xyzlist[0]),
-         float(xyzlist[0]),
-         float(xyzlist[0]))
+         float(xyzlist[1]),
+         float(xyzlist[2]))
     return r
