@@ -136,8 +136,30 @@ def hessian(filename):
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
     end   = ctr_f(efind, log)
 
+    if dhead is -1:
+        freq = ctr_f_allR('FREQUENCY:', log)
+        sym = ctr_f_allR('SYMMETRY:', log)
+
+        temp1 = [x.split() for x in freq]
+        temp2 = [x.split() for x in sym]
+
+        for a,b in zip(temp1,temp2):
+            freq += a
+            sym  += b
+
+        data =[]
+        for i in range(len(freq)):
+            data += [str(i) + '   ' + freq[i] + '    ' +
+                     sym[i] + '   ' + '     ' + 'N/A' + '    ' + 'N/A']
+
+        #Gets time and CPU utilization
+        time = log[end -2].split()[4]
+        cpu  = log[end -2].split()[9]
+
+        return data, time, cpu
+
     #Checks is ctr_f fucntion actually found something
-    check_if_exists(dhead, ctr_f(tfind, log), end)
+    check_if_exists(ctr_f(hfind, log), end)
 
     #Gets time and CPU utilization
     time = log[end -2].split()[4]
