@@ -71,7 +71,7 @@ def opt2hes(optfile, logfile):
     for i in np.arange(0, n, 1):
 
         #Define key/value for atomdict
-        key   = coords[i].split('   ')[0] #ugly
+        key   = coords[i].split('.0')[0] 
         value = coords[i]
 
         #Fill dictionary
