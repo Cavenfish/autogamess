@@ -71,7 +71,7 @@ def opt2hes(optfile, logfile):
     for i in np.arange(0, n, 1):
 
         #Define key/value for atomdict
-        key   = coords[i].split('.0')[0] 
+        key   = coords[i].split('.0')[0]
         value = coords[i]
 
         #Fill dictionary
@@ -88,7 +88,7 @@ def opt2hes(optfile, logfile):
 
     #Insert force line into hessian input
     if ctr_f(force, inp) is -1:
-        inp.insert(8, force)
+        inp.insert(ctr_f('$BASIS', inp), force)
 
     #Replace coordinates in file
     for key in atomdict:
