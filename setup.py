@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="autogamess",
-    version="0.0.11",
+    version="0.1.1",
     author="Brian C. Ferrari",
     author_email="brianf1996@knights.ucf.edu",
     description="This is a python module for automating Raman calculations using GAMESS(us).",
@@ -16,6 +16,6 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: Windows",
+        "Operating System :: Microsoft :: Windows :: Windows 10",
     ],
 )
