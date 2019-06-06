@@ -92,7 +92,8 @@ def opt2hes(optfile, logfile):
 
     #Replace coordinates in file
     for key in atomdict:
-        index = ctr_f(key, inp)
+        temp       = [x.replace(' ', '') for x in inp]
+        index      = ctr_f(key.replace(' ',''), temp)
         inp[index] = atomdict[key]
 
     #Open, write, and close input file
