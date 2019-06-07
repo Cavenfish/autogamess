@@ -2,7 +2,7 @@ from .config import *
 import pkg_resources
 from .molecule_dictionary import molecule_dictionary
 
-def input_builder(inputfile, initial_coords_dict=molecule_dictionary,
+def input_builder(inputfile, initial_coords_dict=None,
                   ebasis_dir, save_dir, proj_title=' Your Title Goes Here\n'):
     '''
     This function build optimization input files.
@@ -12,6 +12,9 @@ def input_builder(inputfile, initial_coords_dict=molecule_dictionary,
                 str(pkg_resources.require("autogamess")[0].version) )
     ibv     = 'AGv' + version.split(' ')[-1].replace('.', '-')
     opt     = '_opt.inp'
+
+    if initial_coords_dict is None:
+        initial_coords_dict = molecule_dictionary
 
     df = pd.read_csv(inputfile)
 
