@@ -2,8 +2,8 @@ from .config import *
 import pkg_resources
 from .molecule_dictionary import molecule_dictionary
 
-def input_builder(inputfile, initial_coords_dict=None,
-                  ebasis_dir, save_dir, proj_title=' Your Title Goes Here\n'):
+def input_builder(inputfile, ebasis_dir, save_dir, 
+                  initial_coords_dict=None, proj_title=' Your Title Goes Here\n'):
     '''
     This function build optimization input files.
     '''
