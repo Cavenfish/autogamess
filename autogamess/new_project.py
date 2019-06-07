@@ -1,7 +1,7 @@
 from .config        import *
 from .input_builder import input_builder
 
-def new_project(maindir, csvfile, initial_coords_dict, ebasis_dir,
+def new_project(maindir, csvfile, initial_coords_dict=None, ebasis_dir,
                 title='Project_Name/'):
     """
     This function creates a new directory tree for a GAMESS project, also makes
