@@ -34,7 +34,7 @@ def sort_logs(projdir, logsdir):
 
     #Checks if sorteddir is real directory
     if not os.path.isdir(sorteddir):
-        sorrted = projdir
+        sorteddir = projdir
 
     #Defining extension names
     lgext    = '.log'
