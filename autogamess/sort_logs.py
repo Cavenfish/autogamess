@@ -1,6 +1,6 @@
 from .config import *
 
-def sort_logs(projdir):
+def sort_logs(projdir, logsdir):
     """
     This function sorts all the loose log files in the 'Logs' directory.
 
@@ -9,6 +9,9 @@ def sort_logs(projdir):
     projdir: string
         A directory string (including the final `/`) that points to the
         project head directory.
+    logsdir: string
+        A directory string (including the final `/`) that points to the
+        directory containing the log files.
 
     Returns
     ----------
@@ -28,7 +31,10 @@ def sort_logs(projdir):
     """
     #Defining directory names
     sorteddir      = projdir + 'Logs/Sorted/'
-    logsdir        = projdir + '../outputs/'
+
+    #Checks if sorteddir is real directory
+    if not os.path.isdir(sorteddir):
+        sorrted = projdir
 
     #Defining extension names
     lgext    = '.log'
@@ -45,6 +51,10 @@ def sort_logs(projdir):
 
         #Define the directory to put this particular file in
         move2 = sorteddir + specie
+
+        #Checks if move2 directory exists, if not then makes it
+        if not os.path.isdir(move2):
+            os.makedirs(move2)
 
         #Define `before/after` of rename command to move file
         before = logsdir + filename
