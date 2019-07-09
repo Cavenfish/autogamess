@@ -2,6 +2,7 @@ import os
 import sys
 import numpy  as np
 import pandas as pd
+import basis_set_exchange as bse
 
 #Error messages
 error_head   = "\n*****uh oh spaghettios*****\n"
@@ -29,8 +30,10 @@ def check_if_exists(*args):
     for arg in args:
         if arg is -1:
             msg = "Something went wrong, check your log file"
-            sys.exit(error_head + msg + error_tail)
-    return
+            print(error_head + msg + error_tail)
+            return True
+            #sys.exit(error_head + msg + error_tail)
+    return False
 
 def check_if_in(*args, look_here):
     for arg in args:
@@ -45,7 +48,7 @@ def ctr_f(find_this, look_here):
             return look_here.index(line)
     return -1
 
-def ctr_f_allR(find_this, look_here):
+def ctr_f_all(find_this, look_here):
     r = []
     for line in look_here:
         if "TERMINATED -ABNORMALLY-" in line:
