@@ -136,8 +136,8 @@ def new_project(maindir, csvfile, ebasis_dir, initial_coords_dict=None,
 
     #Run Input Builder function
     save_dir = maindir + 'inputs/'
-    input_builder(csvfile, ebasis_dir, save_dir,
-                  initial_coords_dict, title.replace('/', '\n'))
+    #input_builder(csvfile, ebasis_dir, save_dir,
+    #              initial_coords_dict, title.replace('/', '\n'))
 
 
     return
