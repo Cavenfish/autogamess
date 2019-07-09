@@ -54,7 +54,8 @@ def optimization(filename):
     end = ctr_f(e, log)
 
     #Checks to make sure head and tail exist
-    check_if_exists(equil, ctr_f(hfind, log[::-1]), end)
+    if check_if_exists(equil, ctr_f(hfind, log[::-1]), end):
+        return (0,0,0)
 
     #Makes smaller list to ctr_f through
     temp  = log[equil : lhead]
@@ -159,7 +160,8 @@ def hessian(filename):
         return data, time, cpu
 
     #Checks is ctr_f fucntion actually found something
-    check_if_exists(ctr_f(hfind, log), end)
+    if check_if_exists(ctr_f(hfind, log), end):
+        return (0,0,0)
 
     #Gets time and CPU utilization
     time = log[end -2].split()[4]
@@ -212,7 +214,8 @@ def raman(filename):
     end   = ctr_f(efind, log)
 
     #Checks is ctr_f fucntion actually found something
-    check_if_exists(dhead, ctr_f(tfind, log), end)
+    if check_if_exists(dhead, ctr_f(tfind, log), end):
+        return (0,0,0)
 
     #Gets time and CPU utilization
     time = log[end -2].split()[4]
