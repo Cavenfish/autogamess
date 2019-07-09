@@ -44,6 +44,10 @@ def opt2hes(optfile, logfile):
     opt = '_opt'
     hes = '_hes'
 
+    #Define Numerical Gradients commands
+    numgrd0 = 'NUMGRD=.TRUE.'
+    numgrd1 = 'NUMGRD=.T.'
+
     #Open, read in, and close log file
     f   = open(logfile, 'r')
     log = f.readlines()
@@ -86,15 +90,28 @@ def opt2hes(optfile, logfile):
     i      = ctr_f(ropt, inp)
     inp[i] = inp[i].replace(ropt, rhes)
 
+    #Remove Numerical Gradients from input file
+    i = ctr_f(numgrd0, inp)
+    if i is not -1:
+        inp[i] = inp[i].replace(numgrd0, '')
+    i = ctr_f(numgrd1, inp)
+    if i is not -1:
+        inp[i] = inp[i].replace(numgrd1, '')
+
     #Insert force line into hessian input
     if ctr_f(force, inp) is -1:
         inp.insert(ctr_f('$SCF', inp), force)
 
     #Replace coordinates in file
+    i    = ctr_f('$DATA')
+    data = inp[i:-1]
     for key in atomdict:
-        temp       = [x.replace(' ', '') for x in inp]
-        index      = ctr_f(key.replace(' ',''), temp)
-        inp[index] = atomdict[key]
+        temp   = [x.replace(' ', '') for x in data]
+        index  = ctr_f(key.replace(' ',''), temp)
+        j      = i + index
+        inp[j] = atomdict[key]
+        data   = inp[j+1:-1]
+        i      = j+1
 
     #Open, write, and close input file
     hesfile = optfile.replace(opt, hes)
