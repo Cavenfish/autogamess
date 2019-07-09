@@ -1,12 +1,12 @@
 from .config   import *
 from .get_data import *
 
-def fill_spreadsheets(projdir):
+def fill_spreadsheets(sorteddir,sheetsdir):
     """
     """
     #Defining directory names
-    sorteddir      = projdir + 'Logs/Sorted/'
-    sheetsdir      = projdir + 'Spreadsheets/'
+    #sorteddir      = projdir + 'Logs/Sorted/'
+    #sheetsdir      = projdir + 'Spreadsheets/'
 
     #Define Sheet names
     opt = 'Optimization'
@@ -38,6 +38,9 @@ def fill_spreadsheets(projdir):
                     df[opt][rt] = np.nan
                 if cp not in df[opt]:
                     df[opt][cp] = np.nan
+
+                if optimization(filename) == (0,0,0):
+                    continue
 
                 lengths, angles, tdata = optimization(filename)
 
@@ -72,6 +75,9 @@ def fill_spreadsheets(projdir):
                 if cp not in df[hes]:
                     df[hes][cp] = np.nan
 
+                if hessian(filename) == (0,0,0):
+                    continue
+
                 data, time, cpu = hessian(filename)
 
                 temp=temp.loc[temp[te]==theo]
@@ -105,6 +111,9 @@ def fill_spreadsheets(projdir):
                     df[ram][rt] = np.nan
                 if cp not in df[ram]:
                     df[ram][cp] = np.nan
+
+                if raman(filename) == (0,0,0):
+                    continue
 
                 data, time, cpu = raman(filename)
 
@@ -144,3 +153,5 @@ def fill_spreadsheets(projdir):
             df[opt].to_excel(writer, sheet_name=opt, startrow=4)
             df[hes].to_excel(writer, sheet_name=hes, startrow=4)
             df[ram].to_excel(writer, sheet_name=ram, startrow=4)
+
+    return
