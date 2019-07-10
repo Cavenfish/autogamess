@@ -1,8 +1,8 @@
 from .config        import *
 from .input_builder import input_builder
 
-def new_project(maindir, csvfile, ebasis_dir, initial_coords_dict=None,
-                title='Project_Name/'):
+def new_project(maindir, csvfile, initial_coords_dict=None,
+                title='Project_Name/', make_inputs=False):
     """
     This function creates a new directory tree for a GAMESS project, also makes
     a couple of text files for use with other functions.
@@ -135,9 +135,10 @@ def new_project(maindir, csvfile, ebasis_dir, initial_coords_dict=None,
 
 
     #Run Input Builder function
-    save_dir = maindir + 'inputs/'
-    #input_builder(csvfile, ebasis_dir, save_dir,
-    #              initial_coords_dict, title.replace('/', '\n'))
+    if make_inputs is True:
+        save_dir = maindir + 'inputs/'
+        input_builder(csvfile, ebasis_dir, save_dir,
+                      initial_coords_dict, title.replace('/', '\n'))
 
 
     return
