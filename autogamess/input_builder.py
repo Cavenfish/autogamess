@@ -1,6 +1,7 @@
 from .config import *
 import pkg_resources
 from .molecule_dictionary import molecule_dictionary
+import elements.elements as el
 
 def input_builder(inputfile, save_dir, initial_coords_dict=None,
                   proj_title=' Your Title Goes Here\n'):
@@ -103,7 +104,24 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         if filename.split(_)[3] in ebasis_sets:
             basis_name = filename.split(_)[3]
             molecule   = filename.split(_)[1]
-            atoms      = [x for x in molecule if not x.isdigit()]
+            atoms      = [getattr(el,x) for x in molecule if not x.isdigit()]
+            elements   = [x for x in molecule if not x.isdigit()]
+            basis = bse.get_basis(basis_name, elements=elements,
+                                  fmt='gamess_us', header=False)
+            basis[0] = coords[0]
 
+            for atom in atoms:
+                name = atom.Name.toupper()
+                sym  = atom.Symbol
+                i = ctr_f(name, basis)
+                j = ctr_f(sym, coords)
+                basis[i] = coords[j]
+
+            f.writelines(coords)
+            f.close()
+        else:
+            f.writelines(coords)
+            f.write('$END')
+            f.close()
 
     return
