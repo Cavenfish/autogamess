@@ -26,19 +26,18 @@ theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
 
 
 #Basic functions used throughout code-----------------------------------
-def check_if_exists(*args):
+def check_if_exists(filename, *args):
     for arg in args:
         if arg is -1:
-            msg = "Something went wrong, check your log file"
+            msg = "Something went wrong, check your log file\n" + filename
             print(error_head + msg + error_tail)
             return True
-            #sys.exit(error_head + msg + error_tail)
     return False
 
-def check_if_in(*args, look_here):
+def check_if_in(filename, *args, look_here):
     for arg in args:
         if arg not in look_here:
-            msg = arg + "\n Not Found"
+            msg = arg + "\n Not Found in " + filename
             sys.exit(error_head + msg + error_tail)
     return
 
