@@ -1,3 +1,4 @@
+import pkg_resources
 from .config        import *
 from .input_builder import input_builder
 
@@ -57,6 +58,11 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     >>> np.new_project('./', txtfile, title='Example/')
     >>>
     """
+    #Spreadsheet header phrase
+    version = (' AutoGAMESS Version ' +
+                str(pkg_resources.require("autogamess")[0].version) )
+    author  = '     by Brian C. Ferrari'
+
     #Defining directory names
     unsolved = maindir + title + 'Logs/Fail/Unsolved/'
     solved   = maindir + title + 'Logs/Fail/Solved/'
@@ -108,7 +114,8 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         os.makedirs(sorrted+specie)
 
         #Define header for Spreadsheets
-        header = ['Project Name : ' +  title.replace('/', ''),
+        header = [version, author, '',
+                  'Project Name : ' +  title.replace('/', ''),
                   'Molecule Name: ' + specie.replace('/', '')]
 
         #Define Excell filename
@@ -122,7 +129,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
 
             #Define sheet name and make it
             sheet     = runtyp.replace('/', '')
-            df2.to_excel(writer, startrow=4, startcol=0, sheet_name=sheet)
+            df2.to_excel(writer, startrow=6, startcol=0, sheet_name=sheet)
             worksheet = writer.sheets[sheet]
 
             #Write Header
