@@ -54,7 +54,7 @@ def optimization(filename):
     end = ctr_f(e, log)
 
     #Checks to make sure head and tail exist
-    if check_if_exists(equil, ctr_f(hfind, log[::-1]), end):
+    if check_if_exists(filename, equil, ctr_f(hfind, log[::-1]), end):
         return (0,0,0)
 
     #Makes smaller list to ctr_f through
@@ -138,15 +138,21 @@ def hessian(filename):
     end   = ctr_f(efind, log)
 
     if dhead is -1:
-        freq = ctr_f_allR('FREQUENCY:', log)
-        sym = ctr_f_allR('SYMMETRY:', log)
+        freq = ctr_f_all('FREQUENCY:', log)
+        sym  = ctr_f_all('SYMMETRY:', log)
 
         temp1 = [x.split() for x in freq]
         temp2 = [x.split() for x in sym]
 
+        freq, sym = [], []
         for a,b in zip(temp1,temp2):
             freq += a
             sym  += b
+
+        if len(freq) != len(sym):
+            msg = "Something went wrong, check your log file\n" + filename
+            print(error_head + msg + error_tail)
+            return (0,0,0)
 
         data =[]
         for i in range(len(freq)):
@@ -154,13 +160,17 @@ def hessian(filename):
                      sym[i] + '   ' + '     ' + 'N/A' + '    ' + 'N/A']
 
         #Gets time and CPU utilization
-        time = log[end -2].split()[4]
-        cpu  = log[end -2].split()[9]
+        if (len(log[end -2].split()) < 10) or (len(log[end -2].split()) < 5):
+            time = 'N/A'
+            cpu  = 'N/A'
+        else:
+            time = log[end -2].split()[4]
+            cpu  = log[end -2].split()[9]
 
         return data, time, cpu
 
-    #Checks is ctr_f fucntion actually found something
-    if check_if_exists(ctr_f(hfind, log), end):
+    #Checks if ctr_f fucntion actually found something
+    if check_if_exists(filename, end):
         return (0,0,0)
 
     #Gets time and CPU utilization
@@ -214,7 +224,7 @@ def raman(filename):
     end   = ctr_f(efind, log)
 
     #Checks is ctr_f fucntion actually found something
-    if check_if_exists(dhead, ctr_f(tfind, log), end):
+    if check_if_exists(filename, dhead, ctr_f(tfind, log), end):
         return (0,0,0)
 
     #Gets time and CPU utilization
