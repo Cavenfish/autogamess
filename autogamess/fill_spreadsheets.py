@@ -1,12 +1,24 @@
 from .config   import *
 from .get_data import *
+from openpyxl import load_workbook
 
-def fill_spreadsheets(sorteddir,sheetsdir):
+def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     """
     """
     #Defining directory names
-    #sorteddir      = projdir + 'Logs/Sorted/'
-    #sheetsdir      = projdir + 'Spreadsheets/'
+    if projdir is not False:
+        sorteddir      = projdir + 'Logs/Sorted/'
+        sheetsdir      = projdir + 'Spreadsheets/'
+        faildir        = projdir + 'Logs/Fail/Unsolved/'
+        passdir        = projdir + 'Logs/Pass/'
+
+    #Check to make sure sorteddir and sheetsdir exist
+    if not os.path.isdir(sorteddir):
+        print(error_head + "sorteddir does not exist" + error_tail)
+        return
+    if not os.path.isdir(sheetsdir):
+        print(error_head + "sheetsdir does not exist" + error_tail)
+        return
 
     #Define Sheet names
     opt = 'Optimization'
@@ -22,7 +34,7 @@ def fill_spreadsheets(sorteddir,sheetsdir):
 
     for dir in os.listdir(sorteddir):
         df = pd.read_excel(sheetsdir + dir + '.xlsx', index_col=0,
-                           sheet_name=None, header=4)
+                           sheet_name=None, header=6)
 
         for file in os.listdir(sorteddir + dir):
             if '.log' not in file:
@@ -31,6 +43,7 @@ def fill_spreadsheets(sorteddir,sheetsdir):
             theo = file.split('_')[2]
             bset = file.split('_')[3]
 
+#---------------OPTIMIZATION FILES-------------------------------------
             if '_opt' in file:
                 temp = df[opt]
 
@@ -40,6 +53,8 @@ def fill_spreadsheets(sorteddir,sheetsdir):
                     df[opt][cp] = np.nan
 
                 if optimization(filename) == (0,0,0):
+                    move2 = faildir + file
+                    os.rename(filename, move2)
                     continue
 
                 lengths, angles, tdata = optimization(filename)
@@ -66,7 +81,10 @@ def fill_spreadsheets(sorteddir,sheetsdir):
 
                 df[opt].update(temp)
 
+                move2 = passdir + opt + '/' + dir + '/' + file
+                os.rename(filename, move2)
 
+#-------------------HESSIAN FILES----------------------------------------
             if '_hes' in file:
                 temp = df[hes]
 
@@ -76,6 +94,8 @@ def fill_spreadsheets(sorteddir,sheetsdir):
                     df[hes][cp] = np.nan
 
                 if hessian(filename) == (0,0,0):
+                    move2 = faildir +  file
+                    os.rename(filename, move2)
                     continue
 
                 data, time, cpu = hessian(filename)
@@ -104,6 +124,10 @@ def fill_spreadsheets(sorteddir,sheetsdir):
 
                 df[hes].update(temp)
 
+                move2 = passdir + hes + '/' + dir + '/' + file
+                os.rename(filename, move2)
+
+#---------------RAMAN FILES------------------------------------------------
             if '_raman' in file:
                 temp = df[ram]
 
@@ -113,6 +137,8 @@ def fill_spreadsheets(sorteddir,sheetsdir):
                     df[ram][cp] = np.nan
 
                 if raman(filename) == (0,0,0):
+                    move2 = faildir + file
+                    os.rename(filename, move2)
                     continue
 
                 data, time, cpu = raman(filename)
@@ -149,9 +175,15 @@ def fill_spreadsheets(sorteddir,sheetsdir):
 
                 df[ram].update(temp)
 
-        with pd.ExcelWriter(sheetsdir + dir + '.xlsx') as writer:
-            df[opt].to_excel(writer, sheet_name=opt, startrow=4)
-            df[hes].to_excel(writer, sheet_name=hes, startrow=4)
-            df[ram].to_excel(writer, sheet_name=ram, startrow=4)
+                move2 = passdir + ram + '/' + dir + '/' + file
+                os.rename(filename, move2)
+
+        #Write Spreadsheets
+        book = load_workbook(sheetsdir + dir + '.xlsx')
+        with pd.ExcelWriter(sheetsdir + dir + '.xlsx', engine='openpyxl') as writer:
+            writer.book = book
+            df[opt].to_excel(writer, sheet_name=opt, startrow=6)
+            df[hes].to_excel(writer, sheet_name=hes, startrow=6)
+            df[ram].to_excel(writer, sheet_name=ram, startrow=6)
 
     return
