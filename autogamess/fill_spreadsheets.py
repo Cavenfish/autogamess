@@ -182,6 +182,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
         book = load_workbook(sheetsdir + dir + '.xlsx')
         with pd.ExcelWriter(sheetsdir + dir + '.xlsx', engine='openpyxl') as writer:
             writer.book = book
+            writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
             df[opt].to_excel(writer, sheet_name=opt, startrow=6)
             df[hes].to_excel(writer, sheet_name=hes, startrow=6)
             df[ram].to_excel(writer, sheet_name=ram, startrow=6)
