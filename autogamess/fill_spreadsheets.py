@@ -148,22 +148,6 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
 
                 for vib in data[1:-1]:
                     vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
-                          ' Vibrational Frequency')
-                    if vi not in df[ram]:
-                        df[ram][vi] = np.nan
-                    temp[vi] = vib.split()[1]
-                    df[ram].update(temp)
-
-                for vib in data[1:-1]:
-                    vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
-                          ' Infrared Intensity')
-                    if vi not in df[ram]:
-                        df[ram][vi] = np.nan
-                    temp[vi] = vib.split()[4]
-                    df[ram].update(temp)
-
-                for vib in data[1:-1]:
-                    vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
                           ' Raman Activity')
                     if vi not in df[ram]:
                         df[ram][vi] = np.nan
