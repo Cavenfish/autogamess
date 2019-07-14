@@ -68,3 +68,9 @@ def make_xzy(xyzlist):
          float(xyzlist[1]),
          float(xyzlist[2]))
     return r
+
+def flatten(array):
+    r = []
+    for i in array:
+        r += i
+    return r
