@@ -1,5 +1,6 @@
 from .config   import *
-from .get_data import *
+from .data_finder import *
+from .get_data import get_data
 from openpyxl import load_workbook
 
 def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
@@ -24,6 +25,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     opt = 'Optimization'
     hes = 'Hessian'
     ram = 'Raman'
+    vsc = 'VSCF'
 
     #Define Data Column names
     rt = 'Run Time'
@@ -42,6 +44,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
             filename = sorteddir + dir + '/' + file
             theo = file.split('_')[2]
             bset = file.split('_')[3]
+            data = get_data(filename)
 
 #---------------OPTIMIZATION FILES-------------------------------------
             if '_opt' in file:
@@ -57,27 +60,25 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                     os.rename(filename, move2)
                     continue
 
-                lengths, angles, tdata = optimization(filename)
-
                 temp=temp.loc[temp[te]==theo]
                 temp=temp.loc[temp[bs]==bset]
 
+                lengths = data.bond_lengths
                 for l in lengths:
-                    bl = l.split(':')[0] + ' Bond Length'
-                    if bl not in df[opt]:
-                        df[opt][bl] = np.nan
-                    temp[bl] = l.split(':')[1]
+                    if l not in df[opt]:
+                        df[opt][l] = np.nan
+                    temp[l] = lengths[l]
                     df[opt].update(temp)
 
+                angles = data.bond_angles
                 for a in angles:
-                    al = a.split(':')[0] + ' Bond Anlge'
-                    if al not in df[opt]:
-                        df[opt][al] = np.nan
-                    temp[al] = a.split(':')[1]
+                    if a not in df[opt]:
+                        df[opt][a] = np.nan
+                    temp[a] = angles[a]
                     df[opt].update(temp)
 
-                temp[rt] = tdata[0]
-                temp[cp] = tdata[1]
+                temp[rt] = data.time
+                temp[cp] = data.cpu
 
                 df[opt].update(temp)
 
@@ -98,29 +99,29 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                     os.rename(filename, move2)
                     continue
 
-                data, time, cpu = hessian(filename)
-
                 temp=temp.loc[temp[te]==theo]
                 temp=temp.loc[temp[bs]==bset]
 
-                for vib in data[1:-1]:
-                    vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
-                          ' Vibrational Frequency')
-                    if vi not in df[hes]:
-                        df[hes][vi] = np.nan
-                    temp[vi] = vib.split()[1]
-                    df[hes].update(temp)
+                frequency = data.vib_freq
+                for key in frequency:
+                    for i in range(len(frequency[key])):
+                        vi = '(' + str(key) + ')Vibrational Frequency ' + str(i)
+                        if vi not in df[hes]:
+                            df[hes][vi] = np.nan
+                        temp[vi] = frequency[key][i]
+                        df[hes].update(temp)
 
-                for vib in data[1:-1]:
-                    vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
-                          ' Infrared Intensity')
-                    if vi not in df[hes]:
-                        df[hes][vi] = np.nan
-                    temp[vi] = vib.split()[4]
-                    df[hes].update(temp)
+                ir = data.ir_inten
+                for key in ir:
+                    for i in range(len(ir[key])):
+                        vi = '(' + str(key) + ')Infrared Intensity ' + str(i)
+                        if vi not in df[hes]:
+                            df[hes][vi] = np.nan
+                        temp[vi] = ir[key][i]
+                        df[hes].update(temp)
 
-                temp[rt] = time
-                temp[cp] = cpu
+                temp[rt] = data.time
+                temp[cp] = data.cpu
 
                 df[hes].update(temp)
 
@@ -141,25 +142,67 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                     os.rename(filename, move2)
                     continue
 
-                data, time, cpu = raman(filename)
-
                 temp=temp.loc[temp[te]==theo]
                 temp=temp.loc[temp[bs]==bset]
 
-                for vib in data[1:-1]:
-                    vi = (vib.split()[0] + '(' + vib.split()[2] + ')' +
-                          ' Raman Activity')
-                    if vi not in df[ram]:
-                        df[ram][vi] = np.nan
-                    temp[vi] = vib.split()[5]
-                    df[ram].update(temp)
+                ramans = data.raman
+                for key in ramans:
+                    for i in range(len(ramans[key])):
+                        vi = '(' + str(key) + ')Raman Activity ' + str(i)
+                        if vi not in df[ram]:
+                            df[ram][vi] = np.nan
+                        temp[vi] = ramans[key][i]
+                        df[ram].update(temp)
 
-                temp[rt] = time
-                temp[cp] = cpu
+                temp[rt] = data.time
+                temp[cp] = data.cpu
 
                 df[ram].update(temp)
 
                 move2 = passdir + ram + '/' + dir + '/' + file
+                os.rename(filename, move2)
+
+#-------------------------VSCF Files-------------------------------------
+            if '_vscf' in file:
+                temp = df[vsc]
+
+                if rt not in df[vsc]:
+                    df[vsc][rt] = np.nan
+                if cp not in df[vsc]:
+                    df[vsc][cp] = np.nan
+
+                if vscf(filename) == (0,0,0):
+                    move2 = faildir + file
+                    os.rename(filename, move2)
+                    continue
+
+                temp=temp.loc[temp[te]==theo]
+                temp=temp.loc[temp[bs]==bset]
+
+                vscf_freq = data.vscf_freq
+                for key in vscf_freq:
+                    for i in range(len(vscf_freq[key])):
+                        vi = '(' + str(key) + ')VSCF Frequency '
+                        if vi not in df[vsc]:
+                            df[vsc][vi] = np.nan
+                        temp[vi] = vscf_freq[key][i]
+                        df[vsc].update(temp)
+
+                vscf_ir = data.vscf_ir
+                for key in vscf_ir:
+                    for i in range(len(vscf_ir[key])):
+                        vi = '(' + str(key) + ')VSCF IR '
+                        if vi not in df[vsc]:
+                            df[vsc][vi] = np.nan
+                        temp[vi] = vscf_ir[key][i]
+                        df[vsc].update(temp)
+
+                temp[rt] = data.time
+                temp[cp] = data.cpu
+
+                df[vsc].update(temp)
+
+                move2 = passdir + vsc + '/' + dir + '/' + file
                 os.rename(filename, move2)
 
         #Write Spreadsheets
@@ -170,5 +213,6 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
             df[opt].to_excel(writer, sheet_name=opt, startrow=6)
             df[hes].to_excel(writer, sheet_name=hes, startrow=6)
             df[ram].to_excel(writer, sheet_name=ram, startrow=6)
+            df[vsc].to_excel(writer, sheet_name=vsc, startrow=6)
 
     return
