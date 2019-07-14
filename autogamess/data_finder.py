@@ -6,35 +6,34 @@ Note, the optimization function only grabs raw data
 from scipy.spatial import distance
 from .config import *
 
+def comp(filename):
+    #Open to read Log file, then close to protect file
+    f=open(filename, 'r')
+    log = f.readlines()
+    f.close()
+
+    #Get end of log file, for finding time and cpu
+    e   = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end = ctr_f(e, log)
+
+    #Checks is ctr_f fucntion actually found something
+    if end != -1:
+        time = log[end -2].split()[4]
+        cpu  = log[end -2].split()[9]
+    else:
+        time = 'Error'
+        cpu  = 'Error'
+
+    return [cpu, time]
+
+
 #---------------------------------------------------------------------
 #                        OPTIMIZATION FUNCTION
 #---------------------------------------------------------------------
 
 def optimization(filename):
     """
-    This function produces the bond angle and length from calculated geometries.
 
-    Parameters
-    ----------
-    filename: string
-        This should be a string that points to the log file of an
-        already run optimization file. (FULL DIRECTORY STRING REQUIRED)
-
-    Returns
-    -------
-    lenths: list
-        A list where each element is a length between two atoms.
-        All elements are strings with the following format:
-            atom1-atom2:bond_length
-    angles: list
-        A list where each element is an angle between two atoms.
-        Angles are in radians,( float/decimal numbers)
-        All elements are strings with the following format:
-            atom1-atom2:bond_angle
-    time: string
-        A string containing the calculation runtime
-    cpu: string
-        A string containing the cpu utilization
     """
     #Open to read Log file, then close to protect file
     f=open(filename, 'r')
@@ -75,27 +74,19 @@ def optimization(filename):
         else:
             matrix[line.split()[0]] = line.split()[2:5]
 
-    #Make angles list
-    lengths = []
-    angles  = []
+    #Make dictionaries
+    lengths = {}
+    angles  = {}
     for key in matrix:
         for key2 in matrix:
             a1     = make_xzy(matrix[key] )
             a2     = make_xzy(matrix[key2])
             angle  = angle_between(a1, a2)
             length = distance.euclidean(a1, a2)
-            angles.append(key + '-' + key2 + ':' + str(angle) + '\n')
-            lengths.append(key + '-' + key2 + ':' + str(length) + '\n')
+            angles[key + '-' + key2 + ' Bond Angle']  = str(angle)
+            lengths[key + '-' + key2 + ' Bond Length'] = str(length)
 
-    #Checks is ctr_f fucntion actually found something
-    if end != -1:
-        time = log[end -2].split()[4]
-        cpu  = log[end -2].split()[9]
-    else:
-        time = 'N/A'
-        cpu  = 'N//A'
-
-    return lengths, angles, (time, cpu)
+    return [lengths, angles]
 
 #---------------------------------------------------------------------
 #                           HESSIAN FUNCTION
@@ -103,84 +94,54 @@ def optimization(filename):
 
 def hessian(filename):
     """
-    This function grabs frequency data from a gamess hessian log file.
 
-    Parameters
-    ----------
-    filename: string
-        This should be a string that points to the log file of an
-        already run hessian file. (FULL DIRECTORY STRING REQUIRED)
-
-    Returns
-    -------
-    data: list
-        A list containing various strings with all the vibrational frequency,
-        and IR intensities data. When the list is printed or writen to a file
-        it will be tabular.
-    time: string
-        A string containing the calculation runtime
-    cpu: string
-        A string containing the cpu utilization
     """
     #Open to read Log file, then close to protect file
     f=open(filename, 'r')
     log = f.readlines()
     f.close()
 
-    #Get head and tail of data
-    hfind = 'MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.'
-    dhead = ctr_f(hfind, log)
-    tfind = 'THERMOCHEMISTRY AT T=  298.15 K'
-    dtail = ctr_f(tfind, log) - 1
-
     #Get end of log file, for finding time and cpu
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
     end   = ctr_f(efind, log)
-
-    if dhead is -1:
-        freq = ctr_f_all('FREQUENCY:', log)
-        sym  = ctr_f_all('SYMMETRY:', log)
-
-        temp1 = [x.split() for x in freq]
-        temp2 = [x.split() for x in sym]
-
-        freq, sym = [], []
-        for a,b in zip(temp1,temp2):
-            freq += a
-            sym  += b
-
-        if len(freq) != len(sym):
-            msg = "Something went wrong, check your log file\n" + filename
-            print(error_head + msg + error_tail)
-            return (0,0,0)
-
-        data =[]
-        for i in range(len(freq)):
-            data += [str(i) + '   ' + freq[i] + '    ' +
-                     sym[i] + '   ' + '     ' + 'N/A' + '    ' + 'N/A']
-
-        #Gets time and CPU utilization
-        if (len(log[end -2].split()) < 10) or (len(log[end -2].split()) < 5):
-            time = 'N/A'
-            cpu  = 'N/A'
-        else:
-            time = log[end -2].split()[4]
-            cpu  = log[end -2].split()[9]
-
-        return data, time, cpu
 
     #Checks if ctr_f fucntion actually found something
     if check_if_exists(filename, end):
         return (0,0,0)
 
-    #Gets time and CPU utilization
-    time = log[end -2].split()[4]
-    cpu  = log[end -2].split()[9]
+    #Find Modes to ignore
+    mfind  = 'ARE TAKEN AS ROTATIONS AND TRANSLATIONS.'
+    mindex = ctr_f(mfind, log)
+    modes  = int(log[mindex].split()[3])
 
-    #Make data list
-    data = log [dhead:dtail]
+    freq = ctr_f_all('FREQUENCY:',    log)
+    ir   = ctr_f_all('IR INTENSITY:', log)
+    sym  = ctr_f_all('SYMMETRY:',     log)
 
-    return data, time, cpu
+    temp1 = flatten([x.split() for x in freq])
+    temp2 = flatten([x.split() for x in sym])
+    temp3 = flatten([x.split() for x in ir])
+
+    while 'I' in temp1:
+        i           = temp1.index('I')
+        temp1[i-1] *= -1
+        del(temp1[i])
+
+    freq = {}
+    for a,b in zip(temp1[modes:],temp2[modes:]):
+        if b not in freq:
+            freq[b] = [a]
+        else:
+            freq[b] += [a]
+
+    infr = {}
+    for a,b in zip(temp3[modes:],temp2[modes:]):
+        if b not in infr:
+            infr[b] = [a]
+        else:
+            infr[b] += [a]
+
+    return [freq, infr]
 
 #---------------------------------------------------------------------
 #                           RAMAN FUNCTION
@@ -188,50 +149,82 @@ def hessian(filename):
 
 def raman(filename):
     """
-    This function grabs frequency, IR, and raman data from a gamess raman
-    log file.
 
-    Parameters
-    ----------
-    filename: string
-        This should be a string that points to the log file of an
-        already run raman file. (FULL DIRECTORY STRING REQUIRED)
-
-    Returns
-    -------
-    data: list
-        A list containing various strings with all the vibrational frequency,
-        IR intensities, and raman activities data. When the list is printed
-        or writen to a file it will be tabular.
-    time: string
-        A string containing the calculation runtime
-    cpu: string
-        A string containing the cpu utilization
     """
     #Open to read Log file, then close to protect file
     f=open(filename, 'r')
     log = f.readlines()
     f.close()
 
+    #Get end of log file, for finding time and cpu
+    efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end   = ctr_f(efind, log)
+
+    #Checks is ctr_f fucntion actually found something
+    if check_if_exists(filename, end):
+        return (0,0,0)
+
+    #Find Modes to ignore
+    mfind  = 'ARE TAKEN AS ROTATIONS AND TRANSLATIONS.'
+    mindex = ctr_f(mfind, log)
+    modes  = int(log[mindex].split()[3])
+
     #Get head and tail of data
     hfind = 'MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.'
-    dhead = ctr_f(hfind, log)
+    dhead = ctr_f(hfind, log) + 1 + modes
     tfind = 'THERMOCHEMISTRY AT T=  298.15 K'
-    dtail = ctr_f(tfind, log) - 1
+    dtail = ctr_f(tfind, log) - 2
+
+    #Checks is ctr_f fucntion actually found something
+    if check_if_exists(filename, ctr_f(hfind, log), ctr_f(tfind, log)):
+        return (0,0,0)
+
+    #Make data dictionary
+    data = {}
+    for line in log[dhead:dtail]:
+        a = line.split()[5]
+        b = line.split()[2]
+        if b not in data:
+            data[b] = [a]
+        else:
+            data[b] += [a]
+
+    return data
+
+#---------------------------------------------------------------------
+#                           VSCF FUNCTION
+#---------------------------------------------------------------------
+
+def vscf(filename):
+    """
+    """
+    #Open to read Log file, then close to protect file
+    f=open(filename, 'r')
+    log = f.readlines()
+    f.close()
 
     #Get end of log file, for finding time and cpu
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
     end   = ctr_f(efind, log)
 
     #Checks is ctr_f fucntion actually found something
-    if check_if_exists(filename, dhead, ctr_f(tfind, log), end):
+    if check_if_exists(filename, end):
         return (0,0,0)
 
-    #Gets time and CPU utilization
-    time = log[end -2].split()[4]
-    cpu  = log[end -2].split()[9]
+    #Get head and tail of data
+    hfind = 'FREQUENCY, CM-1  INTENSITY, KM/MOL    EXCITATION'
+    dhead = ctr_f(hfind, log) + 1
+    tfind = '......FINISHED VIBRATIONAL SCF......'
+    dtail = ctr_f(tfind, log)
 
-    #Make data list
-    data = log [dhead:dtail]
+    #Make Frequency and Infrared Intensity dictionaries
+    freq = {}
+    ir   = {}
+    for line in log[dhead:dtail]:
+        a = line.split()[2]
+        b = line.split()[0]
+        c = line.split()[1]
+        freq[a] = b
+        ir[a]   = c
 
-    return data, time, cpu
+    return [freq, ir]
