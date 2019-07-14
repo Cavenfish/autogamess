@@ -24,6 +24,7 @@ from .sort_logs         import sort_logs
 from .hes2raman         import hes2raman
 from .input_builder     import input_builder
 from .fill_spreadsheets import fill_spreadsheets
+from .get_data          import get_data
 
     #Multi-function Modules
-from .get_data      import *
+from .data_finder       import *
