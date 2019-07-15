@@ -7,10 +7,8 @@ from scipy.spatial import distance
 from .config import *
 
 def comp(filename):
-    #Open to read Log file, then close to protect file
-    f=open(filename, 'r')
-    log = f.readlines()
-    f.close()
+    #Read in contents of log file
+    log = read_file(filename)
 
     #Get end of log file, for finding time and cpu
     e   = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
@@ -35,10 +33,8 @@ def optimization(filename):
     """
 
     """
-    #Open to read Log file, then close to protect file
-    f=open(filename, 'r')
-    log = f.readlines()
-    f.close()
+    #Read in contents of log file
+    log = read_file(filename)
 
     #Grabs 'Equil' phrase index
     efind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
@@ -96,10 +92,8 @@ def hessian(filename):
     """
 
     """
-    #Open to read Log file, then close to protect file
-    f=open(filename, 'r')
-    log = f.readlines()
-    f.close()
+    #Read in contents of log file
+    log = read_file(filename)
 
     #Get end of log file, for finding time and cpu
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
@@ -151,10 +145,8 @@ def raman(filename):
     """
 
     """
-    #Open to read Log file, then close to protect file
-    f=open(filename, 'r')
-    log = f.readlines()
-    f.close()
+    #Read in contents of log file
+    log = read_file(filename)
 
     #Get end of log file, for finding time and cpu
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
@@ -198,10 +190,8 @@ def raman(filename):
 def vscf(filename):
     """
     """
-    #Open to read Log file, then close to protect file
-    f=open(filename, 'r')
-    log = f.readlines()
-    f.close()
+    #Read in contents of log file
+    log = read_file(filename)
 
     #Get end of log file, for finding time and cpu
     efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
