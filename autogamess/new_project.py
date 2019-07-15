@@ -81,8 +81,8 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     os.makedirs(solved)
     os.makedirs(xldir)
 
-    #Read in csv file
-    df = pd.read_csv(csvfile)
+    #Read in csv file or Pandas DataFrame
+    df = check_data_type(csvfile)
 
     #Make lists of species, run-types, basis_sets, theories
     runtyps    = [str(x) + '/' for x in list(df['Run Types'].dropna())]
