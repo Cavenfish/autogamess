@@ -92,3 +92,9 @@ def check_data_type(data):
         df = data
 
     return df
+
+def read_file(file):
+    f=open(file, 'r')
+    r=f.readlines()
+    f.close()
+    return r
