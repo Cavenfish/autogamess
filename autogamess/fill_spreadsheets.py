@@ -208,9 +208,13 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
         with pd.ExcelWriter(sheetsdir + dir + '.xlsx', engine='openpyxl') as writer:
             writer.book = book
             writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
-            df[opt].to_excel(writer, sheet_name=opt, startrow=6)
-            df[hes].to_excel(writer, sheet_name=hes, startrow=6)
-            df[ram].to_excel(writer, sheet_name=ram, startrow=6)
-            df[vsc].to_excel(writer, sheet_name=vsc, startrow=6)
+            if opt in df:
+                df[opt].to_excel(writer, sheet_name=opt, startrow=6)
+            if hes in df:
+                df[hes].to_excel(writer, sheet_name=hes, startrow=6)
+            if ram in df:
+                df[ram].to_excel(writer, sheet_name=ram, startrow=6)
+            if vsc in df:
+                df[vsc].to_excel(writer, sheet_name=vsc, startrow=6)
 
     return
