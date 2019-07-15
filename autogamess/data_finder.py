@@ -171,17 +171,25 @@ def raman(filename):
     if check_if_exists(filename, ctr_f(hfind, log), ctr_f(tfind, log)):
         return (0,0,0)
 
-    #Make data dictionary
-    data = {}
-    for line in log[dhead:dtail]:
-        a = line.split()[5]
-        b = line.split()[2]
-        if b not in data:
-            data[b] = [a]
-        else:
-            data[b] += [a]
+    ram   = ctr_f_all('RAMAN ACTIVITY:', log)
+    sym  = ctr_f_all('SYMMETRY:',     log)
 
-    return data
+    temp1 = flatten([x.split() for x in ram])
+    temp2 = flatten([x.split() for x in sym])
+
+    while 'I' in temp1:
+        i           = temp1.index('I')
+        temp1[i-1] *= -1
+        del(temp1[i])
+
+    ram = {}
+    for a,b in zip(temp1[modes:],temp2[modes:]):
+        if b not in freq:
+            ram[b] = [a]
+        else:
+            ram[b] += [a]
+
+    return ram
 
 #---------------------------------------------------------------------
 #                           VSCF FUNCTION
