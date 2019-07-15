@@ -181,21 +181,19 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
 
                 vscf_freq = data.vscf_freq
                 for key in vscf_freq:
-                    for i in range(len(vscf_freq[key])):
-                        vi = '(' + str(key) + ')VSCF Frequency '
-                        if vi not in df[vsc]:
-                            df[vsc][vi] = np.nan
-                        temp[vi] = vscf_freq[key][i]
-                        df[vsc].update(temp)
+                    vi = '(' + str(key) + ')VSCF Frequency '
+                    if vi not in df[vsc]:
+                        df[vsc][vi] = np.nan
+                    temp[vi] = vscf_freq[key]
+                    df[vsc].update(temp)
 
                 vscf_ir = data.vscf_ir
                 for key in vscf_ir:
-                    for i in range(len(vscf_ir[key])):
-                        vi = '(' + str(key) + ')VSCF IR '
-                        if vi not in df[vsc]:
-                            df[vsc][vi] = np.nan
-                        temp[vi] = vscf_ir[key][i]
-                        df[vsc].update(temp)
+                    vi = '(' + str(key) + ')VSCF IR '
+                    if vi not in df[vsc]:
+                        df[vsc][vi] = np.nan
+                    temp[vi] = vscf_ir[key]
+                    df[vsc].update(temp)
 
                 temp[rt] = data.time
                 temp[cp] = data.cpu
