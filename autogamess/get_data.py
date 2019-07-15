@@ -1,4 +1,3 @@
-#import cclib
 from .config import *
 from .data_finder import *
 
@@ -7,8 +6,6 @@ class DATA:
         return
 
 def get_data(filename):
-    #parser = cclib.io.ccopen(filename)
-    #data   = parser.parse()
     data    = DATA()
 
     if '_opt' in filename:
