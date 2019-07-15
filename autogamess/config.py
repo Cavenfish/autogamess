@@ -98,3 +98,8 @@ def read_file(file):
     r=f.readlines()
     f.close()
     return r
+
+def get_gamess_input(command, doc):
+    i = ctr_f(command, doc)
+    j = ctr_f(command, doc[i].split())
+    return doc[i].split()[j].split('=')[1] 
