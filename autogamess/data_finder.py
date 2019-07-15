@@ -221,7 +221,7 @@ def vscf(filename):
     freq = {}
     ir   = {}
     for line in log[dhead:dtail]:
-        a = line.split()[2]
+        a = line.split()[2] + ' ' + line.split()[3] + ' ' + line.split()[4]
         b = line.split()[0]
         c = line.split()[1]
         freq[a] = b
