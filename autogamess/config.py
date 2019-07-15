@@ -74,3 +74,21 @@ def flatten(array):
     for i in array:
         r += i
     return r
+
+def check_data_type(data):
+    #Check if data is in CSV format
+    if '.csv' in data:
+        df = pd.read_csv(data)
+
+    #Terminates function with error message if data format not acceptable
+    elif type(data) is not type(pd.DataFrame()):
+        print(error_head)
+        print("Your data is not in CSV or Pandas DataFrame Format")
+        print(error_tail)
+        sys.exit()
+
+    #If data already DataFrame format, changes its name to df
+    else:
+        df = data
+
+    return df
