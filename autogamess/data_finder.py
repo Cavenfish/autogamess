@@ -184,7 +184,7 @@ def raman(filename):
 
     ram = {}
     for a,b in zip(temp1[modes:],temp2[modes:]):
-        if b not in freq:
+        if b not in ram:
             ram[b] = [a]
         else:
             ram[b] += [a]
