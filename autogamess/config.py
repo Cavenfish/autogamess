@@ -19,29 +19,6 @@ basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                 ' $BASIS GBASIS=basis $END\n',
                 ' $DATA\n')
 
-#Dictionary for theory levels and their input parameters
-theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
-               'MP2': 'MPLEVL=2',
-               'CCSD-T': 'CCTYP=CCSD(T)',
-               'CCSD2-T': 'CCTYP=CR-CCL',
-               'CCSD': 'CCTYP=CCSD',
-               'BLYP': 'DFTTYP=BLYP',
-               'PBE': 'DFTTYP=PBE',
-               'PBE0': 'DFTTYP=PBE0',
-               'M06': 'DFTTYP=M06'}
-
-#Basis Dictionary
-basis_dict = {'may-cc-pVDZ': 'may-cc-pv(d+d)z',
-              'may-cc-pVTZ': 'may-cc-pv(t+d)z',
-              'may-cc-pVQZ': 'may-cc-pv(q+d)z',
-              'jun-cc-pVDZ': 'jun-cc-pv(d+d)z',
-              'jun-cc-pVTZ': 'jun-cc-pv(t+d)z',
-              'jun-cc-pVQZ': 'jun-cc-pv(q+d)z',
-              'jul-cc-pVDZ': 'jul-cc-pv(d+d)z',
-              'jul-cc-pVTZ': 'jul-cc-pv(t+d)z',
-              'jul-cc-pVQZ': 'jul-cc-pv(q+d)z',}
-
-
 #Basic functions used throughout code-----------------------------------
 def check_if_exists(filename, *args):
     for arg in args:
