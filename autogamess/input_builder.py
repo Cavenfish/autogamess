@@ -106,18 +106,20 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
             molecule   = filename.split(_)[1]
             atoms      = [getattr(el,x) for x in molecule if not x.isdigit()]
             elements   = [x for x in molecule if not x.isdigit()]
+            if basis_name in basis_dict:
+                basis_name = basis_dict[basis_name]
             basis = bse.get_basis(basis_name, elements=elements,
-                                  fmt='gamess_us', header=False)
+                                  fmt='gamess_us', header=False).split('\n')
             basis[0] = coords[0]
 
             for atom in atoms:
-                name = atom.Name.toupper()
+                name = atom.Name.upper()
                 sym  = atom.Symbol
                 i = ctr_f(name, basis)
                 j = ctr_f(sym, coords)
-                basis[i] = coords[j]
+                basis[i] = coords[j].strip('\n')
 
-            f.writelines(coords)
+            f.write('\n'.join(basis))
             f.close()
         else:
             f.writelines(coords)
