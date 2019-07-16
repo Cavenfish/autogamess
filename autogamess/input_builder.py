@@ -83,6 +83,14 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         #Replace 'theory' with proper input parameter
         params[i]       = basic_params[i].replace('theory', theo)
 
+        #Add extra input lines needed for SCS-MP2 and CCSD2-T
+        if 'CCSD2-T' in filename.split(_)[2]:
+            params.insert(ctr_f('$DATA', params)-1,
+                          ' $CCINP MAXCC=100 MAXCCL=100 $END\n')
+        if 'SCS' in filename.split(_)[2]:
+            params.insert(ctr_f('$DATA', params)-1,
+                          ' $MP2 SCSPT=SCS $END\n')
+
         #Fill in basis parameter for GAMESS(us) internal basis sets
         if filename.split(_)[3] in basis_sets:
             i               = ctr_f('=basis', basic_params)
