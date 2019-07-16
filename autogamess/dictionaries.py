@@ -25,7 +25,8 @@ basis_dict = {'may-cc-pVDZ': 'may-cc-pv(d+d)z',
               'jun-cc-pVQZ': 'jun-cc-pv(q+d)z',
               'jul-cc-pVDZ': 'jul-cc-pv(d+d)z',
               'jul-cc-pVTZ': 'jul-cc-pv(t+d)z',
-              'jul-cc-pVQZ': 'jul-cc-pv(q+d)z',}
+              'jul-cc-pVQZ': 'jul-cc-pv(q+d)z',
+              'Sadlej-pVTZ': 'sadlej pvtz'}
 
 #Molecule dictionary
 molecule_dictionary ={
