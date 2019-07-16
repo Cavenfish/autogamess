@@ -87,7 +87,24 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         if filename.split(_)[3] in basis_sets:
             i               = ctr_f('=basis', basic_params)
             bset            = filename.split(_)[3]
-            params[i]       = basic_params[i].replace('basis', bset)
+            if '6-31' in bset:
+                pople = (' $BASIS GBASIS=N' + bset.split('-')[1] +
+                         ' NGAUSS=6 NDFUNC=' + bset.split('-')[3].strip('d')+
+                         ' NPFUNC=' + bset.split('-')[4].strip('p')+
+                         ' $END\n')
+                if 'pG' in bset:
+                    pople = (' $BASIS GBASIS=N' + bset.split('-')[1] +
+                             ' NGAUSS=6 NDFUNC=' + bset.split('-')[3].strip('d')+
+                             ' NPFUNC=' + bset.split('-')[4].strip('p')+ '\n'+
+                             ' DIFFSP=.TRUE. $END\n')
+                if 'ppG' in bset:
+                    pople = (' $BASIS GBASIS=N' + bset.split('-')[1] +
+                             ' NGAUSS=6 NDFUNC=' + bset.split('-')[3].strip('d')+
+                             ' NPFUNC=' + bset.split('-')[4].strip('p')+ '\n'+
+                             ' DIFFS=.TRUE. DIFFSP=.TRUE. $END\n')
+                params[i] = pople
+            else:
+                params[i]       = basic_params[i].replace('basis', bset)
         #If not internal delete basis line from input file
         else:
             i               = ctr_f('=basis', basic_params)
@@ -100,7 +117,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         #Get initial coordinates from initial_coords_dict
         coords = initial_coords_dict[filename.split(_)[1]]
 
-        #Useing EMSL put in external basis sets
+        #Using EMSL put in external basis sets
         if filename.split(_)[3] in ebasis_sets:
             basis_name = filename.split(_)[3]
             molecule   = filename.split(_)[1]
