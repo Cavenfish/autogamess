@@ -1,6 +1,6 @@
 from .config import *
 import pkg_resources
-from .molecule_dictionary import molecule_dictionary
+from .dictionaries import *
 import elements.elements as el
 
 def input_builder(inputfile, save_dir, initial_coords_dict=None,
