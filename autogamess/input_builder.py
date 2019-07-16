@@ -93,7 +93,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
         #Fill in basis parameter for GAMESS(us) internal basis sets
         if filename.split(_)[3] in basis_sets:
-            i               = ctr_f('=basis', basic_params)
+            i               = ctr_f('=basis', params)
             bset            = filename.split(_)[3]
             if '6-31' in bset:
                 pople = (' $BASIS GBASIS=N' + bset.split('-')[1] +
@@ -112,10 +112,10 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                              ' DIFFS=.TRUE. DIFFSP=.TRUE. $END\n')
                 params[i] = pople
             else:
-                params[i]       = basic_params[i].replace('basis', bset)
+                params[i]       = params[i].replace('basis', bset)
         #If not internal delete basis line from input file
         else:
-            i               = ctr_f('=basis', basic_params)
+            i               = ctr_f('=basis', params)
             del params[i]
 
         #Write parameters, and project title
