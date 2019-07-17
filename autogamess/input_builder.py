@@ -139,9 +139,9 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
             for atom in atoms:
                 name = atom.Name.upper()
-                sym  = atom.Symbol
+                symb = atom.Symbol
                 i = ctr_f(name, basis)
-                j = ctr_f(sym, coords)
+                j = ctr_f(symb, coords[1:]) + 1 
                 basis[i] = coords[j].strip('\n')
 
             f.write('\n'.join(basis))
