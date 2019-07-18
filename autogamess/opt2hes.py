@@ -110,8 +110,8 @@ def opt2hes(optfile, logfile):
         index  = ctr_f(key.replace(' ',''), temp)
         j      = i + index
         inp[j] = atomdict[key]
-        data   = inp[j+1:]
-        i      = j+1
+        del data[index]
+        i     += 1
 
     #Open, write, and close input file
     hesfile = optfile.replace(opt, hes)
