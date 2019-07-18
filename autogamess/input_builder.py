@@ -134,14 +134,14 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
             if basis_name in basis_dict:
                 basis_name = basis_dict[basis_name]
             basis = bse.get_basis(basis_name, elements=elements,
-                                  fmt='gamess_us', header=False).split('\n')
+                                  fmt='gamess_us', header=False).split('\n')[1:]
             basis[0] = coords[0]
 
             for atom in atoms:
                 name = atom.Name.upper()
                 symb = atom.Symbol
                 i = ctr_f(name, basis)
-                j = ctr_f(symb, coords[1:]) + 1 
+                j = ctr_f(symb, coords[1:]) + 1
                 basis[i] = coords[j].strip('\n')
 
             f.write('\n'.join(basis))
