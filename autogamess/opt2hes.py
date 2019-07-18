@@ -103,7 +103,7 @@ def opt2hes(optfile, logfile):
         inp.insert(ctr_f('$SCF', inp), force)
 
     #Replace coordinates in file
-    i    = ctr_f('$DATA')
+    i    = ctr_f('$DATA', inp)
     data = inp[i:-1]
     for key in atomdict:
         temp   = [x.replace(' ', '') for x in data]
