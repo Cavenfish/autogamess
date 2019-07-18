@@ -104,13 +104,13 @@ def opt2hes(optfile, logfile):
 
     #Replace coordinates in file
     i    = ctr_f('$DATA', inp)
-    data = inp[i:-1]
+    data = inp[i:]
     for key in atomdict:
         temp   = [x.replace(' ', '') for x in data]
         index  = ctr_f(key.replace(' ',''), temp)
         j      = i + index
         inp[j] = atomdict[key]
-        data   = inp[j+1:-1]
+        data   = inp[j+1:]
         i      = j+1
 
     #Open, write, and close input file
