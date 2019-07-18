@@ -148,7 +148,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
             f.close()
         else:
             f.writelines(coords)
-            f.write('$END')
+            f.write('\n$END')
             f.close()
 
     return
