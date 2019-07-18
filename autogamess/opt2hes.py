@@ -66,20 +66,6 @@ def opt2hes(optfile, logfile):
 
     #Assemble list of optimized geometry coordinates and get size
     coords = log[dhead : dtail]
-    n      = dtail - dhead
-
-    #Generate dictionary of atom coordinates
-    atomdict = {}
-
-    #Fill in atom dictionary
-    for i in np.arange(0, n, 1):
-
-        #Define key/value for atomdict
-        key   = coords[i].split('.0')[0]
-        value = coords[i]
-
-        #Fill dictionary
-        atomdict[ key ] = value
 
     #Open, read in, and close input file
     f   = open(optfile, 'r')
@@ -105,13 +91,12 @@ def opt2hes(optfile, logfile):
     #Replace coordinates in file
     i    = ctr_f('$DATA', inp)
     data = inp[i:]
-    for key in atomdict:
+    for coord in coords:
         temp   = [x.replace(' ', '') for x in data]
-        index  = ctr_f(key.replace(' ',''), temp)
-        j      = i + index
-        inp[j] = atomdict[key]
+        index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
+        j      = ctr_f(data[index], inp)
+        inp[j] = coord
         del data[index]
-        i     += 1
 
     #Open, write, and close input file
     hesfile = optfile.replace(opt, hes)
