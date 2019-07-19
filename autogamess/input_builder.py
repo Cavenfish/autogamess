@@ -150,7 +150,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 j = ctr_f(symb, coords[1:]) + 1
                 basis[i] = coords[j].strip('\n')
 
-            basis.insert(-1,'\n')
+            basis[-1] = '\n' + basis[-1]
             f.write('\n'.join(basis))
             f.close()
         else:
