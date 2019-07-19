@@ -35,6 +35,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 str(pkg_resources.require("autogamess")[0].version) )
     ibv     = 'AGv' + version.split(' ')[-1].replace('.', '-')
     opt     = '_opt.inp'
+    numgrd  = 'NUMGRD=.T.'
 
     #Checks if initial_coords_dict is given
     if initial_coords_dict is None:
@@ -82,6 +83,11 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
         #Replace 'theory' with proper input parameter
         params[i]       = basic_params[i].replace('theory', theo)
+
+        #Add numerical gradients in cctyps if not already there
+        if 'CCTYP=' in theo:
+            if ctr_f(numgrd, params) == -1:
+                params[i] += ' NUMGRD=.T.'
 
         #Add extra input lines needed for SCS-MP2 and CCSD2-T
         if 'CCSD2-T' in filename.split(_)[2]:
