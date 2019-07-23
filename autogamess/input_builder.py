@@ -147,8 +147,9 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 name = atom.Name.upper()
                 symb = atom.Symbol
                 i = ctr_f(name, basis)
-                j = ctr_f(symb, coords[1:]) + 1
+                j = ctr_f(symb, coords[a:]) + a
                 basis[i] = coords[j].strip('\n')
+                a=j
 
             basis[-1] = '\n' + basis[-1]
             f.write('\n'.join(basis))
