@@ -145,25 +145,25 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
             for atom in atoms:
                 name = atom.Name.upper()
-                symb = atom.Symbol
-                i = ctr_f(name, basis)
+                symb = atom.Symbol + str(atom.AtomicNumber)
+                i = ctr_f(name, basis) + 1
                 x = []
-                while basis[i] != '':
-                    x.append(basis[i])
+                while (basis[i] != '') and (basis[i] != '$END'):
+                    x.append(basis[i]+'\n')
                     i+=1
 
-                j=1
-                while ctr_f(symb, coords[j:]) != -1:
-                    i = ctr_f(symb, coords[j:]) + 1
-                    coords = coords[0:i] + x + coords[i:]
-                    j = i + len(x)
+                tmp = coords.copy()
+                j   = 1
+                for i in range(len(coords)):
+                    if symb == coords[i].split('.')[0].replace(' ',''):
+                        tmp[i+j:i+j] = x
+                        j+=len(x)
+                        tmp[i+j:i+j] = '\n'
+                        j+=1
+                coords = tmp
 
-            f.writelines(coords)
-            f.write('\n$END')
-            f.close()
-        else:
-            f.writelines(coords)
-            f.write('$END')
-            f.close()
-
+        f.writelines(coords)
+        f.write('$END')
+        f.close()
+        
     return
