@@ -147,12 +147,19 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 name = atom.Name.upper()
                 symb = atom.Symbol
                 i = ctr_f(name, basis)
-                j = ctr_f(symb, coords[a:]) + a
-                basis[i] = coords[j].strip('\n')
-                a=j
+                x = []
+                while basis[i] != '':
+                    x.append(basis[i])
+                    i+=1
 
-            basis[-1] = '\n' + basis[-1]
-            f.write('\n'.join(basis))
+                j=1
+                while ctr_f(symb, coords[j:]) != -1:
+                    i = ctr_f(symb, coords[j:]) + 1
+                    coords = coords[0:i] + x + coords[i:]
+                    j = i + len(x)
+
+            f.writelines(coords)
+            f.write('\n$END')
             f.close()
         else:
             f.writelines(coords)
