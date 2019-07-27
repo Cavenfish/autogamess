@@ -55,7 +55,8 @@ def hes2raman(hesfile, datfile):
     f.close()
 
     #checks if they are in file
-    check_if_in(s,e, look_here=grab)
+    if check_if_in(datfile, ctr_f(s,grab), ctr_f(e,grab)):
+        raise ValueError()
 
     #Define start and end indexes
     start = grab.index(s)
