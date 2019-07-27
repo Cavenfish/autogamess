@@ -30,7 +30,7 @@ an optimization and hessian calculation be performed on the molecule, making aut
 implemented individually by each research group utilizing the GAMESS(us) software. This slows scientific progress down, and an automation software written in a language extremely simple and well adopted by scientists, such as Python, is an attractive solution to the problem.
 AutoGAMESS is providing an open-source Python based software for automating conversion between Optimization calculations to
 Hessian calculations and then to Raman calculations. It also offers automation of data collection from the output files,
-for quick tabular data read outs of each calculation.
+for quick tabular data read outs of each calculation. AutoGAMESS has currently been used for a study presented at the 30th Annual Conference on Computation Physics CCP2018, its proceedings is soon to be published. AutoGAMESS is also currently being used in multiple other computational chemistry projects, soon to be published by scientists at the University of Central Florida. 
 
 Functions:
 
