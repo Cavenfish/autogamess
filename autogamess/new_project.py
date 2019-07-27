@@ -13,19 +13,33 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     maindir: string
         A directory string (including the final `/`) that points to the
         directory that the project tree will be spawned in.
-    txtfile: string
-        A directory string (including the final `.txt`) that points to the
+    csvfile: string
+        A directory string (including the final `.csv`) that points to the
         text file containing project information. Read module documentation
-        for txt file format.
-    title: string
+        for csv file format.
+    initial_coords_dict: dictionary [Optional]
+        This should be a dictionary with the key being the specie and the
+        value being a list that of its inital coordinates.
+    title: string [Optional]
         A directory string (including the final `/`) that will be used as
         the head of project directory tree.
+    make_inputs: boolean True/False [Optional]
+        if True then new_project will call input_builder at the end.
+
+    Notes 1
+    ----------
+    If the molecules you wish to build are not already defined in the
+    general autogamess coordinate dictionary, then initial_coords_dict
+    must be passed.
+
+    To see the autogamess coordianate dictionary simply print out
+    >>> ag.dictionaries.molecule_dictionary
 
     Returns
     ----------
     This function returns nothing
 
-    Notes
+    Notes 2
     ----------
     The format of the spawned directory tree is as follows:
 
@@ -53,9 +67,13 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
 
     Examples
     ----------
-    >>> import new_project as np
-    >>> txtfile = './somefile.txt'
-    >>> np.new_project('./', txtfile, title='Example/')
+    >>> import autogamess as ag
+    >>>
+    >>> csvfile = './input.csv'
+    >>> maindir = './'
+    >>> title   = 'Project Title/'
+    >>>
+    >>> ag.new_project(maindir, csvfile, title=title)
     >>>
     """
     #Spreadsheet header phrase
@@ -144,8 +162,8 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     #Run Input Builder function
     if make_inputs is True:
         save_dir = maindir + 'inputs/'
-        input_builder(csvfile, ebasis_dir, save_dir,
-                      initial_coords_dict, title.replace('/', '\n'))
+        input_builder(csvfile, save_dir, initial_coords_dict,
+                     proj_title = title.replace('/', '\n'))
 
 
     return

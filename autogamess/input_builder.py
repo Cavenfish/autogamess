@@ -10,13 +10,32 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
     Parameters
     ----------
+    inputfile: string
+        This should be a full directory string that points to the input
+        csv file.
+    save_dir: string
+        this should be a full directory string that points to the directory
+        you wish to save the inputs in.
+    initial_coords_dict: dictionary [Optional]
+        This should be a dictionary with the key being the specie and the
+        value being a list that of its inital coordinates.
+    proj_title: string [Optional]
+        This should be a string ending with `\n`
 
+    Notes 1
+    ----------
+    If the molecules you wish to build are not already defined in the
+    general autogamess coordinate dictionary, then initial_coords_dict
+    must be passed.
+
+    To see the autogamess coordianate dictionary simply print out
+    >>> ag.dictionaries.molecule_dictionary
 
     Returns
     ----------
     This function returns nothing
 
-    Notes
+    Notes 2
     ----------
     This function uses the EMSL Basis Set Exchange module to import
     external basis sets[1]. This function also uses the Periodic_Elements
@@ -28,6 +47,14 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
 
     Examples
     ----------
+    >>> import autogamess as ag
+    >>>
+    >>> csvfile = './input.csv'
+    >>> savedir = './'
+    >>> title   = 'Project\n'
+    >>>
+    >>> ag.input_builder(csvfile, savedir, proj_title=title)
+    >>>
     """
     #Variable Declrations
     _       = '_'
@@ -165,5 +192,5 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         f.writelines(coords)
         f.write('$END')
         f.close()
-        
+
     return
