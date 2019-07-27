@@ -14,7 +14,16 @@ theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
                'M11': 'DFTTYP=M11',
                'M11-L': 'DFTTYP=M11-L',
                'SCS-MP2': 'MPLEVL=2',
-               'MP2-SCS': 'MPLEVL=2',}
+               'MP2-SCS': 'MPLEVL=2',
+               'LCCD': 'CCTYP=LCCD',
+               'CCD': 'CCTYP=CCD',
+               'R-CCSD-T': 'CCTYP=R-CC',
+               'CR-CCSD-T': 'CCTYP=CR-CC',
+               'CCSD-TQ': 'CCTYP=CCSD(TQ)',
+               'CR-CCSD-TQ': 'CCTYP=CR-CC(Q)',
+               'EOMCCSD': 'CCTYP=EOM-CCSD',
+               'CR-EOMCCSD-T': 'CCTYP=CR-EOM',
+               'CR-EOML': 'CCTYP=CR-EOML'}
 
 #Basis Dictionary
 basis_dict = {'may-cc-pVDZ': 'may-cc-pv(d+d)z',
