@@ -62,7 +62,8 @@ def opt2hes(optfile, logfile):
     dhead = ctr_f(hfind, log) + 4
 
     #Checks to make sure head and tail exist
-    check_if_exists(logfile, ctr_f(hfind, log))
+    if check_if_exists(logfile, ctr_f(hfind, log)):
+        raise ValueError()
 
     #Assemble list of optimized geometry coordinates and get size
     coords = log[dhead : dtail]
