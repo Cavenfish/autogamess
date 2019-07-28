@@ -55,7 +55,7 @@ Some molecules are already compiled within AutoGAMESS default dictionary however
 
 A basic script for generating a new project directory, sorting already existing logs into it, then filling the spreadsheets with the data in the existing output files. For this script to work properly, file names must adhere to the AutoGAMESS file naming convention
 
-`[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].[inp/log]`
+`[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].[inp/log/dat]`
 
 The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reades information from file names and requires the underscore separates the information something must be present there to prevent confusion. The Abbreviated Run Types are,
 
