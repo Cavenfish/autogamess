@@ -49,4 +49,55 @@ initial_coords_dict is another input parameter that requires specific formatting
 
 `initial_coords_dict = {key : value}`
 
-Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS. 
+Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS.
+
+# Examples of Common AutoGAMESS Utilization Methods
+
+A basic script for converting all files within a directory into their next calculation type. Also separates the files that GAMESS(us) calculation did not terminate successfully.
+
+```python
+import os
+import autogamess as ag
+
+idir = './inps/'
+ldir = './logs-dats/'
+done = './done/'
+fail = './failed/'
+iext = '.inp'
+lext = '.log'
+dext = '.dat'
+
+for file in os.listdir(ldir):
+    if lext not in file:
+        continue
+
+    if '_opt' in file:     
+        inp = idir + file.replace(lext, iext)
+        dat = ldir + file.replace(lext, dext)
+        log = ldir + file
+        try:
+            ag.opt2hes(inp, log)
+        except:
+            os.rename(inp, inp.replace(idir, fail))
+            os.rename(log, log.replace(ldir, fail))
+            os.rename(dat, dat.replace(ldir, fail))
+            continue
+        os.rename(inp, inp.replace(idir, done))
+        os.rename(log, log.replace(ldir, done))
+        os.rename(dat, dat.replace(ldir, done))
+
+    if '_hes' in file:
+        inp = idir + file.replace(lext, iext)
+        dat = ldir + file.replace(lext, dext)
+        log = ldir + file
+        try:
+            ag.hes2raman(inp, dat)
+        except:
+            os.rename(inp, inp.replace(idir, fail))
+            os.rename(log, log.replace(ldir, fail))
+            os.rename(dat, dat.replace(ldir, fail))
+            continue
+        os.rename(inp, inp.replace(idir, done))
+        os.rename(log, log.replace(ldir, done))
+        os.rename(dat, dat.replace(ldir, done))
+```
