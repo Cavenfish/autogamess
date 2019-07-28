@@ -1,6 +1,6 @@
 # AutoGAMESS
 
-This is a python module for automating Raman calculations using the GAMESS(us) Quantum Chemistry software.
+This is a python module for automating Raman calculations using the GAMESS(us) Quantum Chemistry software (https://www.msg.chem.iastate.edu/gamess/).
 
 # Installing AutoGAMESS
 
@@ -52,6 +52,37 @@ initial_coords_dict is another input parameter that requires specific formatting
 Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS.
 
 # Examples of Common AutoGAMESS Utilization Methods
+
+A basic script for generating a new project directory, sorting already existing logs into it, then filling the spreadsheets with the data in the existing output files. For this script to work properly, file names must adhere to the AutoGAMESS file naming convention
+
+`[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].inp`
+
+The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reades information from file names and requires the underscore separates the information something must be present there to prevent confusion. The Abbreviated Run Types are,
+
+`Optimization = opt`
+
+`Hessian = hes`
+
+`Raman = raman`
+
+`VSCF =  vscf`
+
+```python
+import autogamess as ag
+
+maindir = './'
+csvfile = './input.csv'
+title   = 'Project Title/'
+
+ag.new_project(maindir, csvfile, title=title)
+
+projdir = maindir + title
+logsdir = './Logs/'
+
+ag.sort_logs(projdir, logsdir)
+
+ag.fill_spreadsheets(projdir)
+```
 
 A basic script for converting all files within a directory into their next calculation type. Also separates the files that GAMESS(us) calculation did not terminate successfully.
 
