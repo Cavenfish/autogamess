@@ -6,14 +6,14 @@ This is a python module for automating Raman calculations using the GAMESS(us) Q
 
 AutoGAMESS can be installed using
 
-`py -m pip install autogamess --user`
+`pip install autogamess`
 
 # Input Descriptions
-All user functions contian doc strings with examples and explanations of parameters and returns. However, a few functions require specific inputs not fully explained in the doc strings. Such as the functions:
+All user functions contain doc strings with examples and explanations of parameters and returns. However, a few functions require specific inputs not fully explained in the doc strings. Such as the functions:
 * new_project
 * input_builder
 
-The CSV file rquired by both functions must have the following format. The first line must be the header, written exactly as follows.
+The CSV file required by both functions must have the following format. The first line must be the header, written exactly as follows.
 
 `Species,Theory,Basis Sets,External Basis Sets,Run Types`
 
@@ -39,7 +39,7 @@ All lines after the header should give input as 1 item per column per line. As s
 
 External basis sets should be written in the same format as they as required by ESML basis_set_exchange (https://github.com/MolSSI-BSE/basis_set_exchange).
 
-initial_coords_dict is another input parameter that requires specific formatting. The dictioanry is meant to give the intial guess coordinates for a particular symmetry of a molecule. This should be a python dictionary that has the Species (molecule) name as the key and a list with the following format.
+initial_coords_dict is another input parameter that requires specific formatting. The dictionary is meant to give the initial guess coordinates for a particular symmetry of a molecule. This should be a python dictionary that has the Species (molecule) name as the key and a list with the following format.
 
 `key = 'H2O'`
 
@@ -57,7 +57,7 @@ A basic script for generating a new project directory, sorting already existing 
 
 `[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].[inp/log/dat]`
 
-The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reades information from file names and requires the underscore separates the information something must be present there to prevent confusion. The Abbreviated Run Types are,
+The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reads information from file names and requires the underscore separates the information something must be present there to prevent confusion. The Abbreviated Run Types are,
 
 `Optimization = opt`
 
