@@ -1,6 +1,6 @@
 # AutoGAMESS
 
-This is a python module for automating Raman calculations using the GAMESS(us) Quantum Chemistry software (https://www.msg.chem.iastate.edu/gamess/).
+This is a python module for automating Raman calculations using the [GAMESS(us)](https://www.msg.chem.iastate.edu/gamess/) Quantum Chemistry software.
 
 # Installing AutoGAMESS
 
@@ -318,7 +318,7 @@ All lines after the header should give input as 1 item per column per line. As s
 
 `C2H2,,ACCQ,6-311G2df-2pd`
 
-External basis sets should be written in the same format as they as required by ESML basis_set_exchange (https://github.com/MolSSI-BSE/basis_set_exchange).
+External basis sets should be written in the same format as they as required by ESML [basis_set_exchange](https://github.com/MolSSI-BSE/basis_set_exchange).
 
 initial_coords_dict is another input parameter that requires specific formatting. The dictionary is meant to give the initial guess coordinates for a particular symmetry of a molecule. This should be a python dictionary that has the Species (molecule) name as the key and a list with the following format.
 
