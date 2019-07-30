@@ -1,4 +1,4 @@
-! AutoGAMESS Version 1.0.32
+! AutoGAMESS TEST
 !  by Brian C. Ferrari 
 !
  $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE
