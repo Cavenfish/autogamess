@@ -296,39 +296,38 @@ All user functions contain doc strings with examples and explanations of paramet
 
 The CSV file required by both functions must have the following format. The first line must be the header, written exactly as follows.
 
-`Species,Theory,Basis Sets,External Basis Sets,Run Types`
+| Species | Theory | Basis Sets | External Basis Sets | Run Types |
+| ------- | ------ | ---------- | ------------------- | --------- |
 
 All lines after the header should give input as 1 item per column per line. As shown in the example bellow.
 
-`Species,Theory,Basis Sets,External Basis Sets,Run Types`
+| Species | Theory  | Basis Sets | External Basis Sets | Run Types    |
+| ------- | ------  | ---------- | ------------------- | ---------    |
+| H2O     | B3LYP   | CCD        | may-cc-pVDZ         | Optimization |
+| NH3     | MP2     | CCT        | aug-cc-pV7Z         | Hessian      |
+| HCN     | CCSD-T  | CCQ        | may-cc-pVTZ         | Raman        |
+| H2CO    | PBE     | CC5        | Sadlej-pVTZ         | VSCF         |
+| CH4     | wB97X-D | CC6        | jun-cc-pVQZ         |              |
+| C2H6    | SCS-MP2 | ACCD       | jul-cc-pVTZ         |              |
+| C2H4    | CCSD2-T | ACCT       |                     |              |
+| C2H2    |         | ACCQ       |                     |              |
 
-`H2O,B3LYP,CCD,Roos-Aug-DZ-ANO,Optimization`
 
-`NH3,MP2,CCT,Roos-Aug-TZ-ANO,Hessian`
+Internal basis sets should be written in the same format as they are required by GAMESS(us) inputs.
 
-`HCN,CCSD-T,CCQ,Sadlej-LPolX-fl,Raman`
-
-`H2CO,,CC5,Sadlej-LPolX-dl,VSCF`
-
-`CH4,,CC6,Sadlej-LPolX-ds`
-
-`C2H6,,ACCD,6-311ppG3df-3pd`
-
-`C2H4,,ACCT,6-311G2df-2pd`
-
-`C2H2,,ACCQ,6-311G2df-2pd`
-
-External basis sets should be written in the same format as they as required by ESML [basis_set_exchange](https://github.com/MolSSI-BSE/basis_set_exchange).
+External basis sets should be written in the same format as they as required by ESML [basis_set_exchange](https://github.com/MolSSI-BSE/basis_set_exchange). Some external basis sets have shorthand names built into AutoGAMESS to prevent special characters such as `(, ), +, etc.` from being put into file names. Notice this is applicable to `may-cc-pV(D+d)Z` written simply as `may-cc-pVDZ` similarly for the other calendar basis sets.
 
 initial_coords_dict is another input parameter that requires specific formatting. The dictionary is meant to give the initial guess coordinates for a particular symmetry of a molecule. This should be a python dictionary that has the Species (molecule) name as the key and a list with the following format.
 
-`key = 'H2O'`
+```python
+key = 'H2O'
 
-`value = ['CnV 2,\n','\n',
-' O           8.0  -0.0000000000   0.0000000000  -0.0123155409\n',
-' H           1.0  -0.0000000000  -0.7568005555   0.5926935705\n']`
+value = ['CnV 2,\n','\n',
+         ' O           8.0  -0.0000000000   0.0000000000  -0.0123155409\n',
+         ' H           1.0  -0.0000000000  -0.7568005555   0.5926935705\n']
 
-`initial_coords_dict = {key : value}`
+initial_coords_dict = {key : value}
+```
 
 Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS.
 
