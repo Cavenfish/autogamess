@@ -413,3 +413,16 @@ for file in os.listdir(ldir):
         os.rename(log, log.replace(ldir, done))
         os.rename(dat, dat.replace(ldir, done))
 ```
+
+A less common method of utilizing AutoGAMESS is to parse any single output file for data. The get_data function which is typically meant to be an internally used fucntion can be called by the user. This will retrieve the data from the file, it will read the file name to get the run type.
+
+```python
+import autogamess as ag
+
+file = 'AG-test_H2O_B3LYP_CCD_opt.log'
+
+data = ag.get_data(file)
+
+lengths = data.bond_lengths
+angles  = data.bond_angles
+```
