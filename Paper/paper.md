@@ -63,7 +63,7 @@ where $\hat{V_1}$ and $\hat{V_2}$ are the normalized vectors for each atoms loca
 
 AutoGAMESS was developed to be versatile in its usability, however the most
 effective method to use AutoGAMESS is the integration of short python scripts
-within shell scripts.  
+within shell scripts. Several of example scripts can be found in the softwares GitHub repository, https://github.com/Cavenfish/autogamess.
 
 # Availability
 This software is distributed under the MIT License and is available from https://github.com/Cavenfish/autogamess
