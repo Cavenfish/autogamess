@@ -9,6 +9,8 @@ AutoGAMESS can be installed using
 `pip install autogamess`
 
 # Function Documentations
+
+### new_project
 `new_project(maindir,csvfile,initial_coords_dict=None,title='Project_Name/', make_inputs=False)`
 
 ```
@@ -84,6 +86,8 @@ This function creates a new directory tree for a GAMESS project, also makes
   >>>
 ```
 
+### input_builder
+
 `input_builder(inputfile, save_dir, initial_coords_dict=None,proj_title=' Your Title Goes Here\n')`
 
 ```
@@ -138,6 +142,8 @@ Examples
 >>>
 ```
 
+### opt2hes
+
 `opt2hes(optfile, logfile)`
 
 ```
@@ -168,6 +174,8 @@ Example
 >>> ag.opt2hes(optfile, logfile)
 >>>
 ```
+
+### hes2raman
 
 `hes2raman(hesfile, datfile)`
 
@@ -200,6 +208,8 @@ Example
 >>>
 ```
 
+### sort_logs
+
 `sort_logs(projdir, logsdir)`
 
 ```
@@ -230,6 +240,8 @@ Examples
 >>>sort_logs(projdir)
 >>>
 ```
+
+### fill_spreadsheets
 
 `fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False)`
 
