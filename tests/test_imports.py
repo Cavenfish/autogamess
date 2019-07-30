@@ -45,12 +45,4 @@ def test_autogamess_module():
     from autogamess import fill_spreadsheets
     from autogamess import get_data
 
-
-if __name__ == "__main__":
-    test_numpy_import()
-    test_scipy_import()
-    test_pandas_import()
-    test_elements_import()
-    test_openpyxl_import()
-    test_basis_set_exchange_import()
-    test_pycurious_modules()
+    return
