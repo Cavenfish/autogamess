@@ -11,7 +11,7 @@ AutoGAMESS can be installed using
 # Function Documentations
 
 ### new_project
-`new_project(maindir,csvfile,initial_coords_dict=None,title='Project_Name/', make_inputs=False)`
+**`new_project(maindir,csvfile,initial_coords_dict=None,title='Project_Name/', make_inputs=False)`**
 
 ```
 This function creates a new directory tree for a GAMESS project, also makes
@@ -88,7 +88,7 @@ This function creates a new directory tree for a GAMESS project, also makes
 
 ### input_builder
 
-`input_builder(inputfile, save_dir, initial_coords_dict=None,proj_title=' Your Title Goes Here\n')`
+**`input_builder(inputfile, save_dir, initial_coords_dict=None,proj_title=' Your Title Goes Here\n')`**
 
 ```
 This function builds optimization input files.
@@ -144,7 +144,7 @@ Examples
 
 ### opt2hes
 
-`opt2hes(optfile, logfile)`
+**`opt2hes(optfile, logfile)`**
 
 ```
 This function writes a hessian calculation input file using a previously
@@ -177,7 +177,7 @@ Example
 
 ### hes2raman
 
-`hes2raman(hesfile, datfile)`
+**`hes2raman(hesfile, datfile)`**
 
 ```
 This function writes a raman calculation input file using a previously
@@ -210,7 +210,7 @@ Example
 
 ### sort_logs
 
-`sort_logs(projdir, logsdir)`
+**`sort_logs(projdir, logsdir)`**
 
 ```
 This function sorts all the loose log files in the 'Logs' directory.
