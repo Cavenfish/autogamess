@@ -6,11 +6,15 @@ tags:
   - automation
   - raman
   - molecular properties
-author: Brian C. Ferrari
-affiliation: Department of Physics, University of Central Florida, 4111 Libra Drive, Orlando FL 32816
-orcid: 0000-0002-7416-8629
+authors:
+  - name: Brian C. Ferrari
+    orcid: 0000-0002-7416-8629
+    affiliation: "1"
+affiliations:
+  - name: Department of Physics, University of Central Florida, 4111 Libra Drive, Orlando FL 32816
+    index: 1
 geometry: margin=1in
-date: 28 July 2019
+date: 30 July 2019
 bibliography: paper.bib
 ---
 
