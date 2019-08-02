@@ -52,11 +52,11 @@ External basis sets must be a part of ESML Basis Set Exchange [@feller1996role; 
 
 $$ D = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2} $$
 
-While bond angles are calculated using the following equation
+While bond angles are calculated by first perfoming a translation on the cartesian coordinates, of the general form $P(x,y,z)\rightarrow P'(x-a, y-b, z-c)$ where $(a,b,c)$ is the coordinates of a central atom. Then the angle between two atoms with a third as the origin is found using the following equation
 
 $$ A = \arccos{\hat{V_1} \cdot \hat{V_2}} $$
 
-where $\hat{V_1}$ and $\hat{V_2}$ are the normalized vectors for each atoms location in relation to the structures origin.
+where $\hat{V_1}$ and $\hat{V_2}$ are the normalized vectors for each atoms location in relation to the origin.
 
 
 # Use of AutoGAMESS
