@@ -52,19 +52,19 @@ def test_get_data():
     hesdata = ag.get_data(hesfile)
     ramdata = ag.get_data(ramfile)
 
-    bl = {'O-O Bond Length': '0.0', 'O-H Bond Length': '0.9689082029181745',
+    bl = {'O-H Bond Length': '0.9689082029181745',
           'O-2H Bond Length': '0.9689082029181745',
-          'H-O Bond Length': '0.9689082029181745', 'H-H Bond Length': '0.0',
+          'H-O Bond Length': '0.9689082029181745',
           'H-2H Bond Length': '1.513601111',
           '2H-O Bond Length': '0.9689082029181745',
-          '2H-H Bond Length': '1.513601111', '2H-2H Bond Length': '0.0'}
+          '2H-H Bond Length': '1.513601111',}
 
-    ba = {'O-O Bond Angle': '0.0', 'O-H Bond Angle': '2.2351823705521188',
-          'O-2H Bond Angle': '2.2351823705521188',
-          'H-O Bond Angle': '2.2351823705521188', 'H-H Bond Angle': '0.0',
-          'H-2H Bond Angle': '1.8128205660753491',
-          '2H-O Bond Angle': '2.2351823705521188',
-          '2H-H Bond Angle': '1.8128205660753491', '2H-2H Bond Angle': '0.0'}
+    ba = {'H-O-2H Bond Angle': '1.7928060145579967',
+          '2H-O-H Bond Angle': '1.7928060145579967',
+          'O-H-2H Bond Angle': '0.6743933195158983',
+          '2H-H-O Bond Angle': '0.6743933195158983',
+          'O-2H-H Bond Angle': '0.6743933195158983',
+          'H-2H-O Bond Angle': '0.6743933195158983'}
 
     vf = {'A1': ['1658.10', '3748.38'], 'B2': ['3849.75']}
     ir = {'A1': ['1.31680', '0.06712'], 'B2': ['0.46621']}
@@ -77,3 +77,10 @@ def test_get_data():
     assert ramdata.raman        == ra
 
     return
+
+def test_find_bond_angle():
+    a = ag.make_xzy(['1', '5', '4'])
+    b = ag.make_xzy(['3', '1', '4'])
+    o = ag.make_xzy(['3', '5', '4'])
+
+    assert ag.find_bond_angle(o,a,b) == (np.pi/2)
