@@ -77,10 +77,17 @@ def optimization(filename):
         for key2 in matrix:
             a1     = make_xzy(matrix[key] )
             a2     = make_xzy(matrix[key2])
-            angle  = angle_between(a1, a2)
+            if a1 == a2:
+                continue
             length = distance.euclidean(a1, a2)
-            angles[key + '-' + key2 + ' Bond Angle']  = str(angle)
             lengths[key + '-' + key2 + ' Bond Length'] = str(length)
+            for key3 in matrix:
+                a3 = make_xzy(matrix[key3])
+                if (a3 == a2) or (a3 == a1):
+                    continue
+                angle  = find_bond_angle(a1, a2, a3)
+                label  = key2 + '-' + key + '-' + key3 + ' Bond Angle'
+                angles[label]  = str(angle)
 
     return [lengths, angles]
 
