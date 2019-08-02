@@ -57,6 +57,11 @@ def angle_between(v1, v2):
     v2hat = v2 / np.linalg.norm(v2)
     return np.arccos(np.clip(np.dot(v1hat, v2hat), -1.0, 1.0))
 
+def find_bond_angle(o,i,j):
+    v1 = np.array(i) - np.array(o)
+    v2 = np.array(j) - np.array(o)
+    return angle_between(v1,v2)
+
 def make_xzy(xyzlist):
     r = (float(xyzlist[0]),
          float(xyzlist[1]),
