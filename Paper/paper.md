@@ -65,6 +65,7 @@ or can be installed through Python's pip install command.
 
 AutoGAMESS requires all the following Python packages:
 
+* Python3.x
 * NumPy
 * SciPy
 * Pandas
