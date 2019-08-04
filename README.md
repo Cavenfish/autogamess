@@ -8,6 +8,8 @@ AutoGAMESS can be installed using
 
 `pip install autogamess`
 
+Python 3.x is required for AutoGAMESS.
+
 # Function Documentations
 
 ### new_project
