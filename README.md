@@ -18,6 +18,12 @@ AutoGAMESS requires all the following Python packages:
 * PeriodicElements
 * openpyxl
 
+# Tests
+
+AutoGAMESS uses pytest for testing, from within the tests directory execute the following to run tests.
+
+`python -m pytest`
+
 # Function Documentations
 
 ### new_project
