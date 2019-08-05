@@ -6,9 +6,17 @@ This is a python module for automating Raman calculations using the [GAMESS(us)]
 
 AutoGAMESS can be installed using
 
-`pip install autogamess`
+`python -m pip install autogamess --user`
 
-Python 3.x is required for AutoGAMESS.
+AutoGAMESS requires all the following Python packages:
+
+* Python3.x
+* NumPy
+* SciPy
+* Pandas
+* basis_set_exchange
+* PeriodicElements
+* openpyxl
 
 # Function Documentations
 
