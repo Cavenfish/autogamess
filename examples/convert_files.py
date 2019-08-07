@@ -1,10 +1,10 @@
 import os
 import autogamess as ag
 
-idir = './inps/'
-ldir = './logs-dats/'
-done = './done/'
-fail = './failed/'
+idir = ''#define here the inputs directory
+ldir = ''#define here the outputs directory
+done = ''#define here the successfully completed files directory
+fail = ''#define here the unsuccessfully completed files directory
 iext = '.inp'
 lext = '.log'
 dext = '.dat'
@@ -13,7 +13,7 @@ for file in os.listdir(ldir):
     if lext not in file:
         continue
 
-    if '_opt' in file:     
+    if '_opt' in file:
         inp = idir + file.replace(lext, iext)
         dat = ldir + file.replace(lext, dext)
         log = ldir + file
