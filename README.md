@@ -44,7 +44,7 @@ This function creates a new directory tree for a GAMESS project, also makes
       for csv file format.
   initial_coords_dict: dictionary [Optional]
       This should be a dictionary with the key being the specie and the
-      value being a list that of its inital coordinates.
+      value being a list that of its initial coordinates.
   title: string [Optional]
       A directory string (including the final `/`) that will be used as
       the head of project directory tree.
@@ -57,7 +57,7 @@ This function creates a new directory tree for a GAMESS project, also makes
   general autogamess coordinate dictionary, then initial_coords_dict
   must be passed.
 
-  To see the autogamess coordianate dictionary simply print out
+  To see the autogamess coordinate dictionary simply print out
   >>> ag.dictionaries.molecule_dictionary
 
   Returns
@@ -84,7 +84,7 @@ This function creates a new directory tree for a GAMESS project, also makes
                            Unsolved   Solved
 
 
-  Sections in directory tree labled 'Block' are directory trees with the
+  Sections in directory tree labeled 'Block' are directory trees with the
   following format:
                     1 directory per run type
                                 |
@@ -119,7 +119,7 @@ save_dir: string
     you wish to save the inputs in.
 initial_coords_dict: dictionary [Optional]
     This should be a dictionary with the key being the specie and the
-    value being a list that of its inital coordinates.
+    value being a list that of its initial coordinates.
 proj_title: string [Optional]
     This should be a string ending with `\n`
 
@@ -129,7 +129,7 @@ If the molecules you wish to build are not already defined in the
 general autogamess coordinate dictionary, then initial_coords_dict
 must be passed.
 
-To see the autogamess coordianate dictionary simply print out
+To see the autogamess coordinate dictionary simply print out
 >>> ag.dictionaries.molecule_dictionary
 
 Returns
@@ -247,7 +247,7 @@ This function returns nothing
 Notes
 ----------
 For this function to work properly the project directory tree must be
-in the exact format that the 'new_project' fucntion spawned it in.
+in the exact format that the 'new_project' function spawned it in.
 
 Examples
 ----------
@@ -269,7 +269,7 @@ Parameters
 ----------
 projdir: string [Optional]
     This should be a full directory string pointing to the project
-    directory initlly created by new_project.
+    directory initially created by new_project.
 sorteddir: string [Optional]
     This should be a full directory string pointing to the sorted log
     files directory.
@@ -429,7 +429,7 @@ for file in os.listdir(ldir):
         os.rename(dat, dat.replace(ldir, done))
 ```
 
-A less common method of utilizing AutoGAMESS is to parse any single output file for data. The get_data function which is typically meant to be an internally used fucntion can be called by the user. This will retrieve the data from the file, it will read the file name to get the run type.
+A less common method of utilizing AutoGAMESS is to parse any single output file for data. The get_data function which is typically meant to be an internally used function can be called by the user. This will retrieve the data from the file, it will read the file name to get the run type.
 
 ```python
 import autogamess as ag

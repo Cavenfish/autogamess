@@ -1,3 +1,8 @@
+"""
+This is the configuration file for AutoGAMESS.
+
+Houses various variables/functions used commonly by AutoGAMESS.
+"""
 import os
 import sys
 import numpy  as np

@@ -31,7 +31,38 @@ def comp(filename):
 
 def optimization(filename):
     """
+    This function collects data from GAMESS(us) optimization log files.
 
+    Parameters
+    ----------
+    filename: string
+        This should be a string that points to the log file of a
+        GAMESS(us) optimization calculation. (FULL DIRECTORY STRING REQUIRED)
+
+    Returns
+    -------
+    The return is a list, where item 0 is `lengths` and item 1 is `angles`
+
+    lengths: dictionary
+        This is a dictionary where the key is in the format `atom1-atom2`
+        and the value is a string with the bond length in angstrums.
+    angles: dictionary
+        This is a dictionary where the key is in the format `atom1-atom2-atom3`
+        where atom2 is the central atom and the value is a string with the
+        bond angle between the three atoms in radians.
+
+    Notes
+    -------
+    This function is primarily intended for interal use by AutoGAMESS.
+
+    Example
+    -------
+    >>> import autogamess as ag
+    >>>
+    >>> filename = './AGv0-0-6_NH3_CCSD-T_CC6_opt.log'
+    >>>
+    >>> ag.data_finder.optimization(filename)
+    >>>
     """
     #Read in contents of log file
     log = read_file(filename)
@@ -97,7 +128,37 @@ def optimization(filename):
 
 def hessian(filename):
     """
+    This function collects data from GAMESS(us) Hessian log files.
 
+    Parameters
+    ----------
+    filename: string
+        This should be a string that points to the log file of a
+        GAMESS(us) hessian calculation. (FULL DIRECTORY STRING REQUIRED)
+
+    Returns
+    -------
+    The return is a list, where item 0 is `freq` and item 1 is `infr`
+
+    freq: dictionary
+        This is a dictionary where the key is the symmetry and the value is
+        the vibrational frequency.
+    infr: dictionary
+        This is a dictionary where the key is the symmetry and the value is
+        infrared intensity.
+
+    Notes
+    -------
+    This function is primarily intended for interal use by AutoGAMESS.
+
+    Example
+    -------
+    >>> import autogamess as ag
+    >>>
+    >>> filename = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+    >>>
+    >>> ag.data_finder.hessian(filename)
+    >>>
     """
     #Read in contents of log file
     log = read_file(filename)
@@ -150,7 +211,32 @@ def hessian(filename):
 
 def raman(filename):
     """
+    This function collects data from GAMESS(us) raman log files.
 
+    Parameters
+    ----------
+    filename: string
+        This should be a string that points to the log file of a
+        GAMESS(us) raman calculation. (FULL DIRECTORY STRING REQUIRED)
+
+    Returns
+    -------
+    ram: dictionary
+        This is a dictionary where the key is the symmetry and the
+        value is the raman activity.
+
+    Notes
+    -------
+    This function is primarily intended for interal use by AutoGAMESS.
+
+    Example
+    -------
+    >>> import autogamess as ag
+    >>>
+    >>> filename = './AGv0-0-6_NH3_CCSD-T_CC6_raman.log'
+    >>>
+    >>> ag.data_finder.raman(filename)
+    >>>
     """
     #Read in contents of log file
     log = read_file(filename)
@@ -204,6 +290,37 @@ def raman(filename):
 
 def vscf(filename):
     """
+    This function collects data from GAMESS(us) VSCF log files.
+
+    Parameters
+    ----------
+    filename: string
+        This should be a string that points to the log file of a
+        GAMESS(us) VSCF calculation. (FULL DIRECTORY STRING REQUIRED)
+
+    Returns
+    -------
+    The return is a list, where item 0 is `freq` and item 1 is `infr`
+
+    freq: dictionary
+        This is a dictionary where the key is the symmetry and the value is
+        the vibrational frequency.
+    ir: dictionary
+        This is a dictionary where the key is the symmetry and the value is
+        infrared intensity.
+
+    Notes
+    -------
+    This function is primarily intended for interal use by AutoGAMESS.
+
+    Example
+    -------
+    >>> import autogamess as ag
+    >>>
+    >>> filename = './AGv0-0-6_NH3_CCSD-T_CC6_vscf.log'
+    >>>
+    >>> ag.data_finder.vscf(filename)
+    >>>
     """
     #Read in contents of log file
     log = read_file(filename)
