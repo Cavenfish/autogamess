@@ -11,7 +11,7 @@ title   = 'check/'
 def test_new_project(tmpdir):
     ag.new_project(tmpdir.strpath, csvfile, title=title)
 
-    a = fc.dircmp(tmpdir.strpath + title, './correct/NPtest/')
+    a = fc.dircmp(tmpdir.strpath + title, './correct/NPtest/', ignore=['.gitignore'])
     assert a.left_only == []
     assert a.right_only == []
 
@@ -57,7 +57,7 @@ def test_get_data():
           'H-O Bond Length': '0.9689082029181745',
           'H-2H Bond Length': '1.513601111',
           '2H-O Bond Length': '0.9689082029181745',
-          '2H-H Bond Length': '1.513601111',}
+          '2H-H Bond Length': '1.513601111'}
 
     ba = {'H-O-2H Bond Angle': '1.7928060145579967',
           '2H-O-H Bond Angle': '1.7928060145579967',
@@ -70,7 +70,11 @@ def test_get_data():
     ir = {'A1': ['1.31680', '0.06712'], 'B2': ['0.46621']}
     ra = {'A1': ['6.244', '73.030'], 'B2': ['33.310']}
 
-    assert optdata.bond_lengths == bl
+    lb = optdata.bond_lengths
+    x  = np.allclose(np.asarray(list(lb.values()), dtype=np.float64),
+                     np.asarray(list(bl.values()), dtype=np.float64))
+
+    assert x                    == True
     assert optdata.bond_angles  == ba
     assert hesdata.vib_freq     == vf
     assert hesdata.ir_inten     == ir
