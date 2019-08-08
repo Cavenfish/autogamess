@@ -1,0 +1,6 @@
+numpy
+scipy
+pandas
+basis_set_exchange
+PeriodicElements
+openpyxl
