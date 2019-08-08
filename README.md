@@ -1,6 +1,8 @@
 # AutoGAMESS
 
-This is a python module for automating Raman calculations using the [GAMESS(us)](https://www.msg.chem.iastate.edu/gamess/) Quantum Chemistry software.
+This is a python module for automating  the generation of input files and parsing of log files with end goal of generating Raman data using the [GAMESS(us)](https://www.msg.chem.iastate.edu/gamess/) Quantum Chemistry software.
+
+This package was developed using `GAMESS VERSION = 20 APR 2017 (R1)`, it has also been partially tested for use with `GAMESS VERSION =  1 MAY 2013 (R1)` and `GAMESS VERSION = 14 FEB 2018 (R1)`.
 
 # Installing AutoGAMESS
 
@@ -305,6 +307,46 @@ Example
 >>>
 ```
 
+### get_data
+
+**`get_data(filename)`**
+
+```
+This function collects data from GAMESS(us) log files.
+
+Parameters
+----------
+filename: string
+    This should be a string that points to the log file of any
+    GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
+
+Returns
+-------
+data: object
+    This is an object with all the data collected from the log file.
+    Below is a list of the attributes associated with `data` based on
+    each log file type.
+
+    all   files: `cpu`, `time`
+    opt   files: `bond_lengths`, `bond_angles`
+    hes   files: `vib_freq`, `ir_inten`
+    raman files: `raman`
+    vscf  files: `vscf_freq`, vscf_ir
+
+Notes
+-------
+This function is primarily intended for interal use by AutoGAMESS.
+
+Example
+-------
+>>> import autogamess as ag
+>>>
+>>> filename = './AGv0-0-6_NH3_CCSD-T_CC6_opt.log'
+>>>
+>>> ag.get_data(filename)
+>>>
+```
+
 # Input Descriptions
 All user functions contain doc strings with examples and explanations of parameters and returns. However, a few functions require specific inputs not fully explained in the doc strings. Such as the functions:
 * new_project
@@ -353,7 +395,9 @@ A basic script for generating a new project directory, sorting already existing 
 
 `[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].[inp/log/dat]`
 
-The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reads information from file names and requires the underscore separates the information something must be present there to prevent confusion. The Abbreviated Run Types are,
+An example is “AG-test_H2O_B3LYP_CCD_opt.log”, where the Arbitrary Thing is `AG-test`, Specie is `H2O`, Theory Level is `B3LYP`, Basis Set is `CCD` and the Abbreviated Run Type is `opt`.
+
+The 'arbitrary thing' section can be anything, since this is typically where AutoGAMESS will write the version number. Since AutoGAMESS reads information from file names and requires the underscore separates the information something must be present there to prevent confusion. If the file name format is incorrect the `fill_spreadsheets` function will be unable to map the data to the correct cell in the spreadsheet. However, the `get_data` function only requires the abbreviated run type be written with underscore before and file extensive following it (ie: `..._opt.log`). The Abbreviated Run Types are,
 
 `Optimization = opt`
 
