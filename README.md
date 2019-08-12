@@ -387,7 +387,7 @@ all species. Therefore repetition within columns will cause an error. If a user 
 |         |         |            |                     | Raman        |
 
 For any given CSV file the total generated input files by `input_builder` will be
-$ n\times m\times i $ where *n* is the number of Species given, *m* is the number of Theory given, and *i* is the number of Basis Sets given.
+$n\times m\times i$ where *n* is the number of Species given, *m* is the number of Theory given, and *i* is the number of Basis Sets given.
 
 Internal basis sets should be written in the same format as they are required by GAMESS(us) inputs.
 
