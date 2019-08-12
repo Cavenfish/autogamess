@@ -253,9 +253,12 @@ in the exact format that the 'new_project' function spawned it in.
 
 Examples
 ----------
->>>import sort_logs
+>>>import autogamess as ag
+>>>
 >>>projdir = './Example/'
->>>sort_logs(projdir)
+>>>logsdir = './logs/'
+>>>
+>>>ag.sort_logs(projdir, logsdir)
 >>>
 ```
 
@@ -361,7 +364,7 @@ All lines after the header should give input as 1 item per column per line. As s
 
 | Species | Theory  | Basis Sets | External Basis Sets | Run Types    |
 | ------- | ------  | ---------- | ------------------- | ---------    |
-| H2O     | B3LYP   | CCD        | may-cc-pVDZ         | Optimization |
+| H2O     | B3LYP   | CCD        | may-cc-pVQZ         | Optimization |
 | NH3     | MP2     | CCT        | aug-cc-pV7Z         | Hessian      |
 | HCN     | CCSD-T  | CCQ        | may-cc-pVTZ         | Raman        |
 | H2CO    | PBE     | CC5        | Sadlej-pVTZ         | VSCF         |
