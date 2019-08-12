@@ -288,6 +288,9 @@ If projdir is not passed to fill_spreadsheets function then both other
 parameters MUST be passed to it. Similarly if projdir is passed the
 other two parameters MUST be left blank.
 
+Once `fill_spreadsheets` has parsed the data file, it will move the log file
+into the `Pass` directory implying that the calculation successfully terminated, or it will move it to `Fail` directory if termination unsuccessful.
+
 Returns
 -------
 This function returns nothing.
@@ -373,6 +376,18 @@ All lines after the header should give input as 1 item per column per line. As s
 | C2H4    | CCSD2-T | ACCT       |                     |              |
 | C2H2    |         | ACCQ       |                     |              |
 
+AutoGAMESS assumes the user will be performing every possible combination of
+Theory and Basis Sets(internal and external) for every calculation type, across
+all species. Therefore repetition within columns will cause an error. If a user wishes to perform Optimization, Hessian and Raman calculations on water(H2O) using only B3LYP CCD the following should be in the CSV.
+
+| Species | Theory  | Basis Sets | External Basis Sets | Run Types    |
+| ------- | ------  | ---------- | ------------------- | ---------    |
+| H2O     | B3LYP   | CCD        |                     | Optimization |
+|         |         |            |                     | Hessian      |
+|         |         |            |                     | Raman        |
+
+For any given CSV file the total generated input files by `input_builder` will be
+$ n*m*i $ where $n$ is the number of Species given, $m$ is the number of Theory given, and $i$ is the number of Basis Sets given.
 
 Internal basis sets should be written in the same format as they are required by GAMESS(us) inputs.
 
@@ -480,7 +495,7 @@ for file in os.listdir(ldir):
         os.rename(dat, dat.replace(ldir, done))
 ```
 
-### Data Parsing Log Files 
+### Data Parsing Log Files
 
 A less common method of utilizing AutoGAMESS is to parse any single output file for data. The get_data function which is typically meant to be an internally used function can be called by the user. This will retrieve the data from the file, it will read the file name to get the run type.
 
