@@ -24,9 +24,12 @@ def sort_logs(projdir, logsdir):
 
     Examples
     ----------
-    >>>import sort_logs
+    >>>import autogamess as ag
+    >>>
     >>>projdir = './Example/'
-    >>>sort_logs(projdir)
+    >>>logsdir = './logs/'
+    >>>
+    >>>ag.sort_logs(projdir, logsdir)
     >>>
     """
     #Defining directory names
