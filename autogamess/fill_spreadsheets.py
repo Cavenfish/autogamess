@@ -26,6 +26,11 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     parameters MUST be passed to it. Similarly if projdir is passed the
     other two parameters MUST be left blank.
 
+    Once `fill_spreadsheets` has parsed the data file, it will move the log file
+    into the `Pass` directory implying that the calculation successfully
+    terminated, or it will move it to `Fail` directory if termination
+    unsuccessful.
+
     Returns
     -------
     This function returns nothing.
