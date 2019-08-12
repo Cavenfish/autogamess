@@ -161,7 +161,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
 
     #Run Input Builder function
     if make_inputs is True:
-        save_dir = maindir + 'inputs/'
+        save_dir = inputs
         input_builder(csvfile, save_dir, initial_coords_dict,
                      proj_title = title.replace('/', '\n'))
 
