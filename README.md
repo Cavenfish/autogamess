@@ -394,6 +394,8 @@ Some molecules are already compiled within AutoGAMESS default dictionary however
 
 # Examples of Common AutoGAMESS Utilization Methods
 
+### Compile Existing Data
+
 A basic script for generating a new project directory, sorting already existing logs into it, then filling the spreadsheets with the data in the existing output files. For this script to work properly, file names must adhere to the AutoGAMESS file naming convention
 
 `[arbitrary thing]_[Specie]_[Theory Level]_[Basis Set]_[Abbreviated Run Type].[inp/log/dat]`
@@ -426,6 +428,8 @@ ag.sort_logs(projdir, logsdir)
 
 ag.fill_spreadsheets(projdir)
 ```
+
+### Converting Input Files
 
 A basic script for converting all files within a directory into their next calculation type. Also separates the files that GAMESS(us) calculation did not terminate successfully.
 
@@ -475,6 +479,8 @@ for file in os.listdir(ldir):
         os.rename(log, log.replace(ldir, done))
         os.rename(dat, dat.replace(ldir, done))
 ```
+
+### Data Parsing Log Files 
 
 A less common method of utilizing AutoGAMESS is to parse any single output file for data. The get_data function which is typically meant to be an internally used function can be called by the user. This will retrieve the data from the file, it will read the file name to get the run type.
 
