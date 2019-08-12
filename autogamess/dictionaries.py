@@ -26,8 +26,7 @@ theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
                'CR-EOML': 'CCTYP=CR-EOML'}
 
 #Basis Dictionary
-basis_dict = {'may-cc-pVDZ': 'may-cc-pv(d+d)z',
-              'may-cc-pVTZ': 'may-cc-pv(t+d)z',
+basis_dict = {'may-cc-pVTZ': 'may-cc-pv(t+d)z',
               'may-cc-pVQZ': 'may-cc-pv(q+d)z',
               'jun-cc-pVDZ': 'jun-cc-pv(d+d)z',
               'jun-cc-pVTZ': 'jun-cc-pv(t+d)z',
