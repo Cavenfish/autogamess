@@ -59,7 +59,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
         faildir        = projdir + 'Logs/Fail/Unsolved/'
         passdir        = projdir + 'Logs/Pass/'
     else:
-        projdir        = '/'.join(sheetsdir.split('/')[0:-2])
+        projdir        = '/'.join(sheetsdir.split('/')[0:-2]) + '/'
         faildir        = projdir + 'Logs/Fail/Unsolved/'
         passdir        = projdir + 'Logs/Pass/'
 
