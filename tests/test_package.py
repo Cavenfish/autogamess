@@ -29,8 +29,7 @@ def test_input_builder(tmpdir):
     f.writelines(tmp)
     f.close()
 
-    if not fc.cmp(a,b):
-        assert 0
+    assert ag.read_file(a) == ag.read_file(b)
 
     return
 
