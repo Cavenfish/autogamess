@@ -95,9 +95,12 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     xlsx     = '.xlsx'
 
     #Make directories
-    os.makedirs(unsolved)
-    os.makedirs(solved)
-    os.makedirs(xldir)
+    try:
+        os.makedirs(unsolved)
+        os.makedirs(solved)
+        os.makedirs(xldir)
+    except:
+        sys.exit("Project Directory or su-directories already exist")
 
     #Read in csv file or Pandas DataFrame
     df = check_data_type(csvfile)
