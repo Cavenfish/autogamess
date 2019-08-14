@@ -25,6 +25,7 @@ from .hes2raman         import hes2raman
 from .input_builder     import input_builder
 from .fill_spreadsheets import fill_spreadsheets
 from .get_data          import get_data
+from .make_plot         import make_plot
 
     #Multi-function Modules
 from .data_finder       import *
