@@ -100,7 +100,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         os.makedirs(solved)
         os.makedirs(xldir)
     except:
-        sys.exit("Project Directory or su-directories already exist")
+        sys.exit("Project Directory or sub-directories already exist")
 
     #Read in csv file or Pandas DataFrame
     df = check_data_type(csvfile)
