@@ -35,6 +35,7 @@ Functions:
 * sort_logs: Sorts GAMESS(US) output files
 * fill_spreadsheet: Fills in Excel Spreadsheets with data collected from log files
 * get_data: Collects data from output files
+* make_plot: Makes a vibrational frequency vs. IR/Raman intensity line plot
 
 # Capabilities
 
@@ -49,6 +50,11 @@ $$ A = \arccos{(\hat{V_1} \cdot \hat{V_2})} $$
 
 where $A$ is the bond angle, $\hat{V_1}$ and $\hat{V_2}$ are the normalized position vectors for each atoms location in relation to the modified origin.
 
+AutoGAMESS is also capable of generating line plots of the vibrational frequency vs. IR/Raman intensity. Generated plots will be titled with the molecule name in the file and the theory/basis set used for the calculation. Each symmetry group will be plotted in a different color, from either a default or user specified color list. Figure 1 below shows an example line plot of H2O using B3LYP/CCD for the calculation.
+
+ IR Line Plot | Raman Line Plot
+ -------------|----------------
+![](AG-test_H2O_B3LYP_CCD_ir-plot.png) | ![](AG-test_H2O_B3LYP_CCD_raman-plot.png)
 
 # Use of AutoGAMESS
 
