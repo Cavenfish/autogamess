@@ -4,6 +4,13 @@ This is a python module for automating  the generation of input files and parsin
 
 This package was developed using `GAMESS VERSION = 20 APR 2017 (R1)`, it has also been partially tested for use with `GAMESS VERSION =  1 MAY 2013 (R1)` and `GAMESS VERSION = 14 FEB 2018 (R1)`.
 
+AutoGAMESS is also able to generate line plots of vibrational frequency vs. IR/Raman intensities. Generated plots will be titled with the molecule name in the file and the theory/basis set used for the calculation. Each symmetry group will be plotted in a different color, from either a default or user specified color list. An example is shown bellow.
+
+IR Line Plot | Raman Line Plot
+-------------|----------------
+![](./Paper/AG-test_H2O_B3LYP_CCD_ir-plot.png) | ![](./Paper/AG-test_H2O_B3LYP_CCD_raman-plot.png)
+
+
 # Installing AutoGAMESS
 
 AutoGAMESS can be installed using
@@ -19,6 +26,7 @@ AutoGAMESS requires all the following Python packages:
 * basis_set_exchange
 * PeriodicElements
 * openpyxl
+* Matplotlib
 
 # Tests
 
@@ -531,11 +539,6 @@ for file in os.listdir(ldir):
         os.rename(log, log.replace(ldir, done))
         os.rename(dat, dat.replace(ldir, done))
 ```
-
-### Making Line Plots of Vibrational Frequency vs. IR/Raman Intensity
-
-
-
 
 ### Data Parsing Log Files
 
