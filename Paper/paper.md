@@ -77,6 +77,7 @@ AutoGAMESS requires all the following Python packages:
 * basis_set_exchange
 * PeriodicElements
 * openpyxl
+* Matplotlib
 
 
 # Acknowledgements
