@@ -353,6 +353,43 @@ Example
 >>>
 ```
 
+### make_plot
+
+**`make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'])`**
+
+```
+This function make vibrational frequency vs. IR/Raman intensity line plots.
+
+Parameters
+----------
+file: string
+    This should be a string that points to the log file of a hessian or
+    Raman GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
+savedir: string
+    This should be a string that points to the directory in which you
+    would like to save the png of the plot.(FULL DIRECTORY STRING REQUIRED)
+cmap: list [Optional]
+    This should be a list of Matplotlib allowed color choices. Each symmetry
+    will be plotted with a different color in the list.
+
+Returns
+-------
+This function returns nothing.
+
+Example
+-------
+>>> import autogamess as ag
+>>>
+>>> file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+>>> savedir = './'
+>>>
+>>> ag.make_plot(file, savedir)
+>>>
+>>> cmap = ['b', 'r', 'k', 'c']
+>>> ag.make_plot(file, savedir, cmap)
+>>>
+```
+
 # Input Descriptions
 All user functions contain doc strings with examples and explanations of parameters and returns. However, a few functions require specific inputs not fully explained in the doc strings. Such as the functions:
 * new_project
@@ -494,6 +531,11 @@ for file in os.listdir(ldir):
         os.rename(log, log.replace(ldir, done))
         os.rename(dat, dat.replace(ldir, done))
 ```
+
+### Making Line Plots of Vibrational Frequency vs. IR/Raman Intensity
+
+
+
 
 ### Data Parsing Log Files
 
