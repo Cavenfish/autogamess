@@ -107,3 +107,11 @@ def get_gamess_input(command, doc):
     i = ctr_f(command, doc)
     j = ctr_f(command, doc[i].split())
     return doc[i].split()[j].split('=')[1]
+
+def gaussian(x, mu, sig, amp):
+    return  np.exp(-(x-mu)**2 / (2.*sig**2)) * amp
+
+def lorentzian(x, mu, sig, amp):
+    return ( 1/( 1 + ( ((x-mu)**2)/(sig**2)) ) ) * amp
+
+#def scaling_factor_nist()
