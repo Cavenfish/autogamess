@@ -23,6 +23,9 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
     method: string [Optional]
         This should be string giving the method for line broadening, options are
         `Gaussian`, `Lorentzian`, 'None'(defualt).
+    sig: integer or float [Optional]
+        This should be a numerical value to be used as the FWHM for the line
+        broadening method chosen. Default: 300 wavenumbers
 
     Returns
     -------
@@ -38,7 +41,12 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
     >>> ag.make_plot(file, savedir)
     >>>
     >>> cmap = ['b', 'r', 'k', 'c']
-    >>> ag.make_plot(file, savedir, cmap)
+    >>> ag.make_plot(file, savedir, cmap=cmap)
+    >>>
+    >>> method = 'Lorentzian'
+    >>> sig    = 450
+    >>>
+    >>> ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
     >>>
     """
     #variables declarations
