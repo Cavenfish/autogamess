@@ -50,9 +50,11 @@ $$ A = \arccos{(\hat{V_1} \cdot \hat{V_2})} $$
 
 where $A$ is the bond angle, $\hat{V_1}$ and $\hat{V_2}$ are the normalized position vectors for each atoms location in relation to the modified origin.
 
-AutoGAMESS is also capable of generating line plots of the vibrational frequency vs. IR/Raman intensity. Generated plots will be titled with the molecule name in the file and the theory/basis set used for the calculation. Each symmetry group will be plotted in a different color, from either a default or user specified color list. Figure 1 below shows an example line plot of H2O using B3LYP/CCD for the calculation.
+AutoGAMESS is also capable of generating line plots of the vibrational frequency vs. IR/Raman intensity. Generated plots will be titled with the molecule name in the file and the theory/basis set used for the calculation. Each symmetry group will be plotted in a different color, from either a default or user specified color list. The spectral line (sum of line broadening) will also be plotted in red with 50% transparency. Figure 1 shows an example line plot of H2O using B3LYP/CCD for the calculation.
 
 ![Line Plots Example](line-plots.PNG)
+
+AutoGAMESS
 
 # Use of AutoGAMESS
 
