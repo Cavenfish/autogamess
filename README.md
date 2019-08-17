@@ -367,34 +367,45 @@ Example
 ```
 This function make vibrational frequency vs. IR/Raman intensity line plots.
 
-Parameters
-----------
-file: string
-    This should be a string that points to the log file of a hessian or
-    Raman GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
-savedir: string
-    This should be a string that points to the directory in which you
-    would like to save the png of the plot.(FULL DIRECTORY STRING REQUIRED)
-cmap: list [Optional]
-    This should be a list of Matplotlib allowed color choices. Each symmetry
-    will be plotted with a different color in the list.
+  Parameters
+  ----------
+  file: string
+      This should be a string that points to the log file of a hessian or
+      Raman GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
+  savedir: string
+      This should be a string that points to the directory in which you
+      would like to save the png of the plot.(FULL DIRECTORY STRING REQUIRED)
+  cmap: list [Optional]
+      This should be a list of Matplotlib allowed color choices. Each symmetry
+      will be plotted with a different color in the list.
+  method: string [Optional]
+      This should be string giving the method for line broadening, options are
+      `Gaussian`, `Lorentzian`, 'None'(defualt).
+  sig: integer or float [Optional]
+      This should be a numerical value to be used as the FWHM for the line
+      broadening method chosen. Default: 300 wavenumbers
 
-Returns
--------
-This function returns nothing.
+  Returns
+  -------
+  This function returns nothing.
 
-Example
--------
->>> import autogamess as ag
->>>
->>> file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
->>> savedir = './'
->>>
->>> ag.make_plot(file, savedir)
->>>
->>> cmap = ['b', 'r', 'k', 'c']
->>> ag.make_plot(file, savedir, cmap)
->>>
+  Example
+  -------
+  >>> import autogamess as ag
+  >>>
+  >>> file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+  >>> savedir = './'
+  >>>
+  >>> ag.make_plot(file, savedir)
+  >>>
+  >>> cmap = ['b', 'r', 'k', 'c']
+  >>> ag.make_plot(file, savedir, cmap=cmap)
+  >>>
+  >>> method = 'Lorentzian'
+  >>> sig    = 450
+  >>>
+  >>> ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
+  >>>
 ```
 
 # Input Descriptions
