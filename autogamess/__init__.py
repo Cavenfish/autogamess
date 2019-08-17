@@ -18,14 +18,15 @@ Author: Brian C. Ferrari
 from .config        import *
 
     #Functions
-from .new_project       import new_project
-from .opt2hes           import opt2hes
-from .sort_logs         import sort_logs
-from .hes2raman         import hes2raman
-from .input_builder     import input_builder
-from .fill_spreadsheets import fill_spreadsheets
-from .get_data          import get_data
-from .make_plot         import make_plot
+from .new_project              import new_project
+from .opt2hes                  import opt2hes
+from .sort_logs                import sort_logs
+from .hes2raman                import hes2raman
+from .input_builder            import input_builder
+from .fill_spreadsheets        import fill_spreadsheets
+from .get_data                 import get_data
+from .make_plot                import make_plot
+from .generate_scaling_factors import generate_scaling_factors
 
     #Multi-function Modules
 from .data_finder       import *
