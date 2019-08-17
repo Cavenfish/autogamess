@@ -114,4 +114,23 @@ def gaussian(x, mu, sig, amp):
 def lorentzian(x, mu, sig, amp):
     return ( 1/( 1 + ( ((x-mu)**2)/(sig**2)) ) ) * amp
 
-#def scaling_factor_nist()
+def scaling_factor_scott(theo, expt):
+    top    = 0
+    top2   = 0
+    bottom = 0
+    n      = range(len(theo))
+    for i in n:
+        top    += theo[i]*expt[i]
+        bottom += theo[i]**2
+
+    c  = round(top/bottom, 4)
+    for i in n:
+        top2 += (c*theo[i] - expt[i])**2
+
+    rms = round(np.sqrt(top2/len(theo)), 2)
+
+    return c, rms
+
+#def scaling_factor_():
+
+#def scaling_factor_
