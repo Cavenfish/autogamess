@@ -362,7 +362,7 @@ Example
 
 ### make_plot
 
-**`make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'])`**
+**`make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'], method='None', sig=300)`**
 
 ```
 This function make vibrational frequency vs. IR/Raman intensity line plots.
