@@ -408,6 +408,64 @@ This function make vibrational frequency vs. IR/Raman intensity line plots.
   >>>
 ```
 
+### generate_scaling_factors
+
+**`generate_scaling_factors(projdir, expt_dict, species, method='scott')`**
+
+```
+This function generates scaling factors and scaled frequencies.
+
+Parameters
+----------
+projdir: string
+    This should be a full directory string pointing to the project
+    directory initlly created by new_project.
+expt_dict: dictionary
+    This should be a python dictionary with the experimental frequency
+    values for all species that the user wants to generate scaling factors
+    for in it. Format is explained in Notes section.
+species: list
+    This should be a list of all species the user would like scaling factors
+    generated for. Any molecule in the list must have experimental data in
+    the `expt_dict` associated with it.
+method: string [Optional]
+    This should be string giving the method for scaling factor calculation,
+    options are `scott`(defualt).
+
+Notes
+-------
+`expt_dict` format should be as follows:
+
+        {`specie`: [`nu_1`, `nu_2`, ... , `nu_N`]}
+
+ where `specie` must be written the same way as the Excel spreadsheet file
+ for that molecule is written. Each frequency, `nu`, should be given in
+ the same order as they appear (left to right) in the spreadsheet.
+
+ `species` list format can be in any order but must adhere to the rule
+ that any element in `species` is a key for `expt_dict`
+
+ Once execution of this function is completed the `Hessian` worksheet
+ will be updated to have a coulmn giving `Scaling Factor/RMS`, as well
+ as the scaled frequencies will appear in parathesis next to the predicted
+ frequencies.
+
+Returns
+-------
+This function returns nothing.
+
+Example
+-------
+>>> import autogamess as ag
+>>>
+>>> projdir   = './Your Project Title/'
+>>> expt_dict = {'H2O': [1595, 3657, 3756]}
+>>> species   = ['H2O']
+>>>
+>>> ag.generate_scaling_factors(projdir, expt_dict, species)
+>>>
+```
+
 # Input Descriptions
 All user functions contain doc strings with examples and explanations of parameters and returns. However, a few functions require specific inputs not fully explained in the doc strings. Such as the functions:
 * new_project
