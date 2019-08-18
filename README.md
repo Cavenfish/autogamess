@@ -537,7 +537,7 @@ value = ['CnV 2,\n','\n',
 initial_coords_dict = {key : value}
 ```
 
-Note that the atoms given in the list are the symmetry unique atoms for the point group symmetry given in the first element of the list. Point group symmtery should be given in GAMESS(us) format, with the second element of the list being `\n` for cases where GAMESS(us) requires a blank card after the symmetry group. For symmetry groups that cannot have a blank card after in GAMESS(us) the second element should be the first symmetry unique atom. Finally, make sure all elements of the list end with `\n` to ensure they are written in separates lines. 
+Note that the atoms given in the list are the symmetry unique atoms for the point group symmetry given in the first element of the list. Point group symmtery should be given in GAMESS(us) format, with the second element of the list being `\n` for cases where GAMESS(us) requires a blank card after the symmetry group. For symmetry groups that cannot have a blank card after in GAMESS(us) the second element should be the first symmetry unique atom. Finally, make sure all elements of the list end with `\n` to ensure they are written in separates lines.
 
 Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS.
 
@@ -642,4 +642,84 @@ data = ag.get_data(file)
 
 lengths = data.bond_lengths
 angles  = data.bond_angles
+```
+
+### Generating Scaling Factors
+
+To generate scaling factors for all Hessian calculations that have been compiled by `fill_spreadsheets` you just need to call `generate_scaling_factors`. Here is an example considering the molecule in question is H2O.
+
+```python
+import autogamess as ag
+
+projdir   = './Your Project Title/'
+expt_dict = {'H2O': [1595, 3657, 3756]}
+species   = ['H2O']
+
+ag.generate_scaling_factors(projdir, expt_dict, species)
+```
+
+### Making Plots
+
+Make plots with AutoGAMESS is quite simple, here are some examples (these examples are also found in the `make_plot` doc string).
+
+This first example is to for having a plot displayed on screen without saving it.
+
+```python
+import autogamess as ag
+
+file = 'AG-test_H2O_B3LYP_CCD_opt.log'
+
+ag.make_plot(file)
+```
+
+The next example shows how to make and save a plot to the current working directory.
+
+```python
+import autogamess as ag
+
+file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+savedir = './'
+
+ag.make_plot(file, savedir)
+```
+
+The next example shows you how to pick your own colors for each symmetry group that is plotted.
+
+```python
+import autogamess as ag
+
+file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+savedir = './'
+cmap    = ['b', 'r', 'k', 'c']
+
+ag.make_plot(file, savedir, cmap=cmap)
+```
+
+The next example shows how to use line broadening in your plot, in particular this uses the Lorentzian method and a Full Width Half Maximum (FWHM) of 450 wavenumbers.
+
+```python
+import autogamess as ag
+
+file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+savedir = './'
+cmap    = ['b', 'r', 'k', 'c']
+method = 'Lorentzian'
+sig    = 450
+
+ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
+```
+
+The next example shows how to use flags to omit certain things from being plotted. Here we are omitting the vertical lines and the dashed liner broadening lines, leaving only the spectral line to be plotted.
+
+```python
+import autogamess as ag
+
+file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+savedir = './'
+cmap    = ['b', 'r', 'k', 'c']
+method = 'Lorentzian'
+sig    = 450
+flag   = [1,3]
+
+ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
 ```
