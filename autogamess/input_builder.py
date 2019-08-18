@@ -18,7 +18,9 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         you wish to save the inputs in.
     initial_coords_dict: dictionary [Optional]
         This should be a dictionary with the key being the specie and the
-        value being a list that of its inital coordinates.
+        value being a list of the symmetry group and symmetry unique atom
+        coordinates. Examples can be seen in the AutoGAMESS GitHub repository
+        as well as by prinint out the default dictionary, see Notes section.
     proj_title: string [Optional]
         This should be a string ending with `\n`
 
