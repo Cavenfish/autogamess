@@ -4,8 +4,8 @@ from .data_finder import hessian
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
-              method='None', sig=300):
+def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
+              method=None, sig=300, flag=[]):
     """
     This function make vibrational frequency vs. IR/Raman intensity line plots.
 
@@ -22,10 +22,27 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         will be plotted with a different color in the list.
     method: string [Optional]
         This should be string giving the method for line broadening, options are
-        `Gaussian`, `Lorentzian`, 'None'(defualt).
+        `Gaussian`, `Lorentzian`, None(defualt).
     sig: integer or float [Optional]
         This should be a numerical value to be used as the FWHM for the line
         broadening method chosen. Default: 300 wavenumbers
+    flag: list [Optional]
+        This should be a list of integers, in particular 1,2 and 3. This list
+        tells the function what to plot and what to omit from the plot.
+        Please see the Notes section for more details.
+
+    Notes
+    -------
+    The `flag` parameter is used as follows:
+
+    [Default] `flag=[]`    ---> All lines are plotted
+              `flag=[1]`   ---> Vertical lines are not plotted
+              `flag=[2]`   ---> Spectral line not plotted
+              `flag=[3]`   ---> Gaussian/Lorentzian lines not plotted
+              `flag=[1,2]` --->V Vertical lines and Spectral line not plotted
+
+    List combination follow the same format, all possible list combinations
+    are allowed.
 
     Returns
     -------
@@ -77,26 +94,36 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         for key in vf:
             x = np.float_(vf[key])
             y = np.float_(ir[key])
-            ax.vlines(x, 0, y, label=key, colors=cmap[i])
+
+            #check flag, plot v lines
+            if 1 not in flag:
+                ax.vlines(x, 0, y, label=key, colors=cmap[i])
 
             #Make Gaussian line broadening
             if method is 'Gaussian':
                 for a,b in zip(x,y):
                     gfit = gaussian(x2, a, sig, b)
                     sum += gfit
-                    ax.plot(x2, gfit, linestyle='--', color=cmap[i])
+
+                    #Check flag, plot fits
+                    if 3 not in flag:
+                        ax.plot(x2, gfit, linestyle='--', color=cmap[i])
 
             #Make Lorentzian line broadening
             if method is 'Lorentzian':
                 for a,b in zip(x,y):
                     lfit = lorentzian(x2, a, sig, b)
                     sum += lfit
-                    ax.plot(x2, lfit, linestyle='--', color=cmap[i])
+
+                    #Check flag, plot fits
+                    if 3 not in flag:
+                        ax.plot(x2, lfit, linestyle='--', color=cmap[i])
 
             i += 1
 
-        #plot fit sum
-        ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
+        #check flag, plot fit sum
+        if 2 not in flag:
+            ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
 
         #init strings
         a     = file.split('_')
@@ -111,7 +138,11 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         plt.xlabel(r'Vibrational Frequency $(cm^{-1})$')
         plt.ylabel(r'Infrared Intensity $(Debye^2 \cdot \AA^{-2} \cdot amu^{-\frac{1}{2}})$')
         plt.title(title, fontsize=20)
-        plt.savefig(savedir + name + png)
+        plt.tight_layout()
+        if savedir is None:
+            plt.show()
+        else:
+            plt.savefig(savedir + name + png)
 
     #If raman file, make Raman vs Vib Freq plot
     if '_raman' in file:
@@ -135,26 +166,36 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         for key in vf:
             x = np.float_(vf[key])
             y = np.float_(ra[key])
-            ax.vlines(x, 0, y, label=key, colors=cmap[i])
+
+            #check flag, plot v lines
+            if 1 not in flag:
+                ax.vlines(x, 0, y, label=key, colors=cmap[i])
 
             #Make Gaussian line broadening
             if method is 'Gaussian':
                 for a,b in zip(x,y):
                     gfit = gaussian(x2, a, sig, b)
                     sum += gfit
-                    ax.plot(x2, gfit, linestyle='--', color=cmap[i])
+
+                    #Check flag, plot fits
+                    if 3 not in flag:
+                        ax.plot(x2, gfit, linestyle='--', color=cmap[i])
 
             #Make Lorentzian line broadening
             if method is 'Lorentzian':
                 for a,b in zip(x,y):
                     lfit = lorentzian(x2, a, sig, b)
                     sum += lfit
-                    ax.plot(x2, lfit, linestyle='--', color=cmap[i])
+
+                    #Check flag, plot fits
+                    if 3 not in flag:
+                        ax.plot(x2, lfit, linestyle='--', color=cmap[i])
 
             i += 1
 
-        #plot fit sum
-        ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
+        #check flag, plot fit sum
+        if 2 not in flag:
+            ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
 
         #init strings
         a     = file.split('_')
@@ -169,6 +210,10 @@ def make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         plt.xlabel(r'Vibrational Frequency $(cm^{-1})$')
         plt.ylabel(r'Raman Intensity $(\AA^{4}\cdot mol^{-1})$')
         plt.title(title, fontsize=20)
-        plt.savefig(savedir + name + png)
+        plt.tight_layout()
+        if savedir is None:
+            plt.show()
+        else:
+            plt.savefig(savedir + name + png)
 
     return
