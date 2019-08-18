@@ -54,6 +54,20 @@ AutoGAMESS is also capable of generating line plots of the vibrational frequency
 
 ![Line Plots Example](line-plots.PNG)
 
+AutoGAMESS can also generate scaling factors for vibrational frequencies using the least squares method by Scott and Radom[@Scott_Radom]. This method involves  minimizing the residuals, $\Delta$, given by
+
+$$ \Delta = \sum_i^{all} (\lambda \omega_i^{theory} - \nu_i^{expt})^2 $$
+
+resulting in
+
+$$ \lambda = \frac{\sum_i^{all} \omega_i^{theory} \nu_i^{expt}}{\sum_i^{all} (\omega_i^{theory})^2} $$
+
+where $\omega_i^{theory}$ and $\nu_i^{expt}$ are the $i$th theoretical harmonic and $i$th experimental fundamental frequencies (in $cm^{-1}$) and $\lambda$ is the scaling factor. The root mean square error is then given by,
+
+$$ rms = (\frac{ \sum_i^n \Delta_{min} }{n} )^{\frac{1}{2}} $$
+
+where $n$ is the number frequency modes for the molecule and $\Delta_{min}$ is the minimized residual for each particular mode. 
+
 AutoGAMESS
 
 # Use of AutoGAMESS
