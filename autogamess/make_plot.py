@@ -98,8 +98,8 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
             #check flag, plot v lines
             if 1 not in flag:
                 ax.vlines(x, 0, y, label=key, colors=cmap[i])
-            else:
-                ax.vlines(0, 0, 0, label=key, colors=cmap[i])
+            if (1 in flag) and (3 not in flag):
+                ax.vlines(0, 0, 0, label=key, linestyle='--', colors=cmap[i])
 
             #Make Gaussian line broadening
             if method is 'Gaussian':
