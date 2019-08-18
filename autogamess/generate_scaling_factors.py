@@ -1,7 +1,7 @@
 from .config import *
 from openpyxl import load_workbook
 
-def generate_scaling_factors(projdir, expt_dict, species, method='scott'):
+def generate_scaling_factors(projdir, expt_dict, species):
     """
     This function generates scaling factors and scaled frequencies.
 
@@ -18,9 +18,6 @@ def generate_scaling_factors(projdir, expt_dict, species, method='scott'):
         This should be a list of all species the user would like scaling factors
         generated for. Any molecule in the list must have experimental data in
         the `expt_dict` associated with it.
-    method: string [Optional]
-        This should be string giving the method for scaling factor calculation,
-        options are `scott`(defualt).
 
     Notes
     -------
@@ -38,7 +35,7 @@ def generate_scaling_factors(projdir, expt_dict, species, method='scott'):
      Once execution of this function is completed the `Hessian` worksheet
      will be updated to have a coulmn giving `Scaling Factor/RMS`, as well
      as the scaled frequencies will appear in parathesis next to the predicted
-     frequencies. 
+     frequencies.
 
     Returns
     -------
