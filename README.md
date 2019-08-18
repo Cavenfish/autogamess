@@ -362,50 +362,67 @@ Example
 
 ### make_plot
 
-**`make_plot(file, savedir, cmap=['b', 'k', 'r', 'g', 'y', 'c'], method='None', sig=300)`**
+**`make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'], method=None, sig=300, flag=[])`**
 
 ```
 This function make vibrational frequency vs. IR/Raman intensity line plots.
 
-  Parameters
-  ----------
-  file: string
-      This should be a string that points to the log file of a hessian or
-      Raman GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
-  savedir: string
-      This should be a string that points to the directory in which you
-      would like to save the png of the plot.(FULL DIRECTORY STRING REQUIRED)
-  cmap: list [Optional]
-      This should be a list of Matplotlib allowed color choices. Each symmetry
-      will be plotted with a different color in the list.
-  method: string [Optional]
-      This should be string giving the method for line broadening, options are
-      `Gaussian`, `Lorentzian`, 'None'(defualt).
-  sig: integer or float [Optional]
-      This should be a numerical value to be used as the FWHM for the line
-      broadening method chosen. Default: 300 wavenumbers
+Parameters
+----------
+file: string
+    This should be a string that points to the log file of a hessian or
+    Raman GAMESS(us) calculation. (FULL DIRECTORY STRING REQUIRED)
+savedir: string
+    This should be a string that points to the directory in which you
+    would like to save the png of the plot.(FULL DIRECTORY STRING REQUIRED)
+cmap: list [Optional]
+    This should be a list of Matplotlib allowed color choices. Each symmetry
+    will be plotted with a different color in the list.
+method: string [Optional]
+    This should be string giving the method for line broadening, options are
+    `Gaussian`, `Lorentzian`, None(defualt).
+sig: integer or float [Optional]
+    This should be a numerical value to be used as the FWHM for the line
+    broadening method chosen. Default: 300 wavenumbers
+flag: list [Optional]
+    This should be a list of integers, in particular 1,2 and 3. This list
+    tells the function what to plot and what to omit from the plot.
+    Please see the Notes section for more details.
 
-  Returns
-  -------
-  This function returns nothing.
+Notes
+-------
+The `flag` parameter is used as follows:
 
-  Example
-  -------
-  >>> import autogamess as ag
-  >>>
-  >>> file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
-  >>> savedir = './'
-  >>>
-  >>> ag.make_plot(file, savedir)
-  >>>
-  >>> cmap = ['b', 'r', 'k', 'c']
-  >>> ag.make_plot(file, savedir, cmap=cmap)
-  >>>
-  >>> method = 'Lorentzian'
-  >>> sig    = 450
-  >>>
-  >>> ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
-  >>>
+[Default] `flag=[]`    ---> All lines are plotted
+          `flag=[1]`   ---> Vertical lines are not plotted
+          `flag=[2]`   ---> Spectral line not plotted
+          `flag=[3]`   ---> Gaussian/Lorentzian lines not plotted
+          `flag=[1,2]` --->V Vertical lines and Spectral line not plotted
+
+List combination follow the same format, all possible list combinations
+are allowed.
+
+Returns
+-------
+This function returns nothing.
+
+Example
+-------
+>>> import autogamess as ag
+>>>
+>>> file    = './AGv0-0-6_NH3_CCSD-T_CC6_hes.log'
+>>> savedir = './'
+>>>
+>>> ag.make_plot(file, savedir)
+>>>
+>>> cmap = ['b', 'r', 'k', 'c']
+>>> ag.make_plot(file, savedir, cmap=cmap)
+>>>
+>>> method = 'Lorentzian'
+>>> sig    = 450
+>>>
+>>> ag.make_plot(file, savedir, cmap=cmap, method=method, sig=sig)
+>>>
 ```
 
 ### generate_scaling_factors
