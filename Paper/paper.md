@@ -68,8 +68,6 @@ $$ rms = (\frac{ \sum_i^n \Delta_{min} }{n} )^{\frac{1}{2}} $$
 
 where $n$ is the number frequency modes for the molecule and $\Delta_{min}$ is the minimized residual for each particular mode. 
 
-AutoGAMESS
-
 # Use of AutoGAMESS
 
 AutoGAMESS was developed to be versatile in its usability; however the most
