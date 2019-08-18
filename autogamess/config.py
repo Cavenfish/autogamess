@@ -130,7 +130,3 @@ def scaling_factor_scott(theo, expt):
     rms = round(np.sqrt(top2/len(theo)), 2)
 
     return c, rms
-
-#def scaling_factor_():
-
-#def scaling_factor_
