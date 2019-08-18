@@ -128,7 +128,9 @@ save_dir: string
     you wish to save the inputs in.
 initial_coords_dict: dictionary [Optional]
     This should be a dictionary with the key being the specie and the
-    value being a list that of its initial coordinates.
+    value being a list of the symmetry group and symmetry unique atom
+    coordinates. Examples can be seen in the AutoGAMESS GitHub repository
+    as well as by prinint out the default dictionary, see Notes section.
 proj_title: string [Optional]
     This should be a string ending with `\n`
 
@@ -534,6 +536,8 @@ value = ['CnV 2,\n','\n',
 
 initial_coords_dict = {key : value}
 ```
+
+Note that the atoms given in the list are the symmetry unique atoms for the point group symmetry given in the first element of the list. Point group symmtery should be given in GAMESS(us) format, with the second element of the list being `\n` for cases where GAMESS(us) requires a blank card after the symmetry group. For symmetry groups that cannot have a blank card after in GAMESS(us) the second element should be the first symmetry unique atom. Finally, make sure all elements of the list end with `\n` to ensure they are written in separates lines. 
 
 Some molecules are already compiled within AutoGAMESS default dictionary however, if one of the molecules in the input CSV file is not within the default dictionary a complete dictionary with all molecules within the CSV file is required by AutoGAMESS.
 
