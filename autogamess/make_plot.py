@@ -122,7 +122,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
             i += 1
 
         #check flag, plot fit sum
-        if 2 not in flag:
+        if (2 not in flag) and (method is not None):
             ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
 
         #init strings
@@ -194,7 +194,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
             i += 1
 
         #check flag, plot fit sum
-        if 2 not in flag:
+        if (2 not in flag) and (method is not None):
             ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
 
         #init strings
