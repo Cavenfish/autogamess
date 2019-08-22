@@ -1,16 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
 setuptools.setup(
     name="autogamess",
-    version="1.0.35",
+    version="1.1.0",
     author="Brian C. Ferrari",
     author_email="brianf1996@knights.ucf.edu",
     description="This is a python module for automating Raman calculations using GAMESS(us).",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
     url="https://github.com/Cavenfish/autogamess",
     packages=setuptools.find_packages(),
     install_requires=["numpy", "scipy", "pandas", "basis_set_exchange", "PeriodicElements",
