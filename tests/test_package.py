@@ -87,3 +87,20 @@ def test_find_bond_angle():
     o = ag.make_xzy(['3', '5', '4'])
 
     assert ag.find_bond_angle(o,a,b) == (np.pi/2)
+
+
+def test_plots(tmpdir):
+    hesfile = './correct/GDtest/AG-test_H2O_B3LYP_CCD_hes.log'
+    ramfile = './correct/GDtest/AG-test_H2O_B3LYP_CCD_raman.log'
+
+    ag.make_plot(hesfile, savedir=tmpdir.strpath+'/')
+    ag.make_plot(ramfile, savedir=tmpdir.strpath+'/')
+
+    name1 = hesfile.split('/')[-1].replace('_hes.log', '_ir-plot')
+    name2 = ramfile.split('/')[-1].replace('_raman.log', '_raman-plot')
+
+    file1 = tmpdir.strpath+'/' + name1 + '.png'
+    file2 = tmpdir.strpath+'/' + name2 + '.png'
+
+    assert os.path.isfile(file1) == True
+    assert os.path.isfile(file2) == True
