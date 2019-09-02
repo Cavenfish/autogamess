@@ -26,16 +26,16 @@ Oftentimes single calculations of molecular properties are not reliable resultin
 
 AutoGAMESS provides an open-source Python based software for automating conversion between optimization calculations to Hessian calculations and then to Raman calculations. It also offers automation of data collection from the output files, for quick tabular data readouts of each calculation. AutoGAMESS has currently been used for a study presented at the 30th Annual Conference on Computation Physics CCP2018, and will be published in the conference proceedings. AutoGAMESS is also currently being used in multiple other computational chemistry projects, soon to be published by scientists at the University of Central Florida.
 
-Functions:
+AutoGAMESS provides the following public interfaces:
 
-* new_project: Builds a directory tree for housing input/output files with spreadsheets for collected data.
-* input_builder: Builds optimization input files based on text file specifications
-* opt2hes: Converts optimization input files into Hessian input files
-* hes2Raman: Converts Hessians input files into Raman input files
-* sort_logs: Sorts GAMESS(US) output files
-* fill_spreadsheet: Fills in Excel Spreadsheets with data collected from log files
-* get_data: Collects data from output files
-* make_plot: Makes a vibrational frequency vs. IR/Raman intensity line plot
+* `new_project`: Builds a directory tree for housing input/output files with spreadsheets for collected data.
+* `input_builder`: Builds optimization input files based on text file specifications
+* `opt2hes`: Converts optimization input files into Hessian input files
+* `hes2Raman`: Converts Hessians input files into Raman input files
+* `sort_logs`: Sorts GAMESS(US) output files
+* `fill_spreadsheet`: Fills in Excel Spreadsheets with data collected from log files
+* `get_data`: Collects data from output files
+* `make_plot`: Makes a vibrational frequency vs. IR/Raman intensity line plot
 
 # Capabilities
 
