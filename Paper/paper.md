@@ -70,13 +70,10 @@ where $n$ is the number of frequency modes for the molecule and $\Delta_{\min}$ 
 
 # Use of AutoGAMESS
 
-AutoGAMESS was developed to be versatile in its usability; however the most
-effective method to use AutoGAMESS is the integration of short Python scripts
-within shell scripts. Several example scripts can be found in the software's [GitHub repository](https://github.com/Cavenfish/autogamess).
+AutoGAMESS was developed to be versatile in its usability, several examples (in both shell and Python scripts) can be found in the software's GitHub repository.
 
 # Availability
-This software is distributed under the MIT License and is available from https://pypi.org/project/autogamess/
-or can be installed through Python's pip install command.
+This software is distributed under the MIT License and can be installed through Python's pip install command.
 
 `python -m pip install autogamess --user`
 
@@ -85,13 +82,13 @@ or can be installed through Python's pip install command.
 AutoGAMESS requires all the following Python packages:
 
 * Python-3.x
-* NumPy
-* SciPy
-* Pandas
+* NumPy [@oliphant2006guide]
+* SciPy [@scipy]
+* Pandas [@mckinney-proc-scipy-2010]
 * basis_set_exchange
 * PeriodicElements
 * openpyxl
-* Matplotlib
+* Matplotlib [@Hunter:2007]
 
 
 # Acknowledgements
