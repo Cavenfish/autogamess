@@ -82,7 +82,7 @@ This software is distributed under the MIT License and can be installed through 
 AutoGAMESS requires all the following Python packages:
 
 * Python-3.x
-* NumPy [@oliphant2006guide]
+* NumPy [@oliphant2006guide; @numpy]
 * SciPy [@scipy]
 * Pandas [@mckinney-proc-scipy-2010]
 * basis_set_exchange
