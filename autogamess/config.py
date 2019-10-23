@@ -130,3 +130,19 @@ def scaling_factor_scott(theo, expt):
     rms = round(np.sqrt(top2/len(theo)), 2)
 
     return c, rms
+
+def get_elements(molecule):
+    atoms = []
+
+    for i in range(len(molecule)):
+        x = molecule[i]
+
+        if x.isupper() and x.isalpha():
+            y = molecule[i+1]
+
+            if y.islower():
+                atoms.append(x+y)
+            else:
+                atoms.append(x)
+
+    return atoms
