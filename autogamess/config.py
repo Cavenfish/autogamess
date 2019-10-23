@@ -138,7 +138,8 @@ def get_elements(molecule):
         x = molecule[i]
 
         if x.isupper() and x.isalpha():
-            y = molecule[i+1]
+            if i != len(molecule)-1:
+                y = molecule[i+1]
 
             if y.islower():
                 atoms.append(x+y)
