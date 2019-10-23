@@ -164,8 +164,8 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         if filename.split(_)[3] in ebasis_sets:
             basis_name = filename.split(_)[3]
             molecule   = filename.split(_)[1]
-            atoms      = [getattr(el,x) for x in molecule if x.isupper() and x.isalpha()]
-            elements   = [x for x in molecule if x.isupper() and x.isalpha()]
+            elements   = get_elements(molecule)
+            atoms      = [getattr(el,x) for x in elements]
             if basis_name in basis_dict:
                 basis_name = basis_dict[basis_name]
             basis = bse.get_basis(basis_name, elements=elements,
