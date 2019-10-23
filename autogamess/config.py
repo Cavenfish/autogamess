@@ -143,6 +143,7 @@ def get_elements(molecule):
 
             if y.islower():
                 atoms.append(x+y)
+                y = ''
             else:
                 atoms.append(x)
 
