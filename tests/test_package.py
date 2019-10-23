@@ -88,6 +88,8 @@ def test_find_bond_angle():
 
     assert ag.find_bond_angle(o,a,b) == (np.pi/2)
 
+    return
+
 
 def test_plots(tmpdir):
     hesfile = './correct/GDtest/AG-test_H2O_B3LYP_CCD_hes.log'
@@ -104,3 +106,15 @@ def test_plots(tmpdir):
 
     assert os.path.isfile(file1) == True
     assert os.path.isfile(file2) == True
+
+    return
+
+def test_get_elements():
+    molecule = 'Si2H3'
+    elements = ['Si', 'H']
+
+    atoms = ag.get_elements(molecule)
+
+    assert atoms == elements
+
+    return
