@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="autogamess",
-    version="1.1.3",
+    version="1.1.4",
     author="Brian C. Ferrari",
     author_email="brianf1996@knights.ucf.edu",
     description="This is a python module for automating Raman calculations using GAMESS(us).",
