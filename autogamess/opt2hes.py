@@ -99,9 +99,9 @@ def opt2hes(optfile, logfile):
         #Safety in case the user puts element in upper/lower
         #ie: 'Si' instead of the GAMESS way 'SI'
         if (len(coord.split(' ')[1]) > 1) and (index == -1):
-            old = coord.split(' ')[1][1]
-            new = coord.split(' ')[1][1].upper()
-            coord.replace(old, new)
+            old    = coord.split(' ')[1][1]
+            new    = coord.split(' ')[1][1].upper()
+            coord  = coord.replace(old, new)
             index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
 
         j      = ctr_f(data[index], inp)
