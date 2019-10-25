@@ -102,6 +102,7 @@ def opt2hes(optfile, logfile):
             old = coord.split(' ')[1][1]
             new = coord.split(' ')[1][1].upper()
             coord.replace(old, new)
+            index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
 
         j      = ctr_f(data[index], inp)
         inp[j] = coord
