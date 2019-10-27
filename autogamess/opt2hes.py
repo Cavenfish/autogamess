@@ -100,7 +100,7 @@ def opt2hes(optfile, logfile):
         #ie: 'Si' instead of the GAMESS way 'SI'
         if (len(coord.split(' ')[1]) > 1) and (index == -1):
             old    = coord.split(' ')[1][1]
-            new    = coord.split(' ')[1][1].upper()
+            new    = coord.split(' ')[1][1].lower()
             coord  = coord.replace(old, new)
             index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
 
