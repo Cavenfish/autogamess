@@ -49,9 +49,7 @@ def opt2hes(optfile, logfile):
     numgrd1 = 'NUMGRD=.T.'
 
     #Open, read in, and close log file
-    f   = open(logfile, 'r')
-    log = f.readlines()
-    f.close()
+    log = read_file(logfile)
 
     #Grabs optimized geometries tail index
     tfind = 'COORDINATES OF ALL ATOMS ARE'
@@ -69,9 +67,7 @@ def opt2hes(optfile, logfile):
     coords = log[dhead : dtail]
 
     #Open, read in, and close input file
-    f   = open(optfile, 'r')
-    inp = f.readlines()
-    f.close()
+    inp = read_file(optfile)
 
     #Replace OPTIMIZATION with HESSIAN
     i      = ctr_f(ropt, inp)
