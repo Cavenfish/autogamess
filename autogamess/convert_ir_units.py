@@ -14,15 +14,15 @@ def convert_ir_units(old, new, sheetsdir):
 
     for file in os.listdir(sheetsdir):
 
-        df = pd.read_excel(sheetsdir + file + xlsx, index_col=0,
+        df = pd.read_excel(sheetsdir + file, index_col=0,
                            sheet_name=None, header=6)
 
         temp = df[hes].filter(regex='Infrared Intensity') * CF
         df[hes].update(temp)
 
         #Write Spreadsheets
-        book = load_workbook(sheetsdir + dir + '.xlsx')
-        with pd.ExcelWriter(sheetsdir + dir + '.xlsx', engine='openpyxl') as writer:
+        book = load_workbook(sheetsdir + file)
+        with pd.ExcelWriter(sheetsdir + file, engine='openpyxl') as writer:
             writer.book = book
             writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
             if opt in df:
