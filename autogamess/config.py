@@ -148,3 +148,26 @@ def get_elements(molecule):
                 atoms.append(x)
 
     return atoms
+
+def conversion_factor(old, new):
+    daa = 'Debye^2 angstrom^-2 amu^-1'
+    kmm = 'km mol^-1'
+    cmm = 'cm molecule^-1'
+
+    if (old is daa) and (new is kmm):
+        return 42.2547
+    if (old is daa) and (new is cmm):
+        return 7.017e-18
+    if (old is kmm) and (new is daa):
+        return (1/42.2547)
+    if (old is kmm) and (new is cmm):
+        return 1.661e-19
+    if (old is cmm) and (new is daa):
+        return (1/7.017e-18)
+    if (old is cmm) and (new is kmm):
+        return (1/1.661e-19)
+
+    print(error_head)
+    print("Your old or new units choice did not match any available options")
+    print(error_tail)
+    sys.exit()
