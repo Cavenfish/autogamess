@@ -1,4 +1,4 @@
-from config import *
+from .config import *
 
 def convert_ir_units(old, new, sheetsdir):
     """
