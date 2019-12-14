@@ -1,29 +1,29 @@
 #Dictionary for theory levels and their input parameters
-theory_dict = {'B3LYP': 'DFTTYP=B3LYP',
-               'MP2': 'MPLEVL=2',
-               'CCSD-T': 'CCTYP=CCSD(T)',
-               'CCSD2-T': 'CCTYP=CR-CCL',
-               'CCSD': 'CCTYP=CCSD',
-               'BLYP': 'DFTTYP=BLYP',
-               'PBE': 'DFTTYP=PBE',
-               'PBE0': 'DFTTYP=PBE0',
-               'M06': 'DFTTYP=M06',
-               'wB97X-D': 'DFTTYP=wB97X-D',
-               'M06-L': 'DFTTYP=M06-L',
-               'M06-HF': 'DFTTYP=M06-HF',
-               'M11': 'DFTTYP=M11',
-               'M11-L': 'DFTTYP=M11-L',
-               'SCS-MP2': 'MPLEVL=2',
-               'MP2-SCS': 'MPLEVL=2',
-               'LCCD': 'CCTYP=LCCD',
-               'CCD': 'CCTYP=CCD',
-               'R-CCSD-T': 'CCTYP=R-CC',
-               'CR-CCSD-T': 'CCTYP=CR-CC',
-               'CCSD-TQ': 'CCTYP=CCSD(TQ)',
-               'CR-CCSD-TQ': 'CCTYP=CR-CC(Q)',
-               'EOMCCSD': 'CCTYP=EOM-CCSD',
+theory_dict = {'B3LYP'       : 'DFTTYP=B3LYP',
+               'MP2'         : 'MPLEVL=2',
+               'CCSD-T'      : 'CCTYP=CCSD(T)',
+               'CCSD2-T'     : 'CCTYP=CR-CCL',
+               'CCSD'        : 'CCTYP=CCSD',
+               'BLYP'        : 'DFTTYP=BLYP',
+               'PBE'         : 'DFTTYP=PBE',
+               'PBE0'        : 'DFTTYP=PBE0',
+               'M06'         : 'DFTTYP=M06',
+               'wB97X-D'     : 'DFTTYP=wB97X-D',
+               'M06-L'       : 'DFTTYP=M06-L',
+               'M06-HF'      : 'DFTTYP=M06-HF',
+               'M11'         : 'DFTTYP=M11',
+               'M11-L'       : 'DFTTYP=M11-L',
+               'SCS-MP2'     : 'MPLEVL=2',
+               'MP2-SCS'     : 'MPLEVL=2',
+               'LCCD'        : 'CCTYP=LCCD',
+               'CCD'         : 'CCTYP=CCD',
+               'R-CCSD-T'    : 'CCTYP=R-CC',
+               'CR-CCSD-T'   : 'CCTYP=CR-CC',
+               'CCSD-TQ'     : 'CCTYP=CCSD(TQ)',
+               'CR-CCSD-TQ'  : 'CCTYP=CR-CC(Q)',
+               'EOMCCSD'     : 'CCTYP=EOM-CCSD',
                'CR-EOMCCSD-T': 'CCTYP=CR-EOM',
-               'CR-EOML': 'CCTYP=CR-EOML'}
+               'CR-EOML'     : 'CCTYP=CR-EOML'}
 
 #Basis Dictionary
 basis_dict = {'may-cc-pVTZ': 'may-cc-pv(t+d)z',
@@ -35,6 +35,13 @@ basis_dict = {'may-cc-pVTZ': 'may-cc-pv(t+d)z',
               'jul-cc-pVTZ': 'jul-cc-pv(t+d)z',
               'jul-cc-pVQZ': 'jul-cc-pv(q+d)z',
               'Sadlej-pVTZ': 'sadlej pvtz'}
+
+#Composite Method Dictionary
+comp_dict  = {'G4MP2'   : 'RMETHD=G4MP2',
+              'G32CCSD' : 'RMETHD=G32CCSD',
+              'G4MP2-6X': 'RMETHD=G4MP2-6X',
+              'CCCA-S4' : 'RMETHD=CCCA-S4',
+              'CCCA-CCL': 'RMETHD=CCCA-CCL'}
 
 #Molecule dictionary
 molecule_dictionary ={
