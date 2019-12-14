@@ -27,6 +27,7 @@ from .fill_spreadsheets        import fill_spreadsheets
 from .get_data                 import get_data
 from .make_plot                import make_plot
 from .generate_scaling_factors import generate_scaling_factors
+from .convert_ir_units         import convert_ir_units
 
     #Multi-function Modules
 from .data_finder       import *
