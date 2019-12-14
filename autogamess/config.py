@@ -154,17 +154,17 @@ def conversion_factor(old, new):
     kmm = 'km mol^-1'
     cmm = 'cm molecule^-1'
 
-    if (old is daa) and (new is kmm):
+    if (old == daa) and (new == kmm):
         return 42.2547
-    if (old is daa) and (new is cmm):
+    if (old == daa) and (new == cmm):
         return 7.017e-18
-    if (old is kmm) and (new is daa):
+    if (old == kmm) and (new == daa):
         return (1/42.2547)
-    if (old is kmm) and (new is cmm):
+    if (old == kmm) and (new == cmm):
         return 1.661e-19
-    if (old is cmm) and (new is daa):
+    if (old == cmm) and (new == daa):
         return (1/7.017e-18)
-    if (old is cmm) and (new is kmm):
+    if (old == cmm) and (new == kmm):
         return (1/1.661e-19)
 
     print(error_head)
