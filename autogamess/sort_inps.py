@@ -30,6 +30,11 @@ def sort_inps(projdir, inpsdir):
     >>>sort_inps(projdir, inpsdir)
     >>>
     """
+    #Defining Shorthand to directory name dictionary
+    typ_dict = {'opt'  : 'Optimization/',
+                'hes'  : 'Hessian/',
+                'raman': 'Raman/'}
+
     #Defining directory names
     dir      = projdir + 'Inps/'
 
@@ -47,8 +52,9 @@ def sort_inps(projdir, inpsdir):
             continue
 
         #Get file runtype, then puts string in directory format
-        typ  = filename.split('_')[-1].split('.')[0]
-        typ += '/'
+        typ = typ_dict[filename.split('_')[-1].split('.')[0]]
+        if typ[-1].isnumeric():
+            del(typ[-1])
 
         #Gets molecule name, then puts string in directory format
         specie  = filename.split('_')[1]
