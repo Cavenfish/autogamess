@@ -21,6 +21,7 @@ from .config        import *
 from .new_project              import new_project
 from .opt2hes                  import opt2hes
 from .sort_logs                import sort_logs
+from .sort_inps                import sort_inps
 from .hes2raman                import hes2raman
 from .input_builder            import input_builder
 from .fill_spreadsheets        import fill_spreadsheets
