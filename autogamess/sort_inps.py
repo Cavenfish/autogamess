@@ -54,7 +54,7 @@ def sort_inps(projdir, inpsdir):
         #Get file runtype, then puts string in directory format
         typ0 = filename.split('_')[-1].split('.')[0]
         if typ0[-1].isnumeric():
-            del(typ0[-1])
+            typ0 = typ0[0:-1]
         typ  = typ_dict[typ0]
 
         #Gets molecule name, then puts string in directory format
