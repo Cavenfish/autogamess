@@ -33,7 +33,8 @@ def sort_inps(projdir, inpsdir):
     #Defining Shorthand to directory name dictionary
     typ_dict = {'opt'  : 'Optimization/',
                 'hes'  : 'Hessian/',
-                'raman': 'Raman/'}
+                'raman': 'Raman/',
+                'vscf' : 'VSCF/'}
 
     #Defining directory names
     dir      = projdir + 'Inps/'
