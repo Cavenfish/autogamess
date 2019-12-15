@@ -26,13 +26,14 @@ def sort_inps(projdir, inpsdir):
     ----------
     >>>import sort_logs
     >>>projdir = './Example/'
-    >>>sort_inps(projdir)
+    >>>inpdir  = './Inps/'
+    >>>sort_inps(projdir, inpsdir)
     >>>
     """
     #Defining directory names
     dir      = projdir + 'Inps/'
 
-    #Checks if sorteddir is real directory
+    #Checks if Inps dir is real directory
     if not os.path.isdir(dir):
         dir = projdir
 
@@ -41,11 +42,11 @@ def sort_inps(projdir, inpsdir):
 
     for filename in os.listdir(inpsdir):
 
-        #Skips non-log files
+        #Skips non-inp files
         if ipext not in filename:
             continue
 
-        #Get file runtype
+        #Get file runtype, then puts string in directory format
         typ  = filename.split('_')[-1].split('.')[0]
         typ += '/'
 
