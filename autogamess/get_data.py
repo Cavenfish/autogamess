@@ -20,7 +20,7 @@ def get_data(filename):
     data: object
         This is an object with all the data collected from the log file.
         Below is a list of the attributes associated with `data` based on
-        each log file type. 
+        each log file type.
 
         all   files: `cpu`, `time`
         opt   files: `bond_lengths`, `bond_angles`
@@ -57,6 +57,10 @@ def get_data(filename):
     if '_vscf' in filename:
         setattr(data, 'vscf_freq', vscf(filename)[0])
         setattr(data,   'vscf_ir', vscf(filename)[1])
+
+    if '_comp' in filename:
+        setattr(data,   'hf_0k', composite(filename)[0])
+        setattr(data, 'hf_298k', composite(filename)[1])
 
     setattr(data,  'cpu', comp(filename)[0])
     setattr(data, 'time', comp(filename)[1])
