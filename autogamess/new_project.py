@@ -180,24 +180,17 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
             fv = 'VSCF Frequency (cm^-1)'
             iv = 'VSCF IR (Debye^2 angstrom^-2 amu^-1)'
             hf = 'Heat of Formation (kcal mol^-1)'
+            sb = '          '
             if runtyp == 'Optimization/':
-                worksheet.write(2, 4, u)
-                worksheet.write(2, 6, bl)
-                worksheet.write(2, 9, ba)
+                worksheet.write(2, 0, u + sb + bl + sb + ba)
             if runtyp == 'Hessian/':
-                worksheet.write(2, 4, u)
-                worksheet.write(2, 6, vf)
-                worksheet.write(2, 9, ii)
+                worksheet.write(2, 0, u + sb + vf + sb + ii)
             if runtyp == 'Raman/':
-                worksheet.write(2, 4, u)
-                worksheet.write(2, 6, ra)
+                worksheet.write(2, 0, u + sb + ra)
             if runtyp == 'VSCF/':
-                worksheet.write(2, 4, u)
-                worksheet.write(2, 6, fv)
-                worksheet.write(2, 9, iv)
+                worksheet.write(2, 0, u + sb + fv + sb + iv)
             if runtyp == 'Composite/':
-                worksheet.write(2, 4, u)
-                worksheet.write(2, 6, hf)
+                worksheet.write(2, 0, u + sb + hf)
 
         #Save Excell file
         writer.save()
