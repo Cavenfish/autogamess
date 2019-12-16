@@ -176,21 +176,27 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
             vf = 'Vibrational Frequency (cm^-1)'
             ii = 'Infrared Intensity (Debye^2 angstrom^-2 amu^-1)'
             ra = 'Raman Activity (angstrom^4 amu^-1)'
+            fv = 'VSCF Frequency (cm^-1)'
+            iv = 'VSCF IR (Debye^2 angstrom^-2 amu^-1)'
             hf = 'Heat of Formation (kcal mol^-1)'
             if runtyp == 'Optimization/':
-                worksheet.write(3, 4, u)
-                worksheet.write(3, 6, bl)
-                worksheet.write(3, 9, ba)
+                worksheet.write(2, 4, u)
+                worksheet.write(2, 6, bl)
+                worksheet.write(2, 9, ba)
             if runtyp == 'Hessian/':
-                worksheet.write(3, 4, u)
-                worksheet.write(3, 6, vf)
-                worksheet.write(3, 9, ii)
+                worksheet.write(2, 4, u)
+                worksheet.write(2, 6, vf)
+                worksheet.write(2, 9, ii)
             if runtyp == 'Raman/':
-                worksheet.write(3, 4, u)
-                worksheet.write(3, 6, ra)
+                worksheet.write(2, 4, u)
+                worksheet.write(2, 6, ra)
+            if runtyp == 'VSCF/':
+                worksheet.write(2, 4, u)
+                worksheet.write(2, 6, fv)
+                worksheet.write(2, 9, iv)
             if runtyp == 'Composite/':
-                worksheet.write(3, 4, u)
-                worksheet.write(3, 6, hf)
+                worksheet.write(2, 4, u)
+                worksheet.write(2, 6, hf)
 
         #Save Excell file
         writer.save()
