@@ -64,6 +64,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 str(pkg_resources.require("autogamess")[0].version) )
     ibv     = 'AGv' + version.split(' ')[-1].replace('.', '-')
     opt     = '_opt.inp'
+    cmp     = '_comp.inp'
     numgrd  = 'NUMGRD=.T.'
 
     #Checks if initial_coords_dict is given
@@ -76,6 +77,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
     #Get list of species/theories/basis sets
     species     = list(df['Species'].dropna())
     theories    = list(df['Theory'].dropna())
+    cmethods    = list(df['Composite Methods'].dropna())
     basis_sets  = list(df['Basis Sets'].dropna())
     ebasis_sets = list(df['External Basis Sets'].dropna())
 
@@ -91,6 +93,9 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
                 files.append( ibv+ _ + specie.strip('\n') + _ +
                               theorie.strip('\n') + _ +
                               basis.strip('\n') + opt )
+        for cmethod in cmethods:
+            files.append( ibv+ _ + specie.strip('\n') + _ +
+                          cmethod.strip('\n') + cmp )
 
     #Make input files for GAMESS(us)
     for filename in files:
@@ -99,6 +104,28 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
         f.write('!'+ version +'\n')
         f.write('!  by Brian C. Ferrari \n')
         f.write('!\n')
+
+        #Composit method input building
+        if cmp in filename:
+            theo      = comp_dict[filename.split(_)[2]]
+            i         = ctr_f('theory', comp_basic_params)
+            params    = list(comp_basic_params)
+            params[i] = comp_basic_params[i].replace('theory', theo)
+
+            if 'G4MP2' in theo:
+                params.insert(ctr_f('$DATA', params)-1,
+                              ' $FORCE METHOD=SEMINUM $END\n')
+
+            #Write parameters, and project title
+            f.writelines(params)
+            f.write(proj_title)
+
+            #Get initial coordinates from initial_coords_dict
+            coords = initial_coords_dict[filename.split(_)[1]]
+            f.writelines(coords)
+            f.write('$END')
+            f.close()
+            continue
 
         #Get index of 'theory' to replace with proper command
         i               = ctr_f('theory', basic_params)
