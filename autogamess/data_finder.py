@@ -116,7 +116,7 @@ def optimization(filename):
                 a3 = make_xzy(matrix[key3])
                 if (a3 == a2) or (a3 == a1):
                     continue
-                angle  = find_bond_angle(a1, a2, a3)
+                angle  = find_bond_angle(a1, a2, a3) * (360.0 / (2.0 * np.pi))
                 label  = key2 + '-' + key + '-' + key3 + ' Bond Angle'
                 angles[label]  = str(angle)
 
