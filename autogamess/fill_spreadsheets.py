@@ -76,6 +76,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     hes = 'Hessian'
     ram = 'Raman'
     vsc = 'VSCF'
+    cmp = 'Composite'
 
     #Define Data Column names
     rt = 'Run Time'
@@ -253,6 +254,43 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                 move2 = passdir + vsc + '/' + dir + '/' + file
                 os.rename(filename, move2)
 
+#----------------COMPOSITE METHOD Files-------------------------------------
+            if '_comp' in file:
+                temp = df[cmp]
+
+                if rt not in df[cmp]:
+                    df[cmp][rt] = np.nan
+                if cp not in df[cmp]:
+                    df[cmp][cp] = np.nan
+
+                if composite(filename) == (0,0,0):
+                    move2 = faildir + file
+                    os.rename(filename, move2)
+                    continue
+
+                temp=temp.loc[temp[te]==theo]
+
+                vi = 'Heat of Formation (0K)'
+                if vi not in df[cmp]:
+                    df[cmp][vi] = np.nan
+                temp[vi] = data.hf_0k
+                df[cmp].update(temp)
+
+                vi = 'Heat of Formation (298K)'
+                if vi not in df[cmp]:
+                    df[cmp][vi] = np.nan
+                temp[vi] = data.hf_298k
+                df[cmp].update(temp)
+
+                temp[rt] = data.time
+                temp[cp] = data.cpu
+
+                df[cmp].update(temp)
+
+                move2 = passdir + cmp + '/' + dir + '/' + file
+                os.rename(filename, move2)
+
+#---------------------------------------------------------------------------
         #Write Spreadsheets
         book = load_workbook(sheetsdir + dir + '.xlsx')
         with pd.ExcelWriter(sheetsdir + dir + '.xlsx', engine='openpyxl') as writer:
