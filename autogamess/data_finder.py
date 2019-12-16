@@ -350,3 +350,32 @@ def vscf(filename):
         ir[a]   = c
 
     return [freq, ir]
+
+
+#---------------------------------------------------------------------
+#                     COMPOSITE METHOD FUNCTION
+#---------------------------------------------------------------------
+
+def composite(filename):
+    """
+    """
+    #Read in contents of log file
+    log = read_file(filename)
+
+    #Get end of log file, for confirming successful run
+    efind = 'EXECUTION OF GAMESS TERMINATED NORMALLY'
+    end   = ctr_f(efind, log)
+
+    #Checks is ctr_f fucntion actually found something
+    if check_if_exists(filename, end):
+        return (0,0,0)
+
+    #Get index of lines with data from log file
+    i0k   = ctr_f('HEATS OF FORMATION   (0K):', log)
+    i298k = ctr_f('HEATS OF FORMATION (298K):', log)
+
+    #Get data from log file
+    hf0k   =   log[i0k].split(':')[1].strip(' ').split(' ')[0]
+    hf298k = log[i298k].split(':')[1].strip(' ').split(' ')[0]
+
+    return [hf0k, hf298k]
