@@ -175,7 +175,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
             ba = 'Bond Angle (radians)'
             vf = 'Vibrational Frequency (cm^-1)'
             ii = 'Infrared Intensity (Debye^2 angstrom^-2 amu^-1)'
-            ra = 'Raman Activity (angstrom^4 amu^-1)''
+            ra = 'Raman Activity (angstrom^4 amu^-1)'
             hf = 'Heat of Formation (kcal mol^-1)'
             if runtyp == 'Optimization':
                 worksheet.write(3, 4, u)
