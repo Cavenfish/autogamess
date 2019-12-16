@@ -13,7 +13,7 @@ import basis_set_exchange as bse
 error_head   = "\n*****uh oh spaghettios*****\n"
 error_tail   = "\n*****Ponder this, then return to me*****\n"
 
-#Basic input file parameters
+#Basic input file parameters for optimization calculation
 basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                 ' RUNTYP=OPTIMIZE ICUT=12 ITOL=25 theory\n',
                 ' MAXIT=200 QMTTOL=1E-7 ICHARG=0 ISPHER=1 $END\n',
@@ -23,6 +23,16 @@ basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                 ' $DFT JANS=2 $END\n',
                 ' $BASIS GBASIS=basis $END\n',
                 ' $DATA\n')
+
+#Basic input file parameters for composite method calculation
+comp_basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
+                     ' RUNTYP=COMP ICUT=12 ITOL=25 MAXIT=200\n',
+                     ' QMTTOL=1E-7 ICHARG=0 ISPHER=1 $END\n',
+                     ' $COMP theory $END\n',
+                     ' $SYSTEM MWORDS=800 MEMDDI=800 $END\n',
+                     ' $STATPT OPTTOL=1E-6 NSTEP=200 $END\n',
+                     ' $SCF DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7 $END\n',
+                     ' $DATA\n')
 
 #Basic functions used throughout code-----------------------------------
 def check_if_exists(filename, *args):
