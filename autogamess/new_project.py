@@ -155,7 +155,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         for runtyp in runtyps:
 
             #Define sheet name and make it
-            if runtyp == 'Composite':
+            if runtyp == 'Composite/':
                 sheet     = runtyp.replace('/', '')
                 df3.to_excel(writer, startrow=6, startcol=0, sheet_name=sheet)
                 worksheet = writer.sheets[sheet]
@@ -177,18 +177,18 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
             ii = 'Infrared Intensity (Debye^2 angstrom^-2 amu^-1)'
             ra = 'Raman Activity (angstrom^4 amu^-1)'
             hf = 'Heat of Formation (kcal mol^-1)'
-            if runtyp == 'Optimization':
+            if runtyp == 'Optimization/':
                 worksheet.write(3, 4, u)
                 worksheet.write(3, 6, bl)
                 worksheet.write(3, 9, ba)
-            if runtyp == 'Hessian':
+            if runtyp == 'Hessian/':
                 worksheet.write(3, 4, u)
                 worksheet.write(3, 6, vf)
                 worksheet.write(3, 9, ii)
-            if runtyp == 'Raman':
+            if runtyp == 'Raman/':
                 worksheet.write(3, 4, u)
                 worksheet.write(3, 6, ra)
-            if runtyp == 'Composite':
+            if runtyp == 'Composite/':
                 worksheet.write(3, 4, u)
                 worksheet.write(3, 6, hf)
 
