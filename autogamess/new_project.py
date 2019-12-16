@@ -1,6 +1,7 @@
 import pkg_resources
 from .config        import *
 from .input_builder import input_builder
+from .sort_inps     import sort_inps
 
 def new_project(maindir, csvfile, initial_coords_dict=None,
                 title='Project_Name/', make_inputs=False):
@@ -208,5 +209,9 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         input_builder(csvfile, save_dir, initial_coords_dict,
                      proj_title = title.replace('/', '\n'))
 
+    #Sorts the freshly made inputs
+    projdir = maindir + title
+    inpsdir = savedir
+    sort_inps(projdir, inpsdir)
 
     return
