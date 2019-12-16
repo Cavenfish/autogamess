@@ -173,7 +173,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
             #Write Units in header
             u  = 'Units:'
             bl = 'Bond Length (angstroms)'
-            ba = 'Bond Angle (radians)'
+            ba = 'Bond Angle (degrees)'
             vf = 'Vibrational Frequency (cm^-1)'
             ii = 'Infrared Intensity (Debye^2 angstrom^-2 amu^-1)'
             ra = 'Raman Activity (angstrom^4 amu^-1)'
@@ -209,9 +209,9 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         input_builder(csvfile, save_dir, initial_coords_dict,
                      proj_title = title.replace('/', '\n'))
 
-    #Sorts the freshly made inputs
-    projdir = maindir + title
-    inpsdir = savedir
-    sort_inps(projdir, inpsdir)
+        #Sorts the freshly made inputs
+        projdir = maindir + title
+        inpsdir = save_dir
+        sort_inps(projdir, inpsdir)
 
     return
