@@ -109,6 +109,7 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
     runtyps    = [str(x) + '/' for x in list(df['Run Types'].dropna())]
     species    = [str(x) + '/' for x in list(df['Species'].dropna())]
     theories   = list(df['Theory'].dropna())
+    cmethods   = list(df['Composite Methods'].dropna())
     basis_sets = list(df['Basis Sets'].dropna()) + list(
                  df['External Basis Sets'].dropna())
 
@@ -128,7 +129,12 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
 
     #Make dataframe with basis sets names only
     data = {'Theory': theo, 'Basis Set': bs}
-    df2 = pd.DataFrame(data=data)
+    df2  = pd.DataFrame(data=data)
+
+    #Make data for Composite method Sheets
+    data = {'Method': cmethods}
+    df3  = pd.DataFrame(data=data)
+
 
     #More directory making and Excell workbook and sheet making
     for specie in species:
@@ -149,14 +155,42 @@ def new_project(maindir, csvfile, initial_coords_dict=None,
         for runtyp in runtyps:
 
             #Define sheet name and make it
-            sheet     = runtyp.replace('/', '')
-            df2.to_excel(writer, startrow=6, startcol=0, sheet_name=sheet)
-            worksheet = writer.sheets[sheet]
+            if runtyp == 'Composite':
+                sheet     = runtyp.replace('/', '')
+                df3.to_excel(writer, startrow=6, startcol=0, sheet_name=sheet)
+                worksheet = writer.sheets[sheet]
+            else:
+                sheet     = runtyp.replace('/', '')
+                df2.to_excel(writer, startrow=6, startcol=0, sheet_name=sheet)
+                worksheet = writer.sheets[sheet]
 
             #Write Header
             for line in header:
                 i = header.index(line)
                 worksheet.write(i, 0, line)
+
+            #Write Units in header
+            u  = 'Units:'
+            bl = 'Bond Length (angstroms)'
+            ba = 'Bond Angle (radians)'
+            vf = 'Vibrational Frequency (cm^-1)'
+            ii = 'Infrared Intensity (Debye^2 angstrom^-2 amu^-1)'
+            ra = 'Raman Activity (angstrom^4 amu^-1)''
+            hf = 'Heat of Formation (kcal mol^-1)'
+            if runtyp == 'Optimization':
+                worksheet.write(3, 4, u)
+                worksheet.write(3, 6, bl)
+                worksheet.write(3, 9, ba)
+            if runtyp == 'Hessian':
+                worksheet.write(3, 4, u)
+                worksheet.write(3, 6, vf)
+                worksheet.write(3, 9, ii)
+            if runtyp == 'Raman':
+                worksheet.write(3, 4, u)
+                worksheet.write(3, 6, ra)
+            if runtyp == 'Composite':
+                worksheet.write(3, 4, u)
+                worksheet.write(3, 6, hf)
 
         #Save Excell file
         writer.save()
