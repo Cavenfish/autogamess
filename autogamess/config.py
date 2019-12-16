@@ -31,7 +31,8 @@ comp_basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                      ' $COMP theory $END\n',
                      ' $SYSTEM MWORDS=800 MEMDDI=800 $END\n',
                      ' $STATPT OPTTOL=1E-6 NSTEP=200 $END\n',
-                     ' $SCF DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7 $END\n',
+                     ' $SCF DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7\n',
+                     ' DAMP=.T. $END\n',
                      ' $DATA\n')
 
 #Basic functions used throughout code-----------------------------------
