@@ -113,7 +113,7 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
             params[i] = comp_basic_params[i].replace('theory', theo)
 
             if 'G4MP2' in theo:
-                params.insert(ctr_f('$DATA', params)-1,
+                params.insert(ctr_f('$COMP', params)+1,
                               ' $FORCE METHOD=SEMINUM $END\n')
 
             #Write parameters, and project title
