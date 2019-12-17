@@ -83,6 +83,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     bs = 'Basis Set'
     cp = 'CPU Percentage'
     te = 'Theory'
+    me = 'Method'
 
 
     for dir in os.listdir(sorteddir):
@@ -268,7 +269,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                     os.rename(filename, move2)
                     continue
 
-                temp=temp.loc[temp[te]==theo]
+                temp=temp.loc[temp[me]==theo]
 
                 vi = 'Heat of Formation (0K)'
                 if vi not in df[cmp]:
