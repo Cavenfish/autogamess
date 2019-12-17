@@ -68,6 +68,14 @@ def ctr_f_all(find_this, look_here):
 
     return r
 
+def ctr_f_last(find_this, look_here):
+    look_here.reverse()
+    for line in look_here:
+        if find_this in line:
+            look_here.reverse()
+            return look_here.index(line)
+    return -1
+
 def angle_between(v1, v2):
     v1hat = v1 / np.linalg.norm(v1)
     v2hat = v2 / np.linalg.norm(v2)
