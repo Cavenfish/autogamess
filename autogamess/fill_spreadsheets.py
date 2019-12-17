@@ -306,6 +306,6 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
             if vsc in df:
                 df[vsc].to_excel(writer, sheet_name=vsc, startrow=6)
             if cmp in df:
-                df[cmp].to_excel(writer, sheet_name=vsc, startrow=6)
+                df[cmp].to_excel(writer, sheet_name=cmp, startrow=6)
 
     return
