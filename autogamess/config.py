@@ -27,7 +27,7 @@ basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
 #Basic input file parameters for composite method calculation
 comp_basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
                      ' RUNTYP=COMP ICUT=12 ITOL=25 MAXIT=200\n',
-                     ' QMTTOL=1E-7 ICHARG=0 ISPHER=1 $END\n',
+                     ' QMTTOL=1E-7 ICHARG=0 ISPHER=1 NOSYM=1 $END\n',
                      ' $COMP theory $END\n',
                      ' $SYSTEM MWORDS=800 MEMDDI=800 $END\n',
                      ' $STATPT OPTTOL=1E-6 NSTEP=200 $END\n',
