@@ -16,8 +16,9 @@ def comp(filename):
 
     #Checks is ctr_f fucntion actually found something
     if end != -1:
-        time = log[end -2].split()[4]
-        cpu  = log[end -2].split()[9]
+        i    = ctr_f_last('TOTAL WALL CLOCK TIME', log)
+        time = log[i].split()[4]
+        cpu  = log[i].split()[9]
     else:
         time = 'Error'
         cpu  = 'Error'
