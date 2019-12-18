@@ -115,6 +115,12 @@ def input_builder(inputfile, save_dir, initial_coords_dict=None,
             if 'G4MP2' in theo:
                 params.insert(ctr_f('$COMP', params)+1,
                               ' $FORCE METHOD=SEMINUM $END\n')
+            if 'CCCA-S4' in theo:
+                i = ctr_f('DAMP=.T.', params)
+                del params[i]
+                i = ctr_f('$SCF', params)
+                params[i].replace('DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7\n',
+                                  'DAMP=.T. CONV=1d-7 $END\n')
 
             #Write parameters, and project title
             f.writelines(params)
