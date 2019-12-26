@@ -335,20 +335,34 @@ def vscf(filename):
         return (0,0,0)
 
     #Get head and tail of data
-    hfind = 'FREQUENCY, CM-1  INTENSITY, KM/MOL    EXCITATION'
-    dhead = ctr_f(hfind, log) + 1
-    tfind = '......FINISHED VIBRATIONAL SCF......'
-    dtail = ctr_f(tfind, log)
+    hfind1 = 'FREQUENCY, CM-1  INTENSITY, KM/MOL    EXCITATION'
+    dhead1 = ctr_f(hfind, log) + 1
+    hfind2 = 'MODE   FREQUENCY, CM-1  INTENSITY, KM/MOL'
+    dhead2 = ctr_f(hfind, log) + 1
+    tfind  = '......FINISHED VIBRATIONAL SCF......'
+    dtail  = ctr_f(tfind, log)
 
-    #Make Frequency and Infrared Intensity dictionaries
-    freq = {}
-    ir   = {}
-    for line in log[dhead:dtail]:
-        a = line.split()[2] + ' ' + line.split()[3] + ' ' + line.split()[4]
-        b = line.split()[0]
-        c = line.split()[1]
-        freq[a] = b
-        ir[a]   = c
+    if dhead1 != 0:
+        #Make Frequency and Infrared Intensity dictionaries
+        freq = {}
+        ir   = {}
+        for line in log[dhead1:dtail]:
+            a = line.split()[2] + ' ' + line.split()[3] + ' ' + line.split()[4]
+            b = line.split()[0]
+            c = line.split()[1]
+            freq[a] = b
+            ir[a]   = c
+
+    if dhead2 != 0:
+        #Make Frequency and Infrared Intensity dictionaries
+        freq = {}
+        ir   = {}
+        for line in log[dhead2:dtail]:
+            a = line.split()[0]
+            b = line.split()[1]
+            c = line.split()[2]
+            freq[a] = b
+            ir[a]   = c
 
     return [freq, ir]
 
