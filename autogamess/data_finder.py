@@ -336,9 +336,9 @@ def vscf(filename):
 
     #Get head and tail of data
     hfind1 = 'FREQUENCY, CM-1  INTENSITY, KM/MOL    EXCITATION'
-    dhead1 = ctr_f(hfind, log) + 1
+    dhead1 = ctr_f(hfind1, log) + 1
     hfind2 = 'MODE   FREQUENCY, CM-1  INTENSITY, KM/MOL'
-    dhead2 = ctr_f(hfind, log) + 1
+    dhead2 = ctr_f(hfind2, log) + 1
     tfind  = '......FINISHED VIBRATIONAL SCF......'
     dtail  = ctr_f(tfind, log)
 
