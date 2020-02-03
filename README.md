@@ -494,31 +494,31 @@ All user functions contain doc strings with examples and explanations of paramet
 
 The CSV file required by both functions must have the following format. The first line must be the header, written exactly as follows.
 
-| Species | Theory | Basis Sets | External Basis Sets | Run Types |
-| ------- | ------ | ---------- | ------------------- | --------- |
+| Species | Theory | Composite Methods | Basis Sets | External Basis Sets | Run Types |
+| ------- | ------ | ----------------- | ---------- | ------------------- | --------- |
 
 All lines after the header should give input as 1 item per column per line. As shown in the example bellow.
 
-| Species | Theory  | Basis Sets | External Basis Sets | Run Types    |
-| ------- | ------  | ---------- | ------------------- | ---------    |
-| H2O     | B3LYP   | CCD        | may-cc-pVQZ         | Optimization |
-| NH3     | MP2     | CCT        | aug-cc-pV7Z         | Hessian      |
-| HCN     | CCSD-T  | CCQ        | may-cc-pVTZ         | Raman        |
-| H2CO    | PBE     | CC5        | Sadlej-pVTZ         | VSCF         |
-| CH4     | wB97X-D | CC6        | jun-cc-pVQZ         |              |
-| C2H6    | SCS-MP2 | ACCD       | jul-cc-pVTZ         |              |
-| C2H4    | CCSD2-T | ACCT       |                     |              |
-| C2H2    |         | ACCQ       |                     |              |
+| Species | Theory  | Composite Methods | Basis Sets | External Basis Sets | Run Types    |
+| ------- | ------  | ----------------- | ---------- | ------------------- | ---------    |
+| H2O     | B3LYP   | G32CCSD           | CCD        | may-cc-pVQZ         | Optimization |
+| NH3     | MP2     | G4MP2             | CCT        | aug-cc-pV7Z         | Hessian      |
+| HCN     | CCSD-T  | G4MP2-6X          | CCQ        | may-cc-pVTZ         | Raman        |
+| H2CO    | PBE     | CCCA-S4           | CC5        | Sadlej-pVTZ         | VSCF         |
+| CH4     | wB97X-D | CCCA-CCL          | CC6        | jun-cc-pVQZ         |              |
+| C2H6    | SCS-MP2 |                   | ACCD       | jul-cc-pVTZ         |              |
+| C2H4    | CCSD2-T |                   | ACCT       |                     |              |
+| C2H2    |         |                   | ACCQ       |                     |              |
 
 AutoGAMESS assumes the user will be performing every possible combination of
 Theory and Basis Sets(internal and external) for every calculation type, across
 all species. Therefore repetition within columns will cause an error. If a user wishes to perform Optimization, Hessian and Raman calculations on water(H2O) using only B3LYP CCD the following should be in the CSV.
 
-| Species | Theory  | Basis Sets | External Basis Sets | Run Types    |
-| ------- | ------  | ---------- | ------------------- | ---------    |
-| H2O     | B3LYP   | CCD        |                     | Optimization |
-|         |         |            |                     | Hessian      |
-|         |         |            |                     | Raman        |
+| Species | Theory  | Composite Methods | Basis Sets | External Basis Sets | Run Types    |
+| ------- | ------  | ----------------- | ---------- | ------------------- | ---------    |
+| H2O     | B3LYP   |                   | CCD        |                     | Optimization |
+|         |         |                   |            |                     | Hessian      |
+|         |         |                   |            |                     | Raman        |
 
 For any given CSV file the total generated input files by `input_builder` will be
 `n*m*i` where *n* is the number of Species given, *m* is the number of Theory given, and *i* is the number of Basis Sets given.
