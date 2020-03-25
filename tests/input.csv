@@ -1,4 +1,4 @@
-Species,Theory,Basis Sets,External Basis Sets,Run Types
-H2O,B3LYP,CCD,,Optimization
-,,,,Hessian
-,,,,Raman
+Species,Theory,Composite Methods,Basis Sets,External Basis Sets,Run Types
+H2O,B3LYP,,CCD,,Optimization
+,,,,,Hessian
+,,,,,Raman
