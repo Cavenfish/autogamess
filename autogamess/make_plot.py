@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
-              method=None, sig=300, flag=[]):
+              method=None, sig=300, flag=[], reverse_x=True):
     """
     This function make vibrational frequency vs. IR/Raman intensity line plots.
 
@@ -30,6 +30,8 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         This should be a list of integers, in particular 1,2 and 3. This list
         tells the function what to plot and what to omit from the plot.
         Please see the Notes section for more details.
+    reverse_x: boolean True/False [Optional]
+         if True then x-axis will be in reverse (ie: 300---150----0).
 
     Notes
     -------
@@ -126,6 +128,10 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         #check flag, plot fit sum
         if (2 not in flag) and (method is not None):
             ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
+
+        #Reverse x-axis if asked for
+        if reverse_x is True:
+            ax.invert_xaxis()
 
         #init strings
         a     = file.split('_')

@@ -374,7 +374,7 @@ Example
 
 ### make_plot
 
-**`make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'], method=None, sig=300, flag=[])`**
+**`make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'], method=None, sig=300, flag=[], reverse_x=True)`**
 
 ```
 This function make vibrational frequency vs. IR/Raman intensity line plots.
@@ -400,6 +400,8 @@ flag: list [Optional]
     This should be a list of integers, in particular 1,2 and 3. This list
     tells the function what to plot and what to omit from the plot.
     Please see the Notes section for more details.
+reverse_x: boolean True/False [Optional]
+    if True then x-axis will be in reverse (ie: 300---150----0).
 
 Notes
 -------
