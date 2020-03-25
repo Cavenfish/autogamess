@@ -28,7 +28,12 @@ theory_dict = {'Slater'      : 'DFTTYP=SLATER',
                'PBE'         : 'DFTTYP=PBE',
                'B3LYP'       : 'DFTTYP=B3LYP',
                'CAM-B3LYP'   : 'DFTTYP=CAMB3LYP',
+               'B97'         : 'DFTTYP=B97',
+               'B97-1'       : 'DFTTYP=B97-1',
+               'B97-2'       : 'DFTTYP=B97-2',
+               'B97-3'       : 'DFTTYP=B97-3',
                'B3PW91'      : 'DFTTYP=B3PW91',
+               'X3LYP'       : 'DFTTYP=X3LYP',
                'PBE0'        : 'DFTTYP=PBE0',
                'M06'         : 'DFTTYP=M06',
                'wB97'        : 'DFTTYP=wB97',
@@ -54,15 +59,18 @@ theory_dict = {'Slater'      : 'DFTTYP=SLATER',
                'CR-EOML'     : 'CCTYP=CR-EOML'}
 
 #Basis Dictionary
-basis_dict = {'may-cc-pVTZ': 'may-cc-pv(t+d)z',
-              'may-cc-pVQZ': 'may-cc-pv(q+d)z',
-              'jun-cc-pVDZ': 'jun-cc-pv(d+d)z',
-              'jun-cc-pVTZ': 'jun-cc-pv(t+d)z',
-              'jun-cc-pVQZ': 'jun-cc-pv(q+d)z',
-              'jul-cc-pVDZ': 'jul-cc-pv(d+d)z',
-              'jul-cc-pVTZ': 'jul-cc-pv(t+d)z',
-              'jul-cc-pVQZ': 'jul-cc-pv(q+d)z',
-              'Sadlej-pVTZ': 'sadlej pvtz'}
+basis_dict = {'may-cc-pVTZ'   : 'may-cc-pv(t+d)z',
+              'may-cc-pVQZ'   : 'may-cc-pv(q+d)z',
+              'jun-cc-pVDZ'   : 'jun-cc-pv(d+d)z',
+              'jun-cc-pVTZ'   : 'jun-cc-pv(t+d)z',
+              'jun-cc-pVQZ'   : 'jun-cc-pv(q+d)z',
+              'jul-cc-pVDZ'   : 'jul-cc-pv(d+d)z',
+              'jul-cc-pVTZ'   : 'jul-cc-pv(t+d)z',
+              'jul-cc-pVQZ'   : 'jul-cc-pv(q+d)z',
+              'apr-cc-pVQZ'   : 'apr-cc-pv(q+d)z',
+              'NASA-Ames-ANO' : 'NASA Ames ANO',
+              'NASA-Ames-ANO2': 'NASA Ames ANO2',
+              'Sadlej-pVTZ'   : 'sadlej pvtz'}
 
 #Composite Method Dictionary
 comp_dict  = {'G4MP2'   : 'RMETHD=G4MP2',
@@ -282,4 +290,27 @@ molecule_dictionary ={
 
 'C2H6':['Dnd 3,\n','\n',
 ' C     6.0     0.000000    0.000000    0.7638700\n',
-' H     1.0     0.000000    1.016332    1.1609015\n']}
+' H     1.0     0.000000    1.016332    1.1609015\n'],
+
+'HOF':['Cs,\n','\n',
+' H     1.0    -0.915700    0.888400    0.0000000\n',
+' O     8.0     0.070400    0.733100    0.0000000\n',
+' F     9.0     0.070400   -0.755300    0.0000000\n'],
+
+'FNO':['Cs,\n','\n',
+' N     7.0     0.000000    0.572900    0.0000000\n',
+' O     8.0     1.141300    0.012900    0.0000000\n',
+' F     9.0    -1.014500   -0.457000    0.0000000\n'],
+
+'NHF2':['Cs,\n','\n',
+' N     7.0     0.039100    0.623600    0.0000000\n',
+' H     1.0    -0.977300    0.873400    0.0000000\n',
+' F     9.0     0.039100   -0.291000    1.1510000\n'],
+
+'F2O':['Cnv 2,\n','\n',
+' O     8.0     0.000000    0.000000    0.6115000\n',
+' F     9.0     0.000000    1.107000   -0.2718000\n'],
+
+'NF3':['Cnv 3,\n','\n',
+' F     9.0     0.000000    1.288200   -0.1350000\n',
+' N     7.0     0.000000    0.000000    0.5208000\n']}
