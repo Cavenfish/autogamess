@@ -140,7 +140,6 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         name  = fname.replace('_hes.log', '_ir-plot')
 
         #Add titles to plot then save
-        plt.xlim(left=0)
         plt.ylim(bottom=0)
         plt.legend(loc='upper left')
         plt.xlabel(r'Vibrational Frequency $(cm^{-1})$')
@@ -207,6 +206,10 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         if (2 not in flag) and (method is not None):
             ax.plot(x2, sum, alpha=0.5, color='r', label='Spectral Line')
 
+        #Reverse x-axis if asked for
+        if reverse_x is True:
+            ax.invert_xaxis()
+
         #init strings
         a     = file.split('_')
         title = a[1] + '(' + a[2] + '/' + a[3] + ')'
@@ -214,7 +217,6 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         name  = fname.replace('_raman.log', '_raman-plot')
 
         #Add titles to plot then save
-        plt.xlim(left=0)
         plt.ylim(bottom=0)
         plt.legend(loc='upper left')
         plt.xlabel(r'Vibrational Frequency $(cm^{-1})$')
