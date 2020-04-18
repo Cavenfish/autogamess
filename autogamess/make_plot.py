@@ -74,6 +74,9 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
     #get data from file
     data  = get_data(file)
 
+    #Conversion factor
+    cf = conversion_factor('Debye^2 angstrom^-2 amu^-1', 'km mol^-1')
+
     #If hessian file, make Ir vs Vib Freq plot
     if '_hes' in file:
         ir = data.ir_inten
@@ -95,7 +98,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         sum  = np.zeros(len(x2))
         for key in vf:
             x = np.float_(vf[key])
-            y = np.float_(ir[key])
+            y = np.float_(ir[key])*cf
 
             #check flag, plot v lines
             if 1 not in flag:
@@ -143,7 +146,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
         plt.ylim(bottom=0)
         plt.legend(loc='upper left')
         plt.xlabel(r'Vibrational Frequency $(cm^{-1})$')
-        plt.ylabel(r'Infrared Intensity $(Debye^2 \cdot \AA^{-2} \cdot amu^{-\frac{1}{2}})$')
+        plt.ylabel(r'Infrared Intensity $(km \cdot mol^{-1})$')
         plt.title(title, fontsize=20)
         plt.tight_layout()
         if savedir is None:
