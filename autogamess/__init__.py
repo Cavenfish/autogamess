@@ -16,6 +16,7 @@ Author: Brian C. Ferrari
 """
     #Configuration (holds Globals)
 from .config        import *
+from .classes       import *
 
     #Functions
 from .new_project              import new_project
@@ -29,6 +30,7 @@ from .get_data                 import get_data
 from .make_plot                import make_plot
 from .generate_scaling_factors import generate_scaling_factors
 from .convert_ir_units         import convert_ir_units
+from .make_histogram           import make_histogram
 
     #Multi-function Modules
 from .data_finder       import *

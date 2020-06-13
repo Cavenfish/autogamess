@@ -1,3 +1,12 @@
+#Dictionaries for template input parameters
+templates   = {'OPT'         : {'Control': 'SCFTYP=RHF MULT=1 NPRINT=0 \
+                                            COORD=UNIQUE RUNTYP=OPTIMIZE ICUT=12 \
+                                            ITOL=25 MAXIT=200 QMTTOL=1E-7 \
+                                            ICHARG=0 ISPHER=1',
+                                 'System': 'MWORDS=800 MEMDDI=800',
+                                 'Statpt': 'OPTTOL=1E-6 NSTEP=200',
+                                 'SCF'   : 'DIRSCF=.TRUE. FDIFF=.FALSE. CONV=1d-7'} }
+
 #Dictionary for theory levels and their input parameters
 theory_dict = {'Slater'      : 'DFTTYP=SLATER',
                'Becke'       : 'DFTTYP=BECKE',
