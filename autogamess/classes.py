@@ -1,7 +1,8 @@
 from .dictionaries import templates
+from .config       import version
 
 #Class for input parameters
-class Input:
+class INPUT:
     'GAMESS(US) input parameters'
 
     class Control:
@@ -20,12 +21,43 @@ class Input:
             self.icharg = params.split('ICHARG=')[1].split()[0]
             self.ispher = params.split('ISPHER=')[1].split()[0]
 
+        def make_string(self):
+            s = ' $CONTROL '
+            e = '$END\n'
+            n = len(s)
+            for i in self.__dict__:
+                add_this = i.upper() + '=' + self.__dict__[i] + ' '
+                if n + len(add_this) > 50:
+                    s += '\n '
+                    n  = 0
+                s += add_this
+                n += len(add_this)
+
+            s += e
+            return s
+
+
     class System:
         'System class of GAMESS(US) input'
 
         def __init__(self, params):
             self.mwords = params.split('MWORDS=')[1].split()[0]
             self.memddi = params.split('MEMDDI=')[1].split()[0]
+
+        def make_string(self):
+            s = ' $SYSTEM '
+            e = '$END\n'
+            n = len(s)
+            for i in self.__dict__:
+                add_this = i.upper() + '=' + self.__dict__[i] + ' '
+                if n + len(add_this) > 50:
+                    s += '\n '
+                    n  = 0
+                s += add_this
+                n += len(add_this)
+
+            s += e
+            return s
 
     class Statpt:
         'Statpt class of GAMESS(US) input'
@@ -34,6 +66,21 @@ class Input:
             self.opttol = params.split('OPTTOL=')[1].split()[0]
             self.nstep  = params.split('NSTEP=' )[1].split()[0]
 
+        def make_string(self):
+            s = ' $STATPT '
+            e = '$END\n'
+            n = len(s)
+            for i in self.__dict__:
+                add_this = i.upper() + '=' + self.__dict__[i] + ' '
+                if n + len(add_this) > 50:
+                    s += '\n '
+                    n  = 0
+                s += add_this
+                n += len(add_this)
+
+            s += e
+            return s
+
     class SCF:
         'SCF class of GAMESS(US) input'
 
@@ -41,6 +88,21 @@ class Input:
             self.dirscf = params.split('DIRSCF=')[1].split()[0]
             self.fdiff  = params.split('FDIFF=' )[1].split()[0]
             self.conv   = params.split('CONV='  )[1].split()[0]
+
+        def make_string(self):
+            s = ' $SCF '
+            e = '$END\n'
+            n = len(s)
+            for i in self.__dict__:
+                add_this = i.upper() + '=' + self.__dict__[i] + ' '
+                if n + len(add_this) > 50:
+                    s += '\n '
+                    n  = 0
+                s += add_this
+                n += len(add_this)
+
+            s += e
+            return s
 
     class DFT:
         'DFT class of GAMESS(US) input'
@@ -71,10 +133,14 @@ class Input:
         self.DFT     = self.DFT()
         self.Basis   = self.Basis()
 
-    def write_inp(self, file_name, version):
+    def write_inp(self, file_name):
         f = open(file_name, 'w')
         f.write('!'+ version +'\n')
         f.write('!  by Brian C. Ferrari \n')
         f.write('!\n')
-        f.writelines(self.Control.make_list)
-        f.writelines(self.System.make_list)
+
+        for i in self.__dict__:
+            try:
+                f.write(getattr(self, i).make_string())
+            except:
+                continue
