@@ -7,7 +7,11 @@ import os
 import sys
 import numpy  as np
 import pandas as pd
+import pkg_resources
 import basis_set_exchange as bse
+
+version = (' AutoGAMESS Version ' +
+            str(pkg_resources.require("autogamess")[0].version) )
 
 #Error messages
 error_head   = "\n*****uh oh spaghettios*****\n"
