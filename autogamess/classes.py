@@ -31,21 +31,14 @@ class INPUT:
     #--------------------------INPUT funtions--------------------------------
     def __init__(self, template):
 
-        if ('.txt' in template) or ('.inp' in template):
-            self.read_txt(template)
+        if template in templates:
+            inp = templates[template]
         else:
-            self.defaults(template)
-
-    def read_txt(self, txtfile):
-
-        inp = read_file(txtfile)
-
-        inp = ''.join(inp)
-
-        inp = inp.replace('\n', '')
+            inp = read_file(txtfile)
+            inp = ''.join(inp)
+            inp = inp.replace('\n', '')
 
         inp = inp.split('$END')
-
         for i in inp:
             if '$' not in i:
                 continue
@@ -58,15 +51,6 @@ class INPUT:
                 key = j[0].lower()
                 val = j[1]
                 exec('setattr(self.' + group_name + ', key, val)')
-
-    def defaults(self, template):
-        params       = templates[template]
-        self.Control = self.Control(params['Control'])
-        self.System  = self.System( params['System'] )
-        self.Statpt  = self.Statpt( params['Statpt'] )
-        self.SCF     = self.SCF(    params['SCF']    )
-        self.DFT     = self.DFT()
-        self.Basis   = self.Basis()
 
     def write_inp(self, file_name):
         f = open(file_name, 'w')
