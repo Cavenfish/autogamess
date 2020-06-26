@@ -12,6 +12,7 @@ import basis_set_exchange as bse
 
 version = (' AutoGAMESS Version ' +
             str(pkg_resources.require("autogamess")[0].version) )
+author  = '     by Brian C. Ferrari'
 
 #Error messages
 error_head   = "\n*****uh oh spaghettios*****\n"
