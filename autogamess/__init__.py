@@ -7,9 +7,16 @@ Contains the following functions:
                 new_project
                 opt2hes
                 sort_logs
+                sort_inps
                 hes2raman
-                get_data
                 input_builder
+                fill_spreadsheets
+                get_data
+                make_plot
+                generate_scaling_factors
+                convert_ir_units
+                make_histogram
+                make_scatter
 
 
 Author: Brian C. Ferrari
@@ -30,7 +37,7 @@ from .get_data                 import get_data
 from .make_plot                import make_plot
 from .generate_scaling_factors import generate_scaling_factors
 from .convert_ir_units         import convert_ir_units
-from .make_histogram           import make_histogram
 
     #Multi-function Modules
 from .data_finder       import *
+from .plots             import *
