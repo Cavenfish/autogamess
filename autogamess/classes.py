@@ -270,7 +270,7 @@ class PROJECT:
 
                 #Write Units in header
                 u  = 'Units:'
-                bl = 'Bond Length (angstroms)'
+                bl = 'Bond Length (Å)'
                 ba = 'Bond Angle (degrees)'
                 vf = 'Vibrational Frequency (cm⁻¹)'
                 ii = 'Infrared Intensity (km mol⁻¹)'
@@ -293,7 +293,7 @@ class PROJECT:
             #Save Excell file
             writer.save()
 
-    def build_inps(self, savedir):
+    def build_inps(self, savedir, safety_check=True):
 
         for specie in self.species:
             inp = self.map[specie]
@@ -327,4 +327,7 @@ class PROJECT:
                     run_name  = inp.Control.runtyp[0:3].lower()
                     file_name = specie + '_' + theory + '_' + basis + \
                                 '_' + run_name + '.inp'
+
+                    if safety_check:
+                        self.check(inp)
                     inp.write_inp(savedir + file_name)
