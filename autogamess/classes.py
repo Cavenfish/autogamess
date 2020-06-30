@@ -41,8 +41,10 @@ class INPUT:
 
         def read_inp(self, inp):
             i = inp.split('$DATA')[1].split('\n')
+            s = ctr_f(  '.0', i)
+            e = ctr_f('$END', i)
             self.sym    = i[2]
-            self.coords = i[4:-1]
+            self.coords = i[s:e]
 
         def get_elements(self):
             elements = []
@@ -82,7 +84,7 @@ class INPUT:
             s = ' $DATA\n'
 
             if self.title:
-                s += self.title + '\n'
+                s += ' ' + self.title + '\n'
 
             e = '$END'
 
@@ -98,6 +100,8 @@ class INPUT:
             if self.basis:
                 for line in self.coords:
                     atom = line.split()[0]
+                    if '\n' not in line:
+                        line += '\n'
                     s   += line + self.basis[atom] + '\n\n'
                 s += e
                 return s
@@ -296,29 +300,30 @@ class PROJECT:
     def build_inps(self, savedir, safety_check=False):
 
         for specie in self.species:
-            inp = self.map[specie]
+            inp            = self.map[specie]
+            inp.Data.title = self.title
 
             for theory in self.theories:
                 theo = theory_dict[theory].split('=')
 
                 try:
-                    delattr(inp.Control, 'dfttyp')
+                    delattr(inp.Contrl, 'dfttyp')
                 except:
                     pass
                 try:
-                    delattr(inp.Control, 'cctyp')
+                    delattr(inp.Contrl, 'cctyp')
                 except:
                     pass
                 try:
-                    delattr(inp.Control, 'mplevl')
+                    delattr(inp.Contrl, 'mplevl')
                 except:
                     pass
 
-                setattr(inp.Control, theo[0].lower(), theo[1])
+                setattr(inp.Contrl, theo[0].lower(), theo[1])
 
                 if ('B3LYP' in theory) and (~hasattr(inp, 'Dft')):
                     inp.Dft      = inp.Param_Group('Dft')
-                    inp.Dft.jans = 2
+                    inp.Dft.jans = '2'
 
                 if ('SCS-MP2' in theory) and (~hasattr(inp, 'Mp2')):
                     inp.Mp2       = inp.Param_Group('Mp2')
@@ -327,8 +332,17 @@ class PROJECT:
 
                 if ('CCSD2-T' in theory) and (~hasattr(inp, 'Ccinp')):
                     inp.Ccinp        = inp.Param_Group('Ccinp')
-                    inp.Ccinp.maxcc  = 100
-                    inp.Ccinp.maxccl = 100
+                    inp.Ccinp.maxcc  = '100'
+                    inp.Ccinp.maxccl = '100'
+
+                if ('B3LYP' not in theory) and (hasattr(inp, 'Dft')):
+                    delattr(inp, 'Dft')
+
+                if ('SCS-MP2' not in theory) and (hasattr(inp, 'Mp2')):
+                    delattr(inp, 'Mp2')
+
+                if ('CCSD2-T' not in theory) and (hasattr(inp, 'Ccinp')):
+                    delattr(inp, 'Ccinp')
 
                 for basis in self.basis_sets:
                     try:
@@ -338,10 +352,30 @@ class PROJECT:
                         inp.Basis = inp.Param_Group('Basis')
 
                     inp.Basis.gbasis = basis
-                    run_name  = inp.Control.runtyp[0:3].lower()
+                    run_name  = inp.Contrl.runtyp[0:3].lower()
                     file_name = specie + '_' + theory + '_' + basis + \
                                 '_' + run_name + '.inp'
 
                     if safety_check:
                         self.check(inp)
                     inp.write_inp(savedir + file_name)
+
+                for basis in self.ext_basis:
+                    try:
+                        delattr(inp, 'Basis')
+                    except:
+                        pass
+
+                    inp.Data.add_basis(basis)
+                    run_name  = inp.Contrl.runtyp[0:3].lower()
+                    file_name = agv + specie + '_' + theory + '_' + basis + \
+                                '_' + run_name + '.inp'
+
+                    if safety_check:
+                        self.check(inp)
+                    inp.write_inp(savedir + file_name)
+
+                try:
+                    inp.Data.basis = {}
+                except:
+                    pass
