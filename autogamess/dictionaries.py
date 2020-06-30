@@ -69,18 +69,19 @@ theory_dict = {'Slater'      : 'DFTTYP=SLATER',
                'CR-EOML'     : 'CCTYP=CR-EOML'}
 
 #Basis Dictionary
-basis_dict = {'may-cc-pVTZ'   : 'may-cc-pv(t+d)z',
-              'may-cc-pVQZ'   : 'may-cc-pv(q+d)z',
-              'jun-cc-pVDZ'   : 'jun-cc-pv(d+d)z',
-              'jun-cc-pVTZ'   : 'jun-cc-pv(t+d)z',
-              'jun-cc-pVQZ'   : 'jun-cc-pv(q+d)z',
-              'jul-cc-pVDZ'   : 'jul-cc-pv(d+d)z',
-              'jul-cc-pVTZ'   : 'jul-cc-pv(t+d)z',
-              'jul-cc-pVQZ'   : 'jul-cc-pv(q+d)z',
-              'apr-cc-pVQZ'   : 'apr-cc-pv(q+d)z',
-              'NASA-Ames-ANO' : 'NASA Ames ANO',
-              'NASA-Ames-ANO2': 'NASA Ames ANO2',
-              'Sadlej-pVTZ'   : 'sadlej pvtz'}
+basis_dict = {'may-cc-pVTZ'    : 'may-cc-pv(t+d)z',
+              'may-cc-pVQZ'    : 'may-cc-pv(q+d)z',
+              'jun-cc-pVDZ'    : 'jun-cc-pv(d+d)z',
+              'jun-cc-pVTZ'    : 'jun-cc-pv(t+d)z',
+              'jun-cc-pVQZ'    : 'jun-cc-pv(q+d)z',
+              'jul-cc-pVDZ'    : 'jul-cc-pv(d+d)z',
+              'jul-cc-pVTZ'    : 'jul-cc-pv(t+d)z',
+              'jul-cc-pVQZ'    : 'jul-cc-pv(q+d)z',
+              'apr-cc-pVQZ'    : 'apr-cc-pv(q+d)z',
+              'NASA-Ames-ANO'  : 'NASA Ames ANO',
+              'NASA-Ames-ANO2' : 'NASA Ames ANO2',
+              'Sadlej-pVTZ'    : 'sadlej pvtz',
+              '6-311-ppG-1d-1p': '6-311++G**'}
 
 #Composite Method Dictionary
 comp_dict  = {'G4MP2'   : 'RMETHD=G4MP2',
