@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from ..dictionaries  import theory_dict
 
 
-def make_histogram(data, savedir):
+def make_kde(data, savedir):
     """
     """
     #Define Sheet names
