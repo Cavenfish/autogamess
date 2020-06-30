@@ -165,7 +165,7 @@ class INPUT:
 
         f.close()
 
-
+#----------------------PROJECT CLASS--------------------------------------
 class PROJECT:
     'AutoGAMESS Project Class'
 
@@ -183,7 +183,7 @@ class PROJECT:
         self.make_dir_tree()
         self.make_inps()
 
-    def make_dir_tree(self, maindir, title):
+    def make_dir_tree(self, maindir):
         #Defining directory names
         unsolved = maindir + self.title + '/Logs/Fail/Unsolved/'
         solved   = maindir + self.title + '/Logs/Fail/Solved/'
@@ -293,7 +293,7 @@ class PROJECT:
             #Save Excell file
             writer.save()
 
-    def build_inps(self, savedir, safety_check=True):
+    def build_inps(self, savedir, safety_check=False):
 
         for specie in self.species:
             inp = self.map[specie]
@@ -315,6 +315,20 @@ class PROJECT:
                     pass
 
                 setattr(inp.Control, theo[0].lower(), theo[1])
+
+                if ('B3LYP' in theory) and (~hasattr(inp, 'Dft')):
+                    inp.Dft      = inp.Param_Group('Dft')
+                    inp.Dft.jans = 2
+
+                if ('SCS-MP2' in theory) and (~hasattr(inp, 'Mp2')):
+                    inp.Mp2       = inp.Param_Group('Mp2')
+                    inp.Mp2.scspt = 'SCS'
+                    inp.Mp2.code  = 'IMS'
+
+                if ('CCSD2-T' in theory) and (~hasattr(inp, 'Ccinp')):
+                    inp.Ccinp        = inp.Param_Group('Ccinp')
+                    inp.Ccinp.maxcc  = 100
+                    inp.Ccinp.maxccl = 100
 
                 for basis in self.basis_sets:
                     try:
