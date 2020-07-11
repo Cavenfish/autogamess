@@ -321,6 +321,12 @@ class PROJECT:
 
                 setattr(inp.Contrl, theo[0].lower(), theo[1])
 
+                if int(inp.Contrl.mult) > 1:
+                    if 'CCSD2-T' in theory:
+                        inp.Contrl.scftyp = 'ROHF'
+                    if 'CCSD-T' in theory:
+                        inp.Contrl.scftyp = 'UHF'
+
                 if ('B3LYP' in theory) and (~hasattr(inp, 'Dft')):
                     inp.Dft      = inp.Param_Group('Dft')
                     inp.Dft.jans = '2'
@@ -353,8 +359,8 @@ class PROJECT:
 
                     inp.Basis.gbasis = basis
                     run_name  = inp.Contrl.runtyp[0:3].lower()
-                    file_name = specie + '_' + theory + '_' + basis + \
-                                '_' + run_name + '.inp'
+                    file_name = agv + '_' + specie + '_' + theory + '_'  + \
+                                basis + '_' + run_name + '.inp'
 
                     if safety_check:
                         self.check(inp)
@@ -368,8 +374,8 @@ class PROJECT:
 
                     inp.Data.add_basis(basis)
                     run_name  = inp.Contrl.runtyp[0:3].lower()
-                    file_name = agv + specie + '_' + theory + '_' + basis + \
-                                '_' + run_name + '.inp'
+                    file_name = agv + '_' + specie + '_' + theory + '_'  + \
+                                basis + '_' + run_name + '.inp'
 
                     if safety_check:
                         self.check(inp)
