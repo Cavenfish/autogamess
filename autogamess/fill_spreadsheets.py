@@ -1,3 +1,4 @@
+import xlrd as xl
 from .config   import *
 from .data_finder import *
 from .get_data import get_data
@@ -89,6 +90,17 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
     for dir in os.listdir(sorteddir):
         df = pd.read_excel(sheetsdir + dir + '.xlsx', index_col=0,
                            sheet_name=None, header=6)
+
+        #Define Correction Factor for Unit Conversion of IR intensity
+        wkbk = xl.open_workbook(sheetsdir + dir + '.xlsx')
+        wkst = wkbk.sheet_by_name(hes)
+        old  = 'Debye^2 angstrom^-2 amu^-1'
+        new  = wkst.cell(2, 0).value.split('(')[-1][0:-1].replace('⁻¹', '^-1')
+        print(new)
+        if old == new:
+            irc = 1
+        else:
+            irc = conversion_factor(old, new)
 
         for file in os.listdir(sorteddir + dir):
             if '.log' not in file:
