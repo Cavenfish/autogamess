@@ -172,10 +172,21 @@ def hessian(filename):
     if check_if_exists(filename, end):
         return (0,0,0)
 
+    #Find Imaginary Modes
+    ifind  = 'TREATED AS IMAGINARY.'
+    iindex = ctr_f(ifind, log)
+    if iindex == -1:
+        imodes = 0
+    else:
+        imodes = int(log[iindex].split()[3])
+
     #Find Modes to ignore
     mfind  = 'ARE TAKEN AS ROTATIONS AND TRANSLATIONS.'
     mindex = ctr_f(mfind, log)
-    modes  = int(log[mindex].split()[3])
+    if mindex == -1:
+        modes = 0
+    else:
+        modes  = int(log[mindex].split()[3])
 
     freq = ctr_f_all('FREQUENCY:',    log)
     ir   = ctr_f_all('IR INTENSITY:', log)
@@ -187,22 +198,37 @@ def hessian(filename):
 
     while 'I' in temp1:
         i           = temp1.index('I')
-        temp1[i-1] *= -1
+        temp1[i-1]  = '-' + temp1[i-1]
         del(temp1[i])
 
+    #Intitialize dictionary and store vibrational frequency data in it
     freq = {}
     for a,b in zip(temp1[modes:],temp2[modes:]):
         if b not in freq:
             freq[b] = [a]
         else:
             freq[b] += [a]
+    #Store Imaginary frequency data in dictionary
+    for a,b in zip(temp1[0:imodes],temp2[0:imodes]):
+        if b not in freq:
+            freq[b] = [a]
+        else:
+            freq[b] += [a]
 
+    #Intitialize dictionary and store IR intensity data in it
     infr = {}
     for a,b in zip(temp3[modes:],temp2[modes:]):
         if b not in infr:
             infr[b] = [a]
         else:
             infr[b] += [a]
+    #Store Imaginary IR intensity data in dictionary
+    for a,b in zip(temp3[0:imodes],temp2[0:imodes]):
+        if b not in freq:
+            infr[b] = [a]
+        else:
+            infr[b] += [a]
+
 
     return [freq, infr]
 
