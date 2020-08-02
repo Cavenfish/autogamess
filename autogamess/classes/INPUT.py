@@ -7,6 +7,10 @@ import basis_set_exchange as bse
 class INPUT:
     'GAMESS(US) input parameters'
 
+    theory    = ''
+    basis_set = ''
+    run_type  = ''
+
     class Param_Group:
         'Subclass for GAMESS(US) input parameter groups'
 
@@ -168,3 +172,74 @@ class INPUT:
             pass
 
         f.close()
+
+    def prep_template(self):
+        #Remove Theory Level command form input template
+        stuff2delete = ['dfttyp', 'cctyp', 'mplevl']
+        for i in stuff2delete:
+            try:
+                delattr(self.Contrl, i)
+            except:
+                pass
+
+        #Remove Basis Set group from input template & generate blank one
+        try:
+            delattr(self, 'Basis')
+            self.Basis = self.Param_Group('Basis')
+        except:
+            self.Basis = self.Param_Group('Basis')
+
+    def check(self):
+        #Remove spherical coordinates if Pople basis set in use
+        if '6-31' in self.basis_set:
+            try:
+                delattr(self.Contrl, 'ispher')
+            except:
+                pass
+
+        #Ensure CCSD(T) and CCSD(2)T use the proper type of HF
+        if int(self.Contrl.mult) > 1:
+            if 'CCSD2-T' in self.theory:
+                self.Contrl.scftyp = 'ROHF'
+            if 'CCSD-T' in self.theory:
+                self.Contrl.scftyp = 'UHF'
+
+        #Inlcude Jans=2 grid for all DFT functionals
+        if hasattr(self.Contrl, 'dfttyp'):
+            if ~hasattr(self, 'Dft'):
+                self.Dft      = self.Param_Group('Dft')
+                self.Dft.jans = '2'
+            else:
+                self.Dft.jans = '2'
+
+        #Ensure that SCS and IMS commands are included for SCS-MP2
+        if 'SCS-MP2' in self.theory:
+            if ~hasattr(self, 'Mp2'):
+                self.Mp2       = self.Param_Group('Mp2')
+                self.Mp2.scspt = 'SCS'
+                self.Mp2.code  = 'IMS'
+            else:
+                self.Mp2.scspt = 'SCS'
+                self.Mp2.code  = 'IMS'
+
+        #Raise max iteration of CCSD and left eigenstate for CCSD(2)T
+        if 'CCSD2-T' in self.theory:
+            if ~hasattr(self, 'Ccinp'):
+                self.Ccinp        = self.Param_Group('Ccinp')
+                self.Ccinp.maxcc  = '100'
+                self.Ccinp.maxccl = '100'
+            else:
+                self.Ccinp.maxcc  = '100'
+                self.Ccinp.maxccl = '100'
+
+        #Remove DFT group from non-DFT calculations
+        if (~hasattr(self.Contrl, 'dfttyp')) and (hasattr(self, 'Dft')):
+            delattr(self, 'Dft')
+
+        #Remove MP2 group from non-MP calculations
+        if (~hasattr(self.Contrl, 'mplevl')) and (hasattr(self, 'Mp2')):
+            delattr(self, 'Mp2')
+
+        #Remove CCinp group from non-CC calculations
+        if (~hasattr(self.Contrl, 'cctyp')) and (hasattr(self, 'Ccinp')):
+            delattr(self, 'Ccinp')

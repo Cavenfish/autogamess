@@ -2,6 +2,7 @@ from ..config       import *
 from ..dictionaries import *
 import elements.elements as el
 import basis_set_exchange as bse
+from copy import deepcopy
 
 #----------------------PROJECT CLASS--------------------------------------
 class PROJECT:
@@ -17,9 +18,10 @@ class PROJECT:
         self.run_types  = []
         self.templates  = {}
 
-    def make_project(self):
-        self.make_dir_tree()
-        self.make_inps()
+    def make_project(self, maindir, safety_check=False):
+        self.make_dir_tree(maindir)
+        projdir = maindir + title + '/'
+        self.build_inps(projdir, safety_check=safety_check)
 
     def make_dir_tree(self, maindir):
         #Defining directory names
@@ -131,91 +133,69 @@ class PROJECT:
             #Save Excell file
             writer.save()
 
+    def make_file_name(self, specie, inp):
+        theory = inp.theory
+        basis  = inp.basis_set
+
+        if len(inp.Contrl.runtyp) > 5:
+            if inp.Contrl.runtyp == 'COMPOSITE':
+                run_name = 'comp'
+            run_name  = inp.Contrl.runtyp[0:3].lower()
+        else:
+            run_name  = inp.Contrl.runtyp.lower()
+
+        file_name = agv + '_' + specie + '_' + theory + '_'  + \
+                    basis + '_' + run_name + '.inp'
+
+        return file_name
+
     def build_inps(self, savedir, safety_check=False):
 
+        #Molecule Iterator
         for specie in self.species:
-            inp            = self.map[specie]
-            inp.Data.title = self.title
 
+            #Theory Level Iterator
             for theory in self.theories:
-                theo = theory_dict[theory].split('=')
 
-                try:
-                    delattr(inp.Contrl, 'dfttyp')
-                except:
-                    pass
-                try:
-                    delattr(inp.Contrl, 'cctyp')
-                except:
-                    pass
-                try:
-                    delattr(inp.Contrl, 'mplevl')
-                except:
-                    pass
-
-                setattr(inp.Contrl, theo[0].lower(), theo[1])
-
-                if int(inp.Contrl.mult) > 1:
-                    if 'CCSD2-T' in theory:
-                        inp.Contrl.scftyp = 'ROHF'
-                    if 'CCSD-T' in theory:
-                        inp.Contrl.scftyp = 'UHF'
-
-                if ('B3LYP' in theory) and (~hasattr(inp, 'Dft')):
-                    inp.Dft      = inp.Param_Group('Dft')
-                    inp.Dft.jans = '2'
-
-                if ('SCS-MP2' in theory) and (~hasattr(inp, 'Mp2')):
-                    inp.Mp2       = inp.Param_Group('Mp2')
-                    inp.Mp2.scspt = 'SCS'
-                    inp.Mp2.code  = 'IMS'
-
-                if ('CCSD2-T' in theory) and (~hasattr(inp, 'Ccinp')):
-                    inp.Ccinp        = inp.Param_Group('Ccinp')
-                    inp.Ccinp.maxcc  = '100'
-                    inp.Ccinp.maxccl = '100'
-
-                if ('B3LYP' not in theory) and (hasattr(inp, 'Dft')):
-                    delattr(inp, 'Dft')
-
-                if ('SCS-MP2' not in theory) and (hasattr(inp, 'Mp2')):
-                    delattr(inp, 'Mp2')
-
-                if ('CCSD2-T' not in theory) and (hasattr(inp, 'Ccinp')):
-                    delattr(inp, 'Ccinp')
-
+                #Internal Basis Set Iterator
                 for basis in self.basis_sets:
-                    try:
-                        delattr(inp, 'Basis')
-                        inp.Basis = inp.Param_Group('Basis')
-                    except:
-                        inp.Basis = inp.Param_Group('Basis')
+                    inp            = deepcopy(self.map[specie])   #Get Template
+                    inp.Data.title = self.title                   #Add Title
+                    inp.prep_template()                           #Prep Template
+                    inp.theory = theory                           #Def Theory Global
+                    theo = theory_dict[theory].split('=')         #Prep it
+                    setattr(inp.Contrl, theo[0].lower(), theo[1]) #Add it
 
-                    inp.Basis.gbasis = basis
-                    run_name  = inp.Contrl.runtyp[0:3].lower()
-                    file_name = agv + '_' + specie + '_' + theory + '_'  + \
-                                basis + '_' + run_name + '.inp'
+                    inp.basis_set    = basis #Define Basis Set Global
+                    inp.Basis.gbasis = basis #Add Basis Set to Inp
+
+                    #Run type and file naming
+                    inp.run_type = inp.Contrl.runtyp.lower()
+                    file_name    = self.make_file_name(specie, inp)
 
                     if safety_check:
-                        self.check(inp)
+                        inp.check()
                     inp.write_inp(savedir + file_name)
 
+                #Delete GAMESS(US) internal Basis Set group
+                delattr(inp, 'Basis')
+
+                #External Basis Set Iterator
                 for basis in self.ext_basis:
-                    try:
-                        delattr(inp, 'Basis')
-                    except:
-                        pass
+                    inp            = deepcopy(self.map[specie])   #Get Template
+                    inp.Data.title = self.title                   #Add Title
+                    inp.prep_template()                           #Prep Template
+                    inp.theory = theory                           #Def Theory Global
+                    theo = theory_dict[theory].split('=')         #Prep it
+                    setattr(inp.Contrl, theo[0].lower(), theo[1]) #Add it
 
+                    inp.basis_set = basis
+                    file_name     = self.make_file_name(specie, inp)
                     inp.Data.add_basis(basis)
-                    run_name  = inp.Contrl.runtyp[0:3].lower()
-                    file_name = agv + '_' + specie + '_' + theory + '_'  + \
-                                basis + '_' + run_name + '.inp'
 
                     if safety_check:
-                        self.check(inp)
+                        inp.check()
                     inp.write_inp(savedir + file_name)
 
-                try:
-                    inp.Data.basis = {}
-                except:
-                    pass
+                #Remove External Basis set from inp
+                inp.Data.basis = {}
