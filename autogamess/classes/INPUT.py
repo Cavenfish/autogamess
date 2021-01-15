@@ -22,7 +22,7 @@ class INPUT:
             e = '$END\n'
             n = len(s)
             for i in self.__dict__:
-                if i is 'name':
+                if i == 'name':
                     continue
                 add_this = i.upper() + '=' + self.__dict__[i] + ' '
                 if n + len(add_this) > 50:

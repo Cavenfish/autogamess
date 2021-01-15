@@ -44,7 +44,7 @@ comp_basic_params = (' $CONTRL SCFTYP=RHF MULT=1 NPRINT=0 COORD=UNIQUE\n',
 #Basic functions used throughout code-----------------------------------
 def check_if_exists(filename, *args):
     for arg in args:
-        if arg is -1:
+        if arg == -1:
             msg = "Something went wrong, check your log file\n" + filename
             print(error_head + msg + error_tail)
             return True

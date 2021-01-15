@@ -75,14 +75,14 @@ def opt2hes(optfile, logfile):
 
     #Remove Numerical Gradients from input file
     i = ctr_f(numgrd0, inp)
-    if i is not -1:
+    if i != -1:
         inp[i] = inp[i].replace(numgrd0, '')
     i = ctr_f(numgrd1, inp)
-    if i is not -1:
+    if i != -1:
         inp[i] = inp[i].replace(numgrd1, '')
 
     #Insert force line into hessian input
-    if ctr_f(force, inp) is -1:
+    if ctr_f(force, inp) == -1:
         inp.insert(ctr_f('$SCF', inp), force)
 
     #Replace coordinates in file

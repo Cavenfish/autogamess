@@ -107,7 +107,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
                 ax.vlines(0, 0, 0, label=key, linestyle='--', colors=cmap[i])
 
             #Make Gaussian line broadening
-            if method is 'Gaussian':
+            if method == 'Gaussian':
                 for a,b in zip(x,y):
                     gfit = gaussian(x2, a, sig, b)
                     sum += gfit
@@ -117,7 +117,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
                         ax.plot(x2, gfit, linestyle='--', color=cmap[i])
 
             #Make Lorentzian line broadening
-            if method is 'Lorentzian':
+            if method == 'Lorentzian':
                 for a,b in zip(x,y):
                     lfit = lorentzian(x2, a, sig, b)
                     sum += lfit
@@ -184,7 +184,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
                 ax.vlines(0, 0, 0, label=key, linestyle='--', colors=cmap[i])
 
             #Make Gaussian line broadening
-            if method is 'Gaussian':
+            if method == 'Gaussian':
                 for a,b in zip(x,y):
                     gfit = gaussian(x2, a, sig, b)
                     sum += gfit
@@ -194,7 +194,7 @@ def make_plot(file, savedir=None, cmap=['b', 'k', 'r', 'g', 'y', 'c'],
                         ax.plot(x2, gfit, linestyle='--', color=cmap[i])
 
             #Make Lorentzian line broadening
-            if method is 'Lorentzian':
+            if method == 'Lorentzian':
                 for a,b in zip(x,y):
                     lfit = lorentzian(x2, a, sig, b)
                     sum += lfit
