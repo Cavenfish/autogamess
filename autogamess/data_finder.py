@@ -198,7 +198,6 @@ def hessian(filename):
 
     while 'I' in temp1:
         i           = temp1.index('I')
-        temp1[i-1]  = '-' + temp1[i-1]
         del(temp1[i])
 
     #Intitialize dictionary and store vibrational frequency data in it
@@ -210,6 +209,7 @@ def hessian(filename):
             freq[b] += [a]
     #Store Imaginary frequency data in dictionary
     for a,b in zip(temp1[0:imodes],temp2[0:imodes]):
+        a = '-' + a
         if b not in freq:
             freq[b] = [a]
         else:
