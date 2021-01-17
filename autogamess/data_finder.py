@@ -224,7 +224,7 @@ def hessian(filename):
             infr[b] += [a]
     #Store Imaginary IR intensity data in dictionary
     for a,b in zip(temp3[0:imodes],temp2[0:imodes]):
-        if b not in freq:
+        if b not in infr:
             infr[b] = [a]
         else:
             infr[b] += [a]
