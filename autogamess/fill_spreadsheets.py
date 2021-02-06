@@ -96,7 +96,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
         wkst = wkbk.sheet_by_name(hes)
         old  = 'Debye^2 angstrom^-2 amu^-1'
         new  = wkst.cell(2, 0).value.split('(')[-1][0:-1].replace('⁻¹', '^-1')
-        print(new)
+
         if old == new:
             irc = 1
         else:
