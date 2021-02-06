@@ -181,7 +181,7 @@ def fill_spreadsheets(projdir=False, sorteddir=False, sheetsdir=False):
                         vi = '(' + str(key) + ')Infrared Intensity ' + str(i)
                         if vi not in df[hes]:
                             df[hes][vi] = np.nan
-                        temp[vi] = ir[key][i]
+                        temp[vi] = float(ir[key][i]) * irc
                         df[hes].update(temp)
 
                 temp[rt] = data.time
