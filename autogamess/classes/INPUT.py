@@ -206,7 +206,7 @@ class INPUT:
 
         #Inlcude Jans=2 grid for all DFT functionals
         if hasattr(self.Contrl, 'dfttyp'):
-            if ~hasattr(self, 'Dft'):
+            if  not hasattr(self, 'Dft'):
                 self.Dft      = self.Param_Group('Dft')
                 self.Dft.jans = '2'
             else:
@@ -214,7 +214,7 @@ class INPUT:
 
         #Ensure that SCS and IMS commands are included for SCS-MP2
         if 'SCS-MP2' in self.theory:
-            if ~hasattr(self, 'Mp2'):
+            if not hasattr(self, 'Mp2'):
                 self.Mp2       = self.Param_Group('Mp2')
                 self.Mp2.scspt = 'SCS'
                 self.Mp2.code  = 'IMS'
@@ -224,7 +224,7 @@ class INPUT:
 
         #Raise max iteration of CCSD and left eigenstate for CCSD(2)T
         if 'CCSD2-T' in self.theory:
-            if ~hasattr(self, 'Ccinp'):
+            if not hasattr(self, 'Ccinp'):
                 self.Ccinp        = self.Param_Group('Ccinp')
                 self.Ccinp.maxcc  = '100'
                 self.Ccinp.maxccl = '100'
@@ -233,13 +233,13 @@ class INPUT:
                 self.Ccinp.maxccl = '100'
 
         #Remove DFT group from non-DFT calculations
-        if (~hasattr(self.Contrl, 'dfttyp')) and (hasattr(self, 'Dft')):
+        if (not hasattr(self.Contrl, 'dfttyp')) and (hasattr(self, 'Dft')):
             delattr(self, 'Dft')
 
         #Remove MP2 group from non-MP calculations
-        if (~hasattr(self.Contrl, 'mplevl')) and (hasattr(self, 'Mp2')):
+        if (not hasattr(self.Contrl, 'mplevl')) and (hasattr(self, 'Mp2')):
             delattr(self, 'Mp2')
 
         #Remove CCinp group from non-CC calculations
-        if (~hasattr(self.Contrl, 'cctyp')) and (hasattr(self, 'Ccinp')):
+        if (not hasattr(self.Contrl, 'cctyp')) and (hasattr(self, 'Ccinp')):
             delattr(self, 'Ccinp')
