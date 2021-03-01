@@ -16,11 +16,53 @@ class PROJECT:
         self.basis_sets = []
         self.ext_basis  = []
         self.run_types  = []
-        self.templates  = {}
+        self.map        = {}
 
     def make_project(self, maindir, safety_check=False):
+        """
+        This function creates a new directory tree for a GAMESS project, also makes
+        a couple of text files for use with other functions.
+
+        Parameters
+        ----------
+        maindir: string
+            A directory string (including the final `/`) that points to the
+            directory that the project tree will be spawned in.
+        safety_check: boolean True/False [Optional]
+            if True then input files will be internal reviewed by AutoGAMESS.
+
+        Returns
+        ----------
+        This function returns nothing
+
+        Notes
+        ----------
+        The format of the spawned directory tree is as follows:
+
+                                        maindir
+                                           |
+                                         title
+                            -------------------------------------
+                            |        |        |        |        |
+                          Codes    Inps     Logs  Batch_Files  Spreadsheets
+                            |        |        |                     |
+                      ---------    Block    -----------      1 file per specie
+                      |       |             |    |    |
+                Text_Files  Scripts      Fail   Pass  Sorted
+                                          |      |        |
+                                       -------  Block   1 directory per specie
+                                       |     |
+                                 Unsolved   Solved
+
+
+        Sections in directory tree labled 'Block' are directory trees with the
+        following format:
+                          1 directory per run type
+                                      |
+                          1 directory per specie
+        """
         self.make_dir_tree(maindir)
-        projdir = maindir + title + '/'
+        projdir = maindir + self.title + '/'
         self.build_inps(projdir, safety_check=safety_check)
 
     def make_dir_tree(self, maindir):
