@@ -198,11 +198,11 @@ class INPUT:
                 pass
 
         #Ensure CCSD(T) and CCSD(2)T use the proper type of HF
-        if int(self.Contrl.mult) > 1:
-            if 'CCSD2-T' in self.theory:
-                self.Contrl.scftyp = 'ROHF'
-            if 'CCSD-T' in self.theory:
-                self.Contrl.scftyp = 'UHF'
+        # if int(self.Contrl.mult) > 1:
+        #     if 'CCSD2-T' in self.theory:
+        #         self.Contrl.scftyp = 'ROHF'
+        #     if 'CCSD-T' in self.theory:
+        #         self.Contrl.scftyp = 'UHF'
 
         #Inlcude Jans=2 grid for all DFT functionals
         if hasattr(self.Contrl, 'dfttyp'):
