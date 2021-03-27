@@ -219,8 +219,6 @@ class PROJECT:
                         inp.check()
                     inp.write_inp(savedir + file_name)
 
-                #Delete GAMESS(US) internal Basis Set group
-                delattr(inp, 'Basis')
 
                 #External Basis Set Iterator
                 for basis in self.ext_basis:
@@ -230,6 +228,9 @@ class PROJECT:
                     inp.theory = theory                           #Def Theory Global
                     theo = theory_dict[theory].split('=')         #Prep it
                     setattr(inp.Contrl, theo[0].lower(), theo[1]) #Add it
+
+                    #Delete GAMESS(US) internal Basis Set group
+                    delattr(inp, 'Basis')
 
                     inp.basis_set = basis
                     file_name     = self.make_file_name(specie, inp)
