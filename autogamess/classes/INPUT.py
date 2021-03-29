@@ -231,7 +231,6 @@ class INPUT:
 
             if hasattr(self.Contrl, 'cctyp'):
                 self.Force.method = 'FULLNUM'
-                self.Contrl.numgrd = '.T.'
 
         #Inlcude Jans=2 grid for all DFT functionals
         if hasattr(self.Contrl, 'dfttyp'):
