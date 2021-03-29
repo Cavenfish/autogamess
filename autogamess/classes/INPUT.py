@@ -105,7 +105,7 @@ class INPUT:
             if self.title:
                 if self.title[0] != ' ':
                     s += ' ' + self.title + '\n'
-                s = self.title + '\n'
+                s += self.title + '\n'
 
             e = '$END'
 
@@ -214,12 +214,14 @@ class INPUT:
             except:
                 pass
 
-        #Ensure CCSD(T) and CCSD(2)T use the proper type of HF
-        # if int(self.Contrl.mult) > 1:
-        #     if 'CCSD2-T' in self.theory:
-        #         self.Contrl.scftyp = 'ROHF'
-        #     if 'CCSD-T' in self.theory:
-        #         self.Contrl.scftyp = 'UHF'
+        #Ensure CC types have FULLNUM and numgrd
+        if hasattr(self.Contrl, 'cctyp'):
+            self.Contrl.numgrd = '.T.'
+            if not hasattr(self, 'Force'):
+                self.Force = self.Param_Group('Force')
+            self.Force.method = 'FULLNUM'
+            self.Force.nvib   = '2'
+            self.Force.projct = '.T.'
 
         #Add force card for hessians
         if self.Contrl.runtyp == 'HESSIAN':
