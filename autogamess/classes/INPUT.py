@@ -48,7 +48,21 @@ class INPUT:
             s = ctr_f(  '.0', i)
             e = ctr_f('$END', i)
             self.sym    = i[2]
-            self.coords = i[s:e]
+
+            n = False
+            for line in i[3:]:
+                j = len(line.split())
+                if ((j == 5) and n) or (('$END' in line) and n):
+                    m    = i.index(line) - 1
+                    if m == n:
+                        continue
+                    self.basis[atom] = '\n'.join(i[n:m])
+                    n    = False
+                if j == 5:
+                    self.coords.append(line)
+                    atom = line.split()[0]
+                    n    = i.index(line) + 1
+            
 
         def get_elements(self):
             elements = []
