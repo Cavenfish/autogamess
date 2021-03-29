@@ -1,4 +1,5 @@
 from .config import *
+from .classes.INPUT import INPUT
 
 def opt2hes(optfile, logfile):
     """
@@ -29,24 +30,9 @@ def opt2hes(optfile, logfile):
     >>> ag.opt2hes(optfile, logfile)
     >>>
     """
-    #Define force line
-    force     = ' $FORCE METHOD=FULLNUM NVIB=2 PROJCT=.TRUE. $END\n'
-    if ('_B3LYP_' in optfile) or ('_MP2_' in optfile):
-        force = ' $FORCE METHOD=SEMINUM NVIB=2 PROJCT=.TRUE. $END\n'
-    if ('_CC5_' in optfile) or ('_CC6_' in optfile) or ('_PCseg-4_' in optfile):
-        force = ' $FORCE METHOD=FULLNUM NVIB=2 PROJCT=.TRUE. $END\n'
-
-    #Define Runtyps
-    ropt = '=OPTIMIZE'
-    rhes = '=HESSIAN'
-
     #Define file identifiers
     opt = '_opt'
     hes = '_hes'
-
-    #Define Numerical Gradients commands
-    numgrd0 = 'NUMGRD=.TRUE.'
-    numgrd1 = 'NUMGRD=.T.'
 
     #Open, read in, and close log file
     log = read_file(logfile)
@@ -66,48 +52,16 @@ def opt2hes(optfile, logfile):
     #Assemble list of optimized geometry coordinates and get size
     coords = log[dhead : dtail]
 
-    #Open, read in, and close input file
-    inp = read_file(optfile)
+    #Make INPUT object
+    inp = INPUT(optfile)
 
-    #Replace OPTIMIZATION with HESSIAN
-    i      = ctr_f(ropt, inp)
-    inp[i] = inp[i].replace(ropt, rhes)
+    #Change run type
+    inp.Contrl.runtyp = 'HESSIAN'
 
-    #Remove Numerical Gradients from input file
-    i = ctr_f(numgrd0, inp)
-    if i != -1:
-        inp[i] = inp[i].replace(numgrd0, '')
-    i = ctr_f(numgrd1, inp)
-    if i != -1:
-        inp[i] = inp[i].replace(numgrd1, '')
+    #Change atomic coordinates
+    inp.Data.coords = coords
 
-    #Insert force line into hessian input
-    if ctr_f(force, inp) == -1:
-        inp.insert(ctr_f('$SCF', inp), force)
-
-    #Replace coordinates in file
-    i    = ctr_f('$DATA', inp)
-    data = inp[i:]
-    for coord in coords:
-        temp   = [x.replace(' ', '') for x in data]
-        index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
-
-        #Safety in case the user puts element in upper/lower
-        #ie: 'Si' instead of the GAMESS way 'SI'
-        if (len(coord.split(' ')[1]) > 1) and (index == -1):
-            old    = coord.split(' ')[1][1]
-            new    = coord.split(' ')[1][1].lower()
-            coord  = coord.replace(old, new)
-            index  = ctr_f(coord.split('.0')[0].replace(' ',''), temp)
-
-        j      = ctr_f(data[index], inp)
-        inp[j] = coord
-        del data[index]
-
-    #Open, write, and close input file
-    hesfile = optfile.replace(opt, hes)
-    f       = open(hesfile, 'w')
-    f.writelines(inp)
-    f.close()
+    #Save new file
+    inp.write_inp(optfile.replace(opt, hes))
 
     return
