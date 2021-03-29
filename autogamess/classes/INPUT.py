@@ -103,7 +103,9 @@ class INPUT:
             s = ' $DATA\n'
 
             if self.title:
-                s += ' ' + self.title + '\n'
+                if self.title[0] != ' ':
+                    s += ' ' + self.title + '\n'
+                s = self.title + '\n'
 
             e = '$END'
 

@@ -43,7 +43,7 @@ def opt2hes(optfile, logfile):
     #Grabs optimized geometries tail index
     tfind = 'COORDINATES OF ALL ATOMS ARE'
     dtail = len(log) - ctr_f(tfind, log[::-1]) - 1
-    if (hasattr(inp.Contrl, 'nosym')) and (inp.Contrl.nosym == 1):
+    if (hasattr(inp.Contrl, 'nosym')) and (inp.Contrl.nosym == '1'):
         tfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
         dtail = len(log) - ctr_f(tfind, log[::-1]) - 2
 
