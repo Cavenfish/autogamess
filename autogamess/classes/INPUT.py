@@ -62,7 +62,7 @@ class INPUT:
                     self.coords.append(line)
                     atom = line.split()[0]
                     n    = i.index(line) + 1
-            
+
 
         def get_elements(self):
             elements = []
@@ -217,6 +217,21 @@ class INPUT:
         #         self.Contrl.scftyp = 'ROHF'
         #     if 'CCSD-T' in self.theory:
         #         self.Contrl.scftyp = 'UHF'
+
+        #Add force card for hessians
+        if self.Contrl.runtyp == 'HESSIAN':
+            if not hasattr(self, 'Force'):
+                self.Force = self.Param_Group('Force')
+            self.Force.method = 'SEMINUM'
+            self.Force.nvib   = '2'
+            self.Force.projct = '.T.'
+
+            if hasattr(self.Contrl, 'numgrd'):
+                delattr(self.Contrl, 'numgrd')
+
+            if hasattr(self.Contrl, 'cctyp'):
+                self.Force.method = 'FULLNUM'
+                self.Contrl.numgrd = '.T.'
 
         #Inlcude Jans=2 grid for all DFT functionals
         if hasattr(self.Contrl, 'dfttyp'):
