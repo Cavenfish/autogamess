@@ -211,6 +211,10 @@ class PROJECT:
                     inp.basis_set    = basis #Define Basis Set Global
                     inp.Basis.gbasis = basis #Add Basis Set to Inp
 
+                    #Delete external basis set
+                    if inp.basis_set:
+                        inp.basis_set = {}
+
                     #Run type and file naming
                     inp.run_type = inp.Contrl.runtyp.lower()
                     file_name    = self.make_file_name(specie, inp)
@@ -230,7 +234,8 @@ class PROJECT:
                     setattr(inp.Contrl, theo[0].lower(), theo[1]) #Add it
 
                     #Delete GAMESS(US) internal Basis Set group
-                    delattr(inp, 'Basis')
+                    if hasattr(inp, 'Basis'):
+                        delattr(inp, 'Basis')
 
                     inp.basis_set = basis
                     file_name     = self.make_file_name(specie, inp)
