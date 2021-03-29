@@ -34,12 +34,18 @@ def opt2hes(optfile, logfile):
     opt = '_opt'
     hes = '_hes'
 
+    #Make INPUT object
+    inp = INPUT(optfile)
+
     #Open, read in, and close log file
     log = read_file(logfile)
 
     #Grabs optimized geometries tail index
     tfind = 'COORDINATES OF ALL ATOMS ARE'
     dtail = len(log) - ctr_f(tfind, log[::-1]) - 1
+    if (hasattr(inp.Contrl, 'nosym')) and (inp.Contrl.nosym == 1):
+        tfind = 'INTERNUCLEAR DISTANCES (ANGS.)'
+        dtail = len(log) - ctr_f(tfind, log[::-1]) - 2
 
     #Grabs optimized geometries header index
     hfind = '***** EQUILIBRIUM GEOMETRY LOCATED *****'
@@ -51,9 +57,6 @@ def opt2hes(optfile, logfile):
 
     #Assemble list of optimized geometry coordinates and get size
     coords = log[dhead : dtail]
-
-    #Make INPUT object
-    inp = INPUT(optfile)
 
     #Change run type
     inp.Contrl.runtyp = 'HESSIAN'
