@@ -62,6 +62,7 @@ def opt2hes(optfile, logfile):
     inp.Data.coords = coords
 
     #Save new file
+    inp.check()
     inp.write_inp(optfile.replace(opt, hes))
 
     return
