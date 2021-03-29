@@ -55,7 +55,7 @@ class INPUT:
                 j = len(line.split())
                 if ((j == 5) and n) or (('$END' in line) and n):
                     m    = i.index(line) - 1
-                    if m == n:
+                    if m <= n:
                         continue
                     self.basis[atom] = '\n'.join(i[n:m])
                     n    = False

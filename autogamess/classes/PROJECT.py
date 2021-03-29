@@ -212,8 +212,8 @@ class PROJECT:
                     inp.Basis.gbasis = basis #Add Basis Set to Inp
 
                     #Delete external basis set
-                    if inp.basis_set:
-                        inp.basis_set = {}
+                    if inp.Data.basis:
+                        inp.Data.basis = {}
 
                     #Run type and file naming
                     inp.run_type = inp.Contrl.runtyp.lower()
