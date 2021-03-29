@@ -48,6 +48,7 @@ class INPUT:
             s = ctr_f(  '.0', i)
             e = ctr_f('$END', i)
             self.sym    = i[2]
+            self.title  = i[1]
 
             n = False
             for line in i[3:]:
