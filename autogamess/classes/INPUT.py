@@ -55,10 +55,9 @@ class INPUT:
                 j = len(line.split())
                 if ((j == 5) and n) or (('$END' in line) and n):
                     m    = i.index(line) - 1
-                    if m <= n:
-                        continue
-                    self.basis[atom] = '\n'.join(i[n:m])
-                    n    = False
+                    if m > n:
+                        self.basis[atom] = '\n'.join(i[n:m])
+                        n    = False
                 if j == 5:
                     self.coords.append(line)
                     atom = line.split()[0]
