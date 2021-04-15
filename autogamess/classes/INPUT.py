@@ -104,7 +104,8 @@ class INPUT:
             if self.title:
                 if self.title[0] != ' ':
                     s += ' ' + self.title + '\n'
-                s += self.title + '\n'
+                else:
+                    s += self.title + '\n'
 
             e = '$END'
 
